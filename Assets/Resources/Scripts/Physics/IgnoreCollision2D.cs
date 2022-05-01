@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace Assets.Resources.Scripts.Physics
 {
     public class IgnoreCollision2D : MonoBehaviour
