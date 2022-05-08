@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2b7376f886d023e499e359d236d28d96
+guid: bc9129945b2f9e245ad891969e0f6ce8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blu_side
+      name: bestmare_side_a
       rect:
         serializedVersion: 2
-        x: 35
-        y: 67
-        width: 8
-        height: 22
+        x: 49
+        y: 59
+        width: 17
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,8 +130,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1470c38d15479834681a0effdff93b9d
-      internalID: 873402015
+      spriteID: 33421512ac74b9a4cb0294a1e4d0f5ee
+      internalID: 1431225487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bestmare_side_b
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 59
+        width: 17
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36e1602230a0b0e4d8220ff8ff585b70
+      internalID: 299749018
       vertices: []
       indices: 
       edges: []
@@ -147,13 +168,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      side_feet: -2089841363
-      side_arm: -1027851560
-      side_head: 1150902560
-      side_hand: -298162682
-      blu_side: 873402015
-      side_torso: 150533397
-      side_leg: -1490508163
+      bestmare_side_a: 1431225487
+      bestmare_side_b: 299749018
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
