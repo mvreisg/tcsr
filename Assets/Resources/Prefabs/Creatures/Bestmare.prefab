@@ -146,6 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b01070dbfdeea4e9a4774b7df4d5b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doubles:
+  _sprites:
   - {fileID: 1431225487, guid: bc9129945b2f9e245ad891969e0f6ce8, type: 3}
   - {fileID: 299749018, guid: bc9129945b2f9e245ad891969e0f6ce8, type: 3}

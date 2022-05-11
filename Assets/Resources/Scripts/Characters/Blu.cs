@@ -4,60 +4,62 @@ namespace Assets.Resources.Scripts.Characters
 {
     public class Blu : MonoBehaviour
     {
-        [SerializeField]
+        private Camera _camera;
+
+        private SpriteRenderer _spriteRenderer;
+
         private float _speed;
 
-        [SerializeField]
-        private float _legForce;
-
-        public SpriteRenderer SpriteRenderer { get; private set; }
-
-        public Rigidbody2D Rigidbody2D { get; private set; }
+        private Blu() : base()
+        {
+            _speed = 2f;
+        }
 
         private void Awake()
         {
-            
-            _speed = 2;
-            _legForce = 200f;
-            SpriteRenderer = GetComponent<SpriteRenderer>();
-            Rigidbody2D = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        private void Start()
+        {
+            _camera = FindObjectOfType<Camera>();
         }
 
         private void Update()
         {
-            ReceiveInput();   
+            ReceiveInput();
+            MoveLinkedCamera();
         }
 
         private void ReceiveInput()
         {
             bool toLeft = Input.GetKey(KeyCode.LeftArrow);
             bool toRight = Input.GetKey(KeyCode.RightArrow);
-            FlipSprite(toLeft);
             if (toLeft ^ toRight)
             {
                 if (toLeft)
                     Move(-1);
-                if (toRight)
+                else if (toRight)
                     Move(1);
+                else
+                    throw new UnityException("unhandled situation");
             }
-            if (Input.GetKeyDown(KeyCode.J))
-                Jump();
-            FindObjectOfType<Camera>().gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, 0f);
         }
 
-        private void FlipSprite(bool x)
+        private void FlipSprite(bool flip)
         {
-            SpriteRenderer.flipX = x;
+            _spriteRenderer.flipX = flip;
         }
 
         private void Move(int xDirection)
         {
+            FlipSprite(xDirection == -1);
             transform.Translate(Time.deltaTime * xDirection * Vector2.right * _speed);
         }
 
-        private void Jump()
+        private void MoveLinkedCamera()
         {
-            Rigidbody2D.AddForce(Vector2.up * _legForce);
+            _camera.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
         }
     }
 }
