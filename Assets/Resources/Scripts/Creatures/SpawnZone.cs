@@ -49,7 +49,7 @@ namespace Assets.Resources.Scripts.Creatures
             // NEVER FORGET THIS :D
             GameObject prefab = UnityEngine.Resources.Load<GameObject>("Prefabs/Creatures/Bestmare");
             GameObject instance = Instantiate(prefab);
-            instance.GetComponent<Bestmare>().OnDestroy += Remove;
+            instance.GetComponent<Bestmare>().DestroyEvent += Remove;
             instance.transform.position = transform.position;
             _spawnedCreatures.Add(instance);
         }

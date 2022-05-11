@@ -10,6 +10,14 @@ namespace Assets.Resources.Scripts.Characters
 
         private float _speed;
 
+        private bool FlipSprite
+        {
+            set
+            {
+                _spriteRenderer.flipX = value;
+            }
+        }
+
         private Blu() : base()
         {
             _speed = 2f;
@@ -46,14 +54,9 @@ namespace Assets.Resources.Scripts.Characters
             }
         }
 
-        private void FlipSprite(bool flip)
-        {
-            _spriteRenderer.flipX = flip;
-        }
-
         private void Move(int xDirection)
         {
-            FlipSprite(xDirection == -1);
+            FlipSprite = xDirection == -1;
             transform.Translate(Time.deltaTime * xDirection * Vector2.right * _speed);
         }
 
