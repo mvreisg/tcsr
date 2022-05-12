@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blu_side
+      name: side
       rect:
         serializedVersion: 2
         x: 35
@@ -151,8 +151,8 @@ TextureImporter:
       side_arm: -1027851560
       side_head: 1150902560
       side_hand: -298162682
-      blu_side: 873402015
       side_torso: 150533397
+      side: 873402015
       side_leg: -1490508163
   spritePackingTag: 
   pSDRemoveMatte: 0

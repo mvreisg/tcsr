@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bestmare_side_a
+      name: normal
       rect:
         serializedVersion: 2
         x: 43
@@ -137,7 +137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bestmare_side_b
+      name: altered
       rect:
         serializedVersion: 2
         x: 62
@@ -168,8 +168,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bestmare_side_a: 1431225487
-      bestmare_side_b: 299749018
+      normal: 1431225487
+      altered: 299749018
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
