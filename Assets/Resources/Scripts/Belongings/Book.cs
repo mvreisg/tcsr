@@ -53,7 +53,7 @@ namespace Assets.Resources.Scripts.Belongings
                 _using = false;
             }
             else
-                _degrees += Time.deltaTime * Mathf.Pow(2f, 11f);
+                _degrees += Time.deltaTime * Mathf.Pow(2f, 10f);
 
             float x = Mathf.Cos(Mathf.Deg2Rad * _degrees);
             float y = Mathf.Sin(Mathf.Deg2Rad * _degrees);

@@ -10,7 +10,7 @@ namespace Assets.Resources.Scripts.Enemies
 
         private Blu _blu;
 
-        private float _spawnCooldown;
+        private float _spawnTime;
 
         private List<GameObject> _spawnedCreatures;
 
@@ -18,11 +18,11 @@ namespace Assets.Resources.Scripts.Enemies
 
         private float _distanceToSpawn;
 
-        private float SpawnCooldown
+        private float SpawnTime
         {
             get
             {
-                return Random.Range(1.2f, 1.7f);
+                return Random.Range(2f, Mathf.PI);
             }
         }
 
@@ -31,7 +31,7 @@ namespace Assets.Resources.Scripts.Enemies
             _spawnedCreatures = new List<GameObject>();
             _limit = 2;
             _distanceToSpawn = Mathf.PI * 1.5f;
-            _spawnCooldown = SpawnCooldown;
+            _spawnTime = SpawnTime;
         }
 
         private void Start()
@@ -52,9 +52,9 @@ namespace Assets.Resources.Scripts.Enemies
             if (Vector2.Distance(_blu.transform.position, transform.position) > _distanceToSpawn)
                 return;
 
-            _spawnCooldown -= Time.deltaTime;
-            if (_spawnCooldown <= 0f)
-                _spawnCooldown = SpawnCooldown;
+            _spawnTime -= Time.deltaTime;
+            if (_spawnTime <= 0f)
+                _spawnTime = SpawnTime;
             else
                 return;
 

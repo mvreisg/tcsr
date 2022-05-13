@@ -77,7 +77,7 @@ namespace Assets.Resources.Scripts.Enemies
 
         private void Awake()
         {
-            _canMove = true;
+            _canMove = false;
             _speed = 1.5f;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -128,20 +128,24 @@ namespace Assets.Resources.Scripts.Enemies
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            _canMove = !collision.gameObject.Equals(_blu.gameObject);
-            _onDiagonal = collision.gameObject.layer == LayerMask.NameToLayer("Diagonal");
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            _canMove = !collision.gameObject.Equals(_blu.gameObject);
-            _onDiagonal = collision.gameObject.layer == LayerMask.NameToLayer("Diagonal");
+            int layer = collision.gameObject.layer;
+            if (layer == LayerMask.NameToLayer("Ground"))
+                _canMove = true;
+            if (layer == LayerMask.NameToLayer("Diagonal"))
+            {
+                _canMove = true;
+                _onDiagonal = true;
+            }
+            if (collision.gameObject.Equals(_blu.gameObject))
+                _canMove = false;
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            _canMove = collision.gameObject.Equals(_blu.gameObject);
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Diagonal"))
+            int layer = collision.gameObject.layer;
+            if (collision.gameObject.Equals(_blu.gameObject))
+                _canMove = true;
+            if (layer == LayerMask.NameToLayer("Diagonal"))
                 _onDiagonal = false;
         }
 

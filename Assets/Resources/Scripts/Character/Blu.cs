@@ -50,7 +50,7 @@ namespace Assets.Resources.Scripts.Character
 
         private void MoveFixedCamera()
         {
-            _camera.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, 0f);
+            _camera.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, 0f);
         }
 
         public void GUIMove(float guiX)
@@ -83,12 +83,8 @@ namespace Assets.Resources.Scripts.Character
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            _onDiagonal = collision.gameObject.layer == LayerMask.NameToLayer("Diagonal");
-        }
-
-        private void OnCollisionStay2D(Collision2D collision)
-        {
-            _onDiagonal = collision.gameObject.layer == LayerMask.NameToLayer("Diagonal");
+            if  (collision.gameObject.layer == LayerMask.NameToLayer("Diagonal"))
+                _onDiagonal = true;
         }
 
         private void OnCollisionExit2D(Collision2D collision)
