@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Resources.Scripts.Belongings;
 using Assets.Resources.Scripts.Character;
+using Assets.Resources.Scripts.Layer;
+using Assets.Resources.Scripts.Tag;
 
 namespace Assets.Resources.Scripts.Enemies
 {
@@ -14,6 +16,8 @@ namespace Assets.Resources.Scripts.Enemies
             NORMAL,
             ALTERED
         }
+
+        private LayerManager _layerManager;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -88,7 +92,8 @@ namespace Assets.Resources.Scripts.Enemies
         private void Start()
         {
             _blu = FindObjectOfType<Blu>();
-        }
+            _layerManager = FindObjectOfType<LayerManager>();
+    }
 
         private void Update()
         {
@@ -121,17 +126,12 @@ namespace Assets.Resources.Scripts.Enemies
                 _rigidbody2D.AddForce(Time.deltaTime * new Vector3(0f, 10f, 0f), ForceMode2D.Impulse);
         }
 
-        private void OnDestroy()
-        {
-            DestroyEvent?.Invoke(gameObject);
-        }
-
         private void OnCollisionEnter2D(Collision2D collision)
         {
             int layer = collision.gameObject.layer;
-            if (layer == LayerMask.NameToLayer("Ground"))
+            if (layer == _layerManager.Ground)
                 _canMove = true;
-            if (layer == LayerMask.NameToLayer("Diagonal"))
+            if (layer == _layerManager.Diagonal)
             {
                 _canMove = true;
                 _onDiagonal = true;
@@ -145,14 +145,19 @@ namespace Assets.Resources.Scripts.Enemies
             int layer = collision.gameObject.layer;
             if (collision.gameObject.Equals(_blu.gameObject))
                 _canMove = true;
-            if (layer == LayerMask.NameToLayer("Diagonal"))
+            if (layer == _layerManager.Diagonal)
                 _onDiagonal = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.gameObject.GetComponent<Book>() != null)
+            if (collider.gameObject.CompareTag(TagManager.BOOK))
                 Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            DestroyEvent?.Invoke(gameObject);
         }
     }
 }

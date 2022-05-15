@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Assets.Resources.Scripts.Layer;
 
 namespace Assets.Resources.Scripts.Character
 {
-    public class Blu : MonoBehaviour, IDestroyable
+    public class Blu : MonoBehaviour
     {
-        public event IDestroyable.DestroyDelegate DestroyEvent;
+        private LayerManager _layerManager;
 
         private Camera _camera;
 
@@ -19,6 +21,8 @@ namespace Assets.Resources.Scripts.Character
         private float _guiXDirection;
 
         private float _speed;
+
+        private List<GameObject> _belongings;
 
         private bool FlipSprite
         {
@@ -35,11 +39,13 @@ namespace Assets.Resources.Scripts.Character
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _speed = 2f;
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _belongings = new List<GameObject>();
         }
 
         private void Start()
         {
             _camera = FindObjectOfType<Camera>();
+            _layerManager = FindObjectOfType<LayerManager>();
         }
 
         private void Update()
@@ -81,21 +87,22 @@ namespace Assets.Resources.Scripts.Character
                 _rigidbody2D.AddForce(Time.deltaTime * new Vector3(0f, 10f, 0f), ForceMode2D.Impulse);
         }
 
+        public void ReceivePickUp(GameObject picker, GameObject picked)
+        {
+            if (picker.Equals(this))
+                _belongings.Add(picked);
+        }
+
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if  (collision.gameObject.layer == LayerMask.NameToLayer("Diagonal"))
+            if  (collision.gameObject.layer == _layerManager.Diagonal)
                 _onDiagonal = true;
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.gameObject.layer == LayerMask.NameToLayer("Diagonal"))
+            if (collision.gameObject.layer == _layerManager.Diagonal)
                 _onDiagonal = false;
-        }
-
-        private void OnDestroy()
-        {
-            DestroyEvent?.Invoke(gameObject);
         }
     }
 }

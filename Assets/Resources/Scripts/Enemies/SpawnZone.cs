@@ -4,10 +4,8 @@ using Assets.Resources.Scripts.Character;
 
 namespace Assets.Resources.Scripts.Enemies
 {
-    public class SpawnZone : MonoBehaviour, IDestroyable
+    public class SpawnZone : MonoBehaviour
     {
-        public event IDestroyable.DestroyDelegate DestroyEvent;
-
         private Blu _blu;
 
         private float _spawnTime;
@@ -63,11 +61,6 @@ namespace Assets.Resources.Scripts.Enemies
             _spawnedCreatures.Add(instance); // NEVER FORGET
             instance.GetComponent<IDestroyable>().DestroyEvent += go => _spawnedCreatures.Remove(go);
             instance.transform.position = transform.position;
-        }
-
-        private void OnDestroy()
-        {
-            DestroyEvent?.Invoke(gameObject);
         }
     }
 }
