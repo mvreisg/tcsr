@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.Scripts.Belongings;
 using Assets.Resources.Scripts.Character;
 using Assets.Resources.Scripts.Layer;
 using Assets.Resources.Scripts.Tag;
@@ -10,6 +9,8 @@ namespace Assets.Resources.Scripts.Enemies
     public class Bestmare : MonoBehaviour, IDestroyable
     {
         public event IDestroyable.DestroyDelegate DestroyEvent;
+
+        public bool AllowedToBeDestroyed { get; private set; }
 
         private enum Faces
         {
@@ -81,6 +82,7 @@ namespace Assets.Resources.Scripts.Enemies
 
         private void Awake()
         {
+            AllowedToBeDestroyed = false;
             _canMove = false;
             _speed = 1.5f;
             _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -128,36 +130,44 @@ namespace Assets.Resources.Scripts.Enemies
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            int layer = collision.gameObject.layer;
-            if (layer == _layerManager.Ground)
+            GameObject colliding = collision.gameObject;
+            int layer = colliding.layer;
+
+            if (Equals(layer, _layerManager.Ground))
                 _canMove = true;
-            if (layer == _layerManager.Diagonal)
-            {
-                _canMove = true;
-                _onDiagonal = true;
-            }
-            if (collision.gameObject.Equals(_blu.gameObject))
+            if (colliding.CompareTag(TagManager.BLU) || colliding.CompareTag(TagManager.BESTMARE))
                 _canMove = false;
+            if (Equals(layer, _layerManager.Diagonal))
+                _onDiagonal = true;
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            int layer = collision.gameObject.layer;
-            if (collision.gameObject.Equals(_blu.gameObject))
+            GameObject colliding = collision.gameObject;
+            int layer = colliding.layer;
+
+            if (colliding.CompareTag(TagManager.BLU) || colliding.CompareTag(TagManager.BESTMARE))
                 _canMove = true;
-            if (layer == _layerManager.Diagonal)
+            if (Equals(layer, _layerManager.Diagonal))
                 _onDiagonal = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
             if (collider.gameObject.CompareTag(TagManager.BOOK))
-                Destroy(gameObject);
+            {
+                AllowedToBeDestroyed = true;
+                AtBrinkOfDestruction();
+            }
         }
 
-        private void OnDestroy()
+        public void AtBrinkOfDestruction()
         {
+            if (!AllowedToBeDestroyed)
+                return;
+
             DestroyEvent?.Invoke(gameObject);
+            Destroy(gameObject);
         }
     }
 }

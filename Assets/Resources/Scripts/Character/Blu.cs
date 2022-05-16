@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Resources.Scripts.Layer;
+using Assets.Resources.Scripts.Tag;
 
 namespace Assets.Resources.Scripts.Character
 {
@@ -95,13 +96,21 @@ namespace Assets.Resources.Scripts.Character
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if  (collision.gameObject.layer == _layerManager.Diagonal)
+            GameObject colliding = collision.gameObject;
+
+            if (colliding.CompareTag(TagManager.BESTMARE))
+                _canMove = false;
+            if (Equals(colliding.layer, _layerManager.Diagonal))
                 _onDiagonal = true;
         }
 
         private void OnCollisionExit2D(Collision2D collision)
         {
-            if (collision.gameObject.layer == _layerManager.Diagonal)
+            GameObject colliding = collision.gameObject;
+
+            if (colliding.CompareTag(TagManager.BESTMARE))
+                _canMove = true;
+            if (Equals(colliding.layer, _layerManager.Diagonal))
                 _onDiagonal = false;
         }
     }

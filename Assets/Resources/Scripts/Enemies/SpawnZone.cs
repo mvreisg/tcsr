@@ -29,7 +29,7 @@ namespace Assets.Resources.Scripts.Enemies
             _spawnedCreatures = new List<GameObject>();
             _limit = 2;
             _distanceToSpawn = Mathf.PI * 1.5f;
-            _spawnTime = SpawnTime;
+            _spawnTime = 0f;
         }
 
         private void Start()
@@ -58,8 +58,11 @@ namespace Assets.Resources.Scripts.Enemies
 
             GameObject prefab = UnityEngine.Resources.Load<GameObject>("Prefabs/Enemies/Bestmare");
             GameObject instance = Instantiate(prefab);
-            _spawnedCreatures.Add(instance); // NEVER FORGET
-            instance.GetComponent<IDestroyable>().DestroyEvent += go => _spawnedCreatures.Remove(go);
+            {
+                // NEVER FORGET
+                _spawnedCreatures.Add(instance);
+                instance.GetComponent<IDestroyable>().DestroyEvent += go => _spawnedCreatures.Remove(go);
+            }
             instance.transform.position = transform.position;
         }
     }

@@ -2,6 +2,7 @@ using UnityEngine;
 using Assets.Resources.Scripts.Character;
 using Assets.Resources.Scripts.GUI;
 using Assets.Resources.Scripts.Tag;
+using System;
 
 namespace Assets.Resources.Scripts.Belongings
 {
@@ -25,6 +26,7 @@ namespace Assets.Resources.Scripts.Belongings
 
         private void Awake()
         {
+            _degrees = 90f;
             _belong = false;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
@@ -82,34 +84,30 @@ namespace Assets.Resources.Scripts.Belongings
                 _boxCollider2D.enabled = true;
             }
 
+            if (_degrees >= 450f)
+            {
+                _degrees = 90f;
+                _using = false;
+                _spriteRenderer.enabled = false;
+                _boxCollider2D.enabled = false;
+                transform.localPosition = Vector3.zero;
+            }
+
             if (!_using)
                 return;
-
-            if (_degrees >= 360f)
-            {
-                _degrees = 0f;
-                _using = false;
-            }
-            else
-                _degrees += Time.deltaTime * Mathf.Pow(2f, 10f);
 
             float x = Mathf.Cos(Mathf.Deg2Rad * _degrees);
             float y = Mathf.Sin(Mathf.Deg2Rad * _degrees);
 
             transform.localPosition = new Vector3(x, y, 0f);
 
-            if (!_using)
-            {
-                _spriteRenderer.enabled = false;
-                _boxCollider2D.enabled = false;
-                transform.localPosition = Vector3.zero;
-            }
+            _degrees += Time.deltaTime * Mathf.Pow(2f, 10f);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             GameObject collidingObject = collision.gameObject;
-            if (collidingObject.CompareTag(TagManager.BLU))
+            if (!_belong && collidingObject.CompareTag(TagManager.BLU))
                 OnPickUp(collidingObject);
         }
 
