@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Resources.Classes;
 using Assets.Resources.Scripts.Character;
-using Assets.Resources.Scripts.Layer;
-using Assets.Resources.Scripts.Tag;
 
 namespace Assets.Resources.Scripts.Enemies
 {
@@ -17,8 +16,6 @@ namespace Assets.Resources.Scripts.Enemies
             NORMAL,
             ALTERED
         }
-
-        private LayerManager _layerManager;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -84,7 +81,7 @@ namespace Assets.Resources.Scripts.Enemies
         {
             AllowedToBeDestroyed = false;
             _canMove = false;
-            _speed = 1.5f;
+            _speed = 1.75f;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _face = Faces.NORMAL;
@@ -94,7 +91,6 @@ namespace Assets.Resources.Scripts.Enemies
         private void Start()
         {
             _blu = FindObjectOfType<Blu>();
-            _layerManager = FindObjectOfType<LayerManager>();
     }
 
         private void Update()
@@ -133,11 +129,11 @@ namespace Assets.Resources.Scripts.Enemies
             GameObject colliding = collision.gameObject;
             int layer = colliding.layer;
 
-            if (Equals(layer, _layerManager.Ground))
+            if (Equals(layer, Layer.GROUND))
                 _canMove = true;
-            if (colliding.CompareTag(TagManager.BLU) || colliding.CompareTag(TagManager.BESTMARE))
+            if (colliding.CompareTag(Tag.BLU) || colliding.CompareTag(Tag.BESTMARE))
                 _canMove = false;
-            if (Equals(layer, _layerManager.Diagonal))
+            if (Equals(layer, Layer.DIAGONAL))
                 _onDiagonal = true;
         }
 
@@ -146,15 +142,15 @@ namespace Assets.Resources.Scripts.Enemies
             GameObject colliding = collision.gameObject;
             int layer = colliding.layer;
 
-            if (colliding.CompareTag(TagManager.BLU) || colliding.CompareTag(TagManager.BESTMARE))
+            if (colliding.CompareTag(Tag.BLU) || colliding.CompareTag(Tag.BESTMARE))
                 _canMove = true;
-            if (Equals(layer, _layerManager.Diagonal))
+            if (Equals(layer, Layer.DIAGONAL))
                 _onDiagonal = false;
         }
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.gameObject.CompareTag(TagManager.BOOK))
+            if (collider.gameObject.CompareTag(Tag.BOOK))
             {
                 AllowedToBeDestroyed = true;
                 AtBrinkOfDestruction();

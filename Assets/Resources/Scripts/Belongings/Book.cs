@@ -1,52 +1,41 @@
 using UnityEngine;
-using Assets.Resources.Scripts.Character;
-using Assets.Resources.Scripts.GUI;
-using Assets.Resources.Scripts.Tag;
-using System;
+using Assets.Resources.Classes;
 
 namespace Assets.Resources.Scripts.Belongings
 {
-    public class Book : MonoBehaviour
+    public class Book : MonoBehaviour, IUsable
     {
-        public delegate void PickUpDelegate(GameObject picker, GameObject picked);
+        public event IUsable.GetDelegate Get;
 
-        public event PickUpDelegate PickUp;
+        public IUsable.Type TypeOf { get; private set; }
+
+        public bool Belong { get; private set; }
+
+        public bool ToUse { get; private set; }
+
+        public bool Using { get; private set; }
 
         private SpriteRenderer _spriteRenderer;
 
         private BoxCollider2D _boxCollider2D;
 
-        private bool _belong;
-
-        private bool _toUse;
-
-        private bool _using;
-
         private float _degrees;
 
         private void Awake()
         {
-            _degrees = 90f;
-            _belong = false;
+            TypeOf = IUsable.Type.BOOK_SHEET;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
+            _degrees = 90f;
+            Get += ReceiveGet;
         }
 
-        private void Start()
+        private void ReceiveGet(GameObject picker, IUsable picked)
         {
-            Blu blu = FindObjectOfType<Blu>();
-            InputCanvas inputCanvas = FindObjectOfType<InputCanvas>();
-            PickUp += blu.ReceivePickUp;
-            PickUp += inputCanvas.ReceivePickUp;
-            PickUp += ReceivePickUp;
-        }
-
-        private void ReceivePickUp(GameObject picker, GameObject picked)
-        {
-            if (!picked.Equals(gameObject))
+            if (!picked.Equals(this))
                 return;
 
-            if (!_belong && picker.CompareTag(TagManager.BLU))
+            if (!Belong && picker.CompareTag(Tag.BLU))
             {
                 transform.SetParent(picker.transform);
                 _spriteRenderer.enabled = false;
@@ -54,7 +43,7 @@ namespace Assets.Resources.Scripts.Belongings
                 _boxCollider2D.isTrigger = true;
                 transform.position = picker.transform.position;
                 transform.localPosition = Vector3.zero;
-                _belong = true;
+                Belong = true;
             }
         }
 
@@ -65,21 +54,27 @@ namespace Assets.Resources.Scripts.Belongings
 
         public void AllowUse()
         {
-            if (!_belong)
+            if (!Belong)
                 return;
 
-            _toUse = true;
+            ToUse = true;
         }
 
-        private void Use()
+        public void ForbidUse()
         {
-            if (!_belong)
+            if (!Belong)
                 return;
 
-            if (Input.GetAxisRaw("Use") > 0 || _toUse)
-            {
-                _toUse = false;
-                _using = true;
+            ToUse = false;
+        }
+
+        public void Use()
+        {
+            if (!Belong)
+                return;
+
+            if (Input.GetAxisRaw("Use") > 0f || ToUse){
+                Using = true;
                 _spriteRenderer.enabled = true;
                 _boxCollider2D.enabled = true;
             }
@@ -87,13 +82,13 @@ namespace Assets.Resources.Scripts.Belongings
             if (_degrees >= 450f)
             {
                 _degrees = 90f;
-                _using = false;
+                Using = false;
                 _spriteRenderer.enabled = false;
                 _boxCollider2D.enabled = false;
                 transform.localPosition = Vector3.zero;
             }
 
-            if (!_using)
+            if (!Using)
                 return;
 
             float x = Mathf.Cos(Mathf.Deg2Rad * _degrees);
@@ -104,20 +99,16 @@ namespace Assets.Resources.Scripts.Belongings
             _degrees += Time.deltaTime * Mathf.Pow(2f, 10f);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        public void OnGet(GameObject getter)
         {
-            GameObject collidingObject = collision.gameObject;
-            if (!_belong && collidingObject.CompareTag(TagManager.BLU))
-                OnPickUp(collidingObject);
+            Get?.Invoke(getter, this);
         }
 
-        /// <summary>
-        /// Good practice to call events
-        /// </summary>
-        /// <param name="picker">The object who "picked" this object</param>
-        private void OnPickUp(GameObject picker)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            PickUp?.Invoke(picker, gameObject);
+            GameObject colliding = collision.gameObject;
+            if (!Belong && colliding.CompareTag(Tag.BLU))
+                OnGet(colliding);
         }
     }
 }

@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.Scripts.Layer;
-using Assets.Resources.Scripts.Tag;
+using Assets.Resources.Classes;
+using Assets.Resources.Scripts.Belongings;
 
 namespace Assets.Resources.Scripts.Character
 {
     public class Blu : MonoBehaviour
     {
-        private LayerManager _layerManager;
+        public delegate void BelongingDelegate(IUsable belonging);
+
+        public event BelongingDelegate SelectedBelonging;
 
         private Camera _camera;
 
@@ -18,12 +20,13 @@ namespace Assets.Resources.Scripts.Character
         private bool _canMove;
         private bool _onDiagonal;
 
-        private bool _guiMove;
         private float _guiXDirection;
 
         private float _speed;
 
-        private List<GameObject> _belongings;
+        private readonly Dictionary<IUsable.Type, IUsable> _belongings = new Dictionary<IUsable.Type, IUsable>();
+
+        private IUsable _currentBelonging;
 
         private bool FlipSprite
         {
@@ -35,18 +38,18 @@ namespace Assets.Resources.Scripts.Character
 
         private void Awake()
         {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            _speed = 2.25f;
             _canMove = true;
             _onDiagonal = false;
-            _spriteRenderer = GetComponent<SpriteRenderer>();
-            _speed = 2f;
-            _rigidbody2D = GetComponent<Rigidbody2D>();
-            _belongings = new List<GameObject>();
         }
 
         private void Start()
         {
-            _camera = FindObjectOfType<Camera>();
-            _layerManager = FindObjectOfType<LayerManager>();
+            _camera = GameObject.FindGameObjectWithTag(Tag.MAIN_CAMERA).GetComponent<Camera>();
+            GetComponent<InatePower>().Get += ReceiveGet;
+            GameObject.FindGameObjectWithTag(Tag.BOOK).GetComponent<IUsable>().Get += ReceiveGet;
         }
 
         private void Update()
@@ -63,7 +66,6 @@ namespace Assets.Resources.Scripts.Character
         public void GUIMove(float guiX)
         {
             _guiXDirection = guiX;
-            _guiMove = _guiXDirection != 0f;
         }
 
         private void Move()
@@ -72,7 +74,7 @@ namespace Assets.Resources.Scripts.Character
                 return;
 
             float xDirection;
-            if (_guiMove)
+            if (_guiXDirection != 0f)
                 xDirection = _guiXDirection;
             else
                 xDirection = Input.GetAxisRaw("Horizontal");
@@ -88,19 +90,30 @@ namespace Assets.Resources.Scripts.Character
                 _rigidbody2D.AddForce(Time.deltaTime * new Vector3(0f, 10f, 0f), ForceMode2D.Impulse);
         }
 
-        public void ReceivePickUp(GameObject picker, GameObject picked)
+        private void ReceiveGet(GameObject getter, IUsable getted)
         {
-            if (picker.Equals(this))
-                _belongings.Add(picked);
+            if (!getter.Equals(gameObject))
+                return;
+
+            if (_belongings.ContainsValue(getted))
+                throw new UnityException($"{gameObject.name} already have {((MonoBehaviour)getted).name}");
+
+            _belongings.Add(getted.TypeOf, getted);
+            OnSelectedBelonging(getted);
+        }
+
+        private void OnSelectedBelonging(IUsable belonging)
+        {
+            SelectedBelonging?.Invoke(belonging);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             GameObject colliding = collision.gameObject;
 
-            if (colliding.CompareTag(TagManager.BESTMARE))
+            if (colliding.CompareTag(Tag.BESTMARE))
                 _canMove = false;
-            if (Equals(colliding.layer, _layerManager.Diagonal))
+            if (Equals(colliding.layer, Layer.DIAGONAL))
                 _onDiagonal = true;
         }
 
@@ -108,9 +121,9 @@ namespace Assets.Resources.Scripts.Character
         {
             GameObject colliding = collision.gameObject;
 
-            if (colliding.CompareTag(TagManager.BESTMARE))
+            if (colliding.CompareTag(Tag.BESTMARE))
                 _canMove = true;
-            if (Equals(colliding.layer, _layerManager.Diagonal))
+            if (Equals(colliding.layer, Layer.DIAGONAL))
                 _onDiagonal = false;
         }
     }

@@ -119,9 +119,9 @@ TextureImporter:
       name: book_sheet
       rect:
         serializedVersion: 2
-        x: 4
-        y: 501
-        width: 6
+        x: 1
+        y: 502
+        width: 8
         height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -132,6 +132,27 @@ TextureImporter:
       bones: []
       spriteID: b04632dc828d0674cbc4bca63443c641
       internalID: -339046952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: inate_power
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 502
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e46c2d9bdfb36e45aee628170089940
+      internalID: -1750948692
       vertices: []
       indices: 
       edges: []
@@ -148,6 +169,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       book_sheet: -339046952
+      inate_power: -1750948692
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
