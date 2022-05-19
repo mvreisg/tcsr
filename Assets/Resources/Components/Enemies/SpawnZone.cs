@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.Scripts.Character;
+using Assets.Resources.Components.Character;
 
-namespace Assets.Resources.Scripts.Enemies
+namespace Assets.Resources.Components.Enemies
 {
     public class SpawnZone : MonoBehaviour
     {
@@ -61,7 +61,7 @@ namespace Assets.Resources.Scripts.Enemies
             {
                 // NEVER FORGET
                 _spawnedCreatures.Add(instance);
-                instance.GetComponent<IDestroyable>().DestroyEvent += go => _spawnedCreatures.Remove(go);
+                instance.GetComponent<IDestroyable>().LastBreath += go => _spawnedCreatures.Remove(go);
             }
             instance.transform.position = transform.position;
         }

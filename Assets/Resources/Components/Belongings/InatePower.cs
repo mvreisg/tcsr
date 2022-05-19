@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Resources.Scripts.Belongings
+namespace Assets.Resources.Components.Belongings
 {
     public class InatePower : MonoBehaviour, IUsable
     {
-        public IUsable.Type TypeOf { get; private set; }
+        public IUsable.Type TypeOf => IUsable.Type.INATE_POWER;
 
         public bool Belong { get; private set; }
 
@@ -13,41 +13,22 @@ namespace Assets.Resources.Scripts.Belongings
 
         public bool Using { get; private set; }
 
-        public event IUsable.GetDelegate Get;
+        public event IUsable.GetEventHandler Get;
 
-        private List<IDestroyable> _touching = new List<IDestroyable>();
+        private readonly List<IDestroyable> _touching = new List<IDestroyable>();
 
         private float _timeToExplode;
 
-        private float TimeToExplode
-        {
-            get
-            {
-                return Random.Range(0.25f, 0.35f);
-            }
-        }
+        private float RandomTimeToExplode => Random.Range(0.25f, 0.35f);
 
-        public bool ReadyToExplode
-        {
-            get
-            {
-                return _timeToExplode <= 0f;
-            }
-        }
+        public bool ReadyToExplode => _timeToExplode <= 0f;
 
-        private float RandomForce
-        {
-            get
-            {
-                return Random.Range(4000f, 8000f);
-            }
-        }
+        private float RandomForce =>  Random.Range(8000f, 12000f);
 
         private void Awake()
         {
             ToUse = false;
-            TypeOf = IUsable.Type.INATE_POWER;
-            _timeToExplode = TimeToExplode;
+            _timeToExplode = RandomTimeToExplode;
             Get += ReceiveGet;
         }
 
@@ -95,7 +76,7 @@ namespace Assets.Resources.Scripts.Belongings
 
             if (_touching.Count == 0)
             {
-                _timeToExplode = TimeToExplode;
+                _timeToExplode = RandomTimeToExplode;
                 return;
             }
 
@@ -108,7 +89,7 @@ namespace Assets.Resources.Scripts.Belongings
             {
                 ToUse = false;
                 Using = true;
-                _timeToExplode = TimeToExplode;
+                _timeToExplode = RandomTimeToExplode;
             }
             else
                 return;
@@ -117,7 +98,7 @@ namespace Assets.Resources.Scripts.Belongings
             {
                 MonoBehaviour behaviour = (MonoBehaviour)touched;
                 Rigidbody2D rigidbody2D = behaviour.GetComponent<Rigidbody2D>();
-                if (rigidbody2D == null)
+                if (Equals(rigidbody2D, null))
                     return;
 
                 float min = Mathf.Min(transform.position.x, behaviour.transform.position.x);
@@ -137,7 +118,7 @@ namespace Assets.Resources.Scripts.Belongings
         {
             GameObject colliding = collision.gameObject;
             IDestroyable destroyable = colliding.GetComponent<IDestroyable>();
-            if (destroyable == null)
+            if (Equals(destroyable, null))
                 return;
 
             if (_touching.Contains(destroyable))
@@ -150,7 +131,7 @@ namespace Assets.Resources.Scripts.Belongings
         {
             GameObject colliding = collision.gameObject;
             IDestroyable destroyable = colliding.GetComponent<IDestroyable>();
-            if (destroyable == null)
+            if (Equals(destroyable, null))
                 return;
 
             if (_touching.Contains(destroyable))

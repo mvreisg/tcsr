@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Assets.Resources.Classes;
-using Assets.Resources.Scripts.Belongings;
-using Assets.Resources.Scripts.Character;
+using Assets.Resources.Pure;
+using Assets.Resources.Components.Belongings;
+using Assets.Resources.Components.Character;
 
-namespace Assets.Resources.Scripts.GUI.Use
+namespace Assets.Resources.Components.GUI.Use
 {
     public class UseButtonEventTrigger : EventTrigger
     {
@@ -32,7 +32,7 @@ namespace Assets.Resources.Scripts.GUI.Use
                         _sprites.Add(IUsable.Type.INATE_POWER, sprite);
                         break;
                     case BOOK_SHEET:
-                        _sprites.Add(IUsable.Type.BOOK_SHEET, sprite);
+                        _sprites.Add(IUsable.Type.BOOK, sprite);
                         break;
                     default:
                         throw new UnityException($"unknown sprite: {sprite.name}");
@@ -47,7 +47,7 @@ namespace Assets.Resources.Scripts.GUI.Use
 
         private void Start()
         {
-            GameObject.FindGameObjectWithTag(Tag.BLU).GetComponent<Blu>().SelectedBelonging += SetUsable;
+            GameObject.FindGameObjectWithTag(Tag.BLU).GetComponent<Blu>().SelectUsable += SetUsable;
         }
 
         private void SetUsable(IUsable usable)

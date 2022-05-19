@@ -1,4 +1,4 @@
-namespace Assets.Resources.Classes
+namespace Assets.Resources.Pure
 {
     public class Tag
     {

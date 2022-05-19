@@ -1,13 +1,13 @@
 using UnityEngine;
-using Assets.Resources.Classes;
+using Assets.Resources.Pure;
 
-namespace Assets.Resources.Scripts.Belongings
+namespace Assets.Resources.Components.Belongings
 {
     public class Book : MonoBehaviour, IUsable
     {
-        public event IUsable.GetDelegate Get;
+        public event IUsable.GetEventHandler Get;
 
-        public IUsable.Type TypeOf { get; private set; }
+        public IUsable.Type TypeOf => IUsable.Type.BOOK;
 
         public bool Belong { get; private set; }
 
@@ -19,14 +19,17 @@ namespace Assets.Resources.Scripts.Belongings
 
         private BoxCollider2D _boxCollider2D;
 
+        private float StartDegrees => 90f;
+
+        private float DegreesThreshold => 450f;
+
         private float _degrees;
 
         private void Awake()
         {
-            TypeOf = IUsable.Type.BOOK_SHEET;
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _boxCollider2D = GetComponent<BoxCollider2D>();
-            _degrees = 90f;
+            _degrees = StartDegrees;
             Get += ReceiveGet;
         }
 
@@ -79,9 +82,9 @@ namespace Assets.Resources.Scripts.Belongings
                 _boxCollider2D.enabled = true;
             }
 
-            if (_degrees >= 450f)
+            if (_degrees >= DegreesThreshold)
             {
-                _degrees = 90f;
+                _degrees = StartDegrees;
                 Using = false;
                 _spriteRenderer.enabled = false;
                 _boxCollider2D.enabled = false;
@@ -99,7 +102,7 @@ namespace Assets.Resources.Scripts.Belongings
             _degrees += Time.deltaTime * Mathf.Pow(2f, 10f);
         }
 
-        public void OnGet(GameObject getter)
+        private void OnGet(GameObject getter)
         {
             Get?.Invoke(getter, this);
         }

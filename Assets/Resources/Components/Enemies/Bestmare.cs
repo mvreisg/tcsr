@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.Classes;
-using Assets.Resources.Scripts.Character;
+using Assets.Resources.Pure;
+using Assets.Resources.Components.Character;
 
-namespace Assets.Resources.Scripts.Enemies
+namespace Assets.Resources.Components.Enemies
 {
     public class Bestmare : MonoBehaviour, IDestroyable
     {
-        public event IDestroyable.DestroyDelegate DestroyEvent;
+        public event IDestroyable.DestroyEventHandler LastBreath;
 
         public bool AllowedToBeDestroyed { get; private set; }
 
@@ -162,7 +162,7 @@ namespace Assets.Resources.Scripts.Enemies
             if (!AllowedToBeDestroyed)
                 return;
 
-            DestroyEvent?.Invoke(gameObject);
+            LastBreath?.Invoke(gameObject);
             Destroy(gameObject);
         }
     }

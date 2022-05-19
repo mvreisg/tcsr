@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Resources.Scripts
+namespace Assets.Resources.Components
 {
     /// <summary>
     ///     <para>RULE: Only IDestroyable can call Destroy(gameObject)</para>
@@ -12,12 +12,12 @@ namespace Assets.Resources.Scripts
         ///     <para>The method shaper to destruction methods.</para>
         /// </summary>
         /// <param name="gameObject">The gameObject to be destroyed</param>
-        delegate void DestroyDelegate(GameObject brinkToDestruction);
+        delegate void DestroyEventHandler(GameObject brinkToDestruction);
 
         /// <summary>
         ///     <para>If you want another class to react to the destruction of this object, add a method in the shape of DestroyDelegate to be notified.</para>
         /// </summary>
-        event DestroyDelegate DestroyEvent;
+        event DestroyEventHandler LastBreath;
 
         /// <summary>
         ///     <para>Is the object allowed to be destroyed?.</para>

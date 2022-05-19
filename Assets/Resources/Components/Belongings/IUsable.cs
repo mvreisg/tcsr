@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Resources.Scripts.Belongings
+namespace Assets.Resources.Components.Belongings
 {
     /// <summary>
     ///  <para>Defines a object that can be used.</para>
@@ -13,7 +13,7 @@ namespace Assets.Resources.Scripts.Belongings
         enum Type
         {
             INATE_POWER,
-            BOOK_SHEET
+            BOOK
         }
 
         /// <summary>
@@ -21,12 +21,12 @@ namespace Assets.Resources.Scripts.Belongings
         /// </summary>
         /// <param name="getter">The "getter" object</param>
         /// <param name="getted">The "getted" object</param>
-        delegate void GetDelegate(GameObject getter, IUsable getted);
+        delegate void GetEventHandler(GameObject getter, IUsable getted);
 
         /// <summary>
         ///     <para>The GetDelegate event. Must be trigged when this object is "getted up" by a "getter"</para>
         /// </summary>
-        event GetDelegate Get;
+        event GetEventHandler Get;
 
         /// <summary>
         ///     <para>The usable type.</para>
@@ -62,11 +62,5 @@ namespace Assets.Resources.Scripts.Belongings
         ///     <para>Describe the use of the object here.</para>
         /// </summary>
         void Use();
-
-        /// <summary>
-        ///     <para>Method to invoke OnGet event.</para>
-        /// </summary>
-        /// <param name="getter">The object that "getted" this object.</param>
-        void OnGet(GameObject getter);
     }
 }

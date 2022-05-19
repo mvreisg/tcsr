@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Resources.Classes {
+namespace Assets.Resources.Pure {
     public class Layer
     {
         public static int GROUND => LayerMask.NameToLayer("Ground");
