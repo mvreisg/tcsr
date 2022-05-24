@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2b7376f886d023e499e359d236d28d96
+guid: 8280f771dc683dd4e823a1efa92b3219
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -49,7 +49,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -101,6 +101,18 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -116,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: side
+      name: mvf_22
       rect:
         serializedVersion: 2
-        x: 35
-        y: 67
-        width: 8
-        height: 22
+        x: 106
+        y: 475
+        width: 91
+        height: 35
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,29 +142,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1470c38d15479834681a0effdff93b9d
-      internalID: 873402015
+      spriteID: 4dc2b3052845ff64fb0aa231c007a611
+      internalID: 999786481
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: front
+      name: small_table
       rect:
         serializedVersion: 2
-        x: 23
-        y: 67
-        width: 8
-        height: 22
+        x: 204
+        y: 475
+        width: 16
+        height: 11
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7d78b93e5baabad4698aa0f13e320d35
-      internalID: -2052098189
+      spriteID: a255731c33b400e40bd772477a595b81
+      internalID: 630127662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mvf_2
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 487
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 790bcf5d47fca36469a0f0ecdd479737
+      internalID: -913902756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: balloon_red
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 492
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a6106e7a61da4347a17812dc6e7cd69
+      internalID: 1218109025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: balloon_green
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 492
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aaebfa57877a614d822c398e0b82f68
+      internalID: 1866108298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: balloon_blue
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 492
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b0932f248b96b84e8138be28622228f
+      internalID: -393552706
       vertices: []
       indices: 
       edges: []
@@ -168,14 +264,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      front: -2052098189
-      side_feet: -2089841363
-      side_arm: -1027851560
-      side_head: 1150902560
-      side_hand: -298162682
-      side_torso: 150533397
-      side: 873402015
-      side_leg: -1490508163
+      balloon_green: 1866108298
+      small_table: 630127662
+      mvf_22_bit: 1155916247
+      balloon_red: 1218109025
+      balloon_blue: -393552706
+      mvf_22: 999786481
+      mvf_2: -913902756
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
