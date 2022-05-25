@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Assets.Resources.Model;
 
@@ -5,16 +6,18 @@ namespace Assets.Resources.Component
 {
     public class SunComponent : MonoBehaviour
     {
-        private Sun _light;
+        private Day _day;
+
+        public Day Day => _day;
 
         private void Awake()
         {
-            _light = new Sun(transform, FindObjectOfType<Light>());
+            _day = new Day(transform, new DateTime(DateTime.Now.Year, 5, 25, 0, 0, 0, 0), GameObject.Find("sun").GetComponent<Light>());
         }
 
         private void Update()
         {
-            _light.UpdateIntensity();
+            _day.ShineOnYouCrazyDiamond();
         }
     }
 }

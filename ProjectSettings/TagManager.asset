@@ -3,10 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Blu
-  - Book
-  - Bestmare
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -43,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3424868945
+    locked: 0
+  - name: Ground
+    uniqueID: 4207343247
+    locked: 0
+  - name: Playerground
+    uniqueID: 3102934591
+    locked: 0
+  - name: Foreground
+    uniqueID: 1567114621
     locked: 0
