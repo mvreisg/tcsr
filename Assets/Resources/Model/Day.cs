@@ -1,78 +1,27 @@
-using System;
 using UnityEngine;
 
-namespace Assets.Resources.Model
+namespace Assets.Resources.Models
 {
     public class Day : Entity
     {
-        private readonly DateTime _day;
+        private int _hours;
+        private int _minutes;
+        private int _seconds;
 
-        private DateTime SunRise => _day.AddHours(6);
-        private DateTime MidDay => _day.AddHours(12);
-        private DateTime SunSet => _day.AddHours(18);
-        private DateTime AnotherTranslation => _day.AddHours(24);
+        public int Hours => _hours;
+        public int Minutes => _minutes;
+        public int Seconds => _seconds;
 
-        private Light _sun;
-
-        public enum State
+        public Day(Transform transform, int hours, int minutes, int seconds) : base(transform)
         {
-            NONE,
-            DAWN,
-            MORNING,
-            AFTERNOON,
-            NIGHT
+            _hours = hours;
+            _minutes = minutes;
+            _seconds = seconds;
         }
 
-        public State NowIs
+        public override void Do()
         {
-            get
-            {
-                if (DateTime.Compare(DateTime.Now, SunRise) < 0)
-                    return State.DAWN;
-                else if (DateTime.Compare(DateTime.Now, MidDay) < 0)
-                    return State.MORNING;
-                else if (DateTime.Compare(DateTime.Now, SunSet) < 0)
-                    return State.AFTERNOON;
-                else if (DateTime.Compare(DateTime.Now, AnotherTranslation) < 0)
-                    return State.NIGHT;
-                else
-                    return State.NONE;
-            }
-        }
-
-        public float Intensity
-        {
-            get {
-                float max = 60f * 60f * 6f; // 6h in s
-                float elapsed;
-                switch (NowIs)
-                {
-                    case State.NONE:
-                    case State.DAWN:
-                    case State.NIGHT:
-                        return 0f;
-                    case State.MORNING:
-                        elapsed = (float)(MidDay - DateTime.Now).TotalSeconds;
-                        return (max - elapsed) / max;
-                    case State.AFTERNOON:
-                        elapsed = (float)(SunSet - DateTime.Now).TotalSeconds;
-                        return elapsed / max;
-                    default:
-                        throw new UnityException($"unhandled state: {NowIs}");
-                }
-            }
-            private set => _sun.intensity = value;
-        }
-
-        public Day(Transform transform, DateTime day, Light sun) : base(transform, Multiplier.ZERO, Multiplier.ZERO, Multiplier.ZERO, XYZValue.ZERO)
-        {
-            _day = day;
-            _sun = sun;
-        }
-
-        public void ShineOnYouCrazyDiamond()
-        {
-            _sun.intensity = Intensity;
+            Debug.Log(string.Format("%02d:%02d:%02d", Hours, Minutes, Seconds));
         }
     }
 }

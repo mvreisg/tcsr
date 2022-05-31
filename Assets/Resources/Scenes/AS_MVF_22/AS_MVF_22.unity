@@ -1124,7 +1124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 944333257}
   - component: {fileID: 944333256}
-  - component: {fileID: 944333258}
   m_Layer: 0
   m_Name: blue_balloon
   m_TagString: Untagged
@@ -1199,18 +1198,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &944333258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944333255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155d8ef67a772bb479e56b461a7b1db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &945676730
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,7 +2854,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1174977901}
   - component: {fileID: 1174977900}
-  - component: {fileID: 1174977902}
   m_Layer: 0
   m_Name: small_cloud
   m_TagString: Untagged
@@ -2942,18 +2928,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1174977902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174977899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1236d0cac80bf946bfaaaacea41ffba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1336066216
 GameObject:
   m_ObjectHideFlags: 0
@@ -3216,7 +3190,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1562475968}
   - component: {fileID: 1562475967}
-  - component: {fileID: 1562475969}
   m_Layer: 0
   m_Name: sun
   m_TagString: Untagged
@@ -3301,18 +3274,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1562475969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562475966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59b327c7d12bd0b4999d129dde1dd281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1646470992
 GameObject:
   m_ObjectHideFlags: 0
@@ -3325,7 +3286,6 @@ GameObject:
   - component: {fileID: 1646470994}
   - component: {fileID: 1646470993}
   - component: {fileID: 1646470997}
-  - component: {fileID: 1646470996}
   m_Layer: 0
   m_Name: camera
   m_TagString: MainCamera
@@ -3399,19 +3359,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1646470996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646470992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6125d2d59b9434baed40e6246877eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: 57a1b85f2b06e3b44994238e733bf2a0, type: 3}
 --- !u!82 &1646470997
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6329,7 +6276,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1905350394}
   - component: {fileID: 1905350393}
-  - component: {fileID: 1905350395}
   m_Layer: 0
   m_Name: red_balloon
   m_TagString: Untagged
@@ -6404,18 +6350,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1905350395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1905350392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155d8ef67a772bb479e56b461a7b1db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1957187819
 GameObject:
   m_ObjectHideFlags: 0
@@ -6609,7 +6543,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2113486307}
   - component: {fileID: 2113486306}
-  - component: {fileID: 2113486308}
   m_Layer: 0
   m_Name: green_balloon
   m_TagString: Untagged
@@ -6684,15 +6617,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2113486308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2113486305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155d8ef67a772bb479e56b461a7b1db4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Assets.Resources.Model
+namespace Assets.Resources.Models
 {
-    public interface IVisible
+    public interface ISpriteRenderer
     {
         SpriteRenderer SpriteRenderer { get; }
     }

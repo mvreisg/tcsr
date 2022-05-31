@@ -1,9 +1,9 @@
-namespace Assets.Resources.Model
+namespace Assets.Resources.Models
 {
     public enum Multiplier
     {
         ZERO,
-        POSITIVE,
-        NEGATIVE
+        NEGATIVE,
+        POSITIVE
     }
 }
