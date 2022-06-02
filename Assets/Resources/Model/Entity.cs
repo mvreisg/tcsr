@@ -1,10 +1,10 @@
 using UnityEngine;
 
-namespace Assets.Resources.Models
+namespace Assets.Resources.Model
 {
     public abstract class Entity
     {
-        private Transform _transform;
+        private readonly Transform _transform;
 
         public Transform Transform => _transform;
 

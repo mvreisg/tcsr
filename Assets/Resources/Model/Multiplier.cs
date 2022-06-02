@@ -1,4 +1,4 @@
-namespace Assets.Resources.Models
+namespace Assets.Resources.Model
 {
     public enum Multiplier
     {
