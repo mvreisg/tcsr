@@ -8,9 +8,14 @@ namespace Assets.Resources.Model.Existance
 
         public Atmosphere Atmosphere => _atmosphere;
 
-        public Planet(Transform transform, SpriteRenderer spriteRenderer, Atmosphere atmosphere) : base(transform, spriteRenderer)
+        public Planet(Transform transform, Atmosphere atmosphere) : base(transform)
         {
             _atmosphere = atmosphere;
+        }
+
+        public override void Do()
+        {
+            Atmosphere.Do();
         }
     }
 }

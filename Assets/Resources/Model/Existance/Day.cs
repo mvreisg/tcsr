@@ -47,7 +47,7 @@ namespace Assets.Resources.Model.Existance
                 _seconds = (((_days % 1f) % 24f) / 60f) / 60f;
                 _minutes = ((_days % 1f) % 24f) / 60f;
                 _hours = (_days % 1f) / 24f;
-                _days %= _days;
+                _days %= 1f;
             }
         }
     }

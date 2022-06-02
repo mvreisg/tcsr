@@ -8,15 +8,15 @@ namespace Assets.Resources.Model.Existance
 
         public Day Day => _day;
 
-        public Earth(Transform transform, SpriteRenderer spriteRenderer, Atmosphere atmosphere, Day day) : base(transform, spriteRenderer, atmosphere)
+        public Earth(Transform transform, Atmosphere atmosphere, Day day) : base(transform, atmosphere)
         {
             _day = day;
         }
 
         public override void Do()
         {
+            base.Do();
             Day.Do();
-            Atmosphere.Do();
         }
     }
 }

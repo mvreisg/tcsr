@@ -8,9 +8,9 @@ namespace Assets.Resources.Model.Existance
 
         public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
-        public CelestialBody(Transform transform, SpriteRenderer spriteRenderer) : base(transform)
+        public CelestialBody(Transform transform) : base(transform)
         {
-            _spriteRenderer = spriteRenderer;
+            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
     }
 }

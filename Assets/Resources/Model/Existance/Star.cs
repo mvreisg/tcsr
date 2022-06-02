@@ -12,13 +12,13 @@ namespace Assets.Resources.Model.Existance
         public float Intensity
         {
             get => _intensity;
-            protected set => _intensity = value;
+            set => _intensity = value;
         }
 
-        public Star(Transform transform, SpriteRenderer spriteRenderer, Light light, float intensity) : base(transform, spriteRenderer)
+        public Star(Transform transform, float intensity) : base(transform)
         {
-            _light = light;
-            Intensity = intensity;
+            _intensity = intensity;
+            _light = transform.GetComponent<Light>();
         }
     }
 }
