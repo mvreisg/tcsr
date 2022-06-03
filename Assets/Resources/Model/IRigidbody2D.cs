@@ -6,5 +6,6 @@ namespace Assets.Resources.Model
     {
         Vector3 Force { get; }
         Rigidbody2D Rigidbody2D { get; }
+        void Gravity();
     }
 }

@@ -2,10 +2,17 @@ using UnityEngine;
 
 namespace Assets.Resources.Model.Existance
 {
-    public abstract class Star : CelestialBody, ILight
+    public abstract class Star : CelestialBody, 
+        ILight
     {
         private readonly Light _light;
         private float _intensity;
+
+        public Star(Transform transform, Day day, float intensity) : base(transform, day)
+        {
+            _light = transform.GetComponent<Light>();
+            _intensity = intensity;
+        }
 
         public Light Light => _light;
 
@@ -15,10 +22,9 @@ namespace Assets.Resources.Model.Existance
             set => _intensity = value;
         }
 
-        public Star(Transform transform, float intensity) : base(transform)
+        public override void Do()
         {
-            _intensity = intensity;
-            _light = transform.GetComponent<Light>();
+            base.Do();
         }
     }
 }

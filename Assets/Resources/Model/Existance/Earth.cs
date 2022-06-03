@@ -1,22 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Assets.Resources.Model.Bio;
 
 namespace Assets.Resources.Model.Existance
 {
     public class Earth : Planet
     {
-        private readonly Day _day;
+        private readonly List<LivingBeing> _livingBeings;
 
-        public Day Day => _day;
-
-        public Earth(Transform transform, Atmosphere atmosphere, Day day) : base(transform, atmosphere)
+        public Earth(Transform transform, Atmosphere atmosphere, Day day) : base(transform, day, atmosphere)
         {
-            _day = day;
+            _livingBeings = new List<LivingBeing>();
         }
+
+        public List<LivingBeing> LivingBeings => _livingBeings;
 
         public override void Do()
         {
             base.Do();
-            Day.Do();
+            LivingBeings.ForEach(livingBeing => livingBeing.Do());
         }
     }
 }

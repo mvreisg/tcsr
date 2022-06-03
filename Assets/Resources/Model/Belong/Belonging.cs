@@ -1,14 +1,14 @@
 using UnityEngine;
 
-namespace Assets.Resources.Model.Bio
+namespace Assets.Resources.Model.Belong
 {
-    public abstract class LivingBeing : Entity,
+    public abstract class Belonging : Entity,
         IRigidbody2D
     {
         private Vector3 _force;
         private readonly Rigidbody2D _rigidbody2D;
 
-        public LivingBeing(Transform transform, Vector3 force) : base(transform)
+        public Belonging(Transform transform, Vector3 force) : base(transform)
         {
             _force = force;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();

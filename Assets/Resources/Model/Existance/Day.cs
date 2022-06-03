@@ -9,11 +9,6 @@ namespace Assets.Resources.Model.Existance
         private float _minutes;
         private float _seconds;
 
-        public float Days => _days;
-        public float Seconds => _seconds;
-        public float Minutes => _minutes;
-        public float Hours => _hours;
-
         public Day(Transform transform, float days, float hours, float minutes, float seconds) : base(transform)
         {
             _days = days;
@@ -21,6 +16,11 @@ namespace Assets.Resources.Model.Existance
             _minutes = minutes;
             _seconds = seconds;
         }
+
+        public float Days => _days;
+        public float Seconds => _seconds;
+        public float Minutes => _minutes;
+        public float Hours => _hours;
 
         public override void Do()
         {

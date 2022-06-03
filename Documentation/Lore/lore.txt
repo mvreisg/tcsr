@@ -1,0 +1,35 @@
+essência:
+	solução de problemas
+aparência:
+	um clérigo que conheceu uma maldição que o levou a insanidade	
+
+- cinza -> azul
+- (um teste para que ele possa se livrar da maldição? (condição para sair?))
+    - combater as criaturas que são fruto da sua insanidade (maldição)
+
+tema:
+	das trevas à luz (veqsr)
+
+estágio 0+x: insanidade
+	perdido em si, irracionalmente usa os objetos que porta para combater as criaturas que são fruto da sua insanidade
+	- uso restrito a apenas objetos que ele porta
+	- consequentemente encontrará páginas de algo que lembra um diário, que o levará ao.
+
+estágio 0+x: quem sou eu?
+	tendo lapsos de memória, começa a lembrar-se de si mesmo, porém com a mente ainda nebulosa
+	- começa a se expressar verbalmente por meio de sílabas, que juntas lhe conferem poder.
+	- atitudes do personagem refletem seus sentimentos
+	- consequentemente encontrará mais páginas de algo que lembra um diário, que o levará ao.
+
+estágio 0+x: palavras tem poder
+	com a compreensão de "palavras", sua mente começa a raciocinar e sua mente se torna menos nebulosa.
+	- introdução de puzzles
+	- consequentemente encontrará mais páginas de algo que é um diário incompleto, que o levará ao.
+
+estágio 0+x: qual é o meu nome?
+	tendo a compreensão de sí, ainda lhe falta uma palavra, que é murmurada mas ele não consegue compreender.
+	- criaturas não o assustam mais nem lhe fazem mal físico ou mental
+	- walking simulator
+	- consequentemente encontrará a capa do diário, que o levará ao.
+
+estágio 0+x: libertação

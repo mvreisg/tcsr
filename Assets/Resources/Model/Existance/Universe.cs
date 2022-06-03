@@ -7,12 +7,12 @@ namespace Assets.Resources.Model.Existance
     {
         private readonly List<CelestialBody> _celestialBodies;
 
-        public List<CelestialBody> CelestialBodies => _celestialBodies;
-
         public Universe(Transform transform) : base(transform)
         {
             _celestialBodies = new List<CelestialBody>();
         }
+
+        public List<CelestialBody> CelestialBodies => _celestialBodies;
 
         public override void Do()
         {

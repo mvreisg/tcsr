@@ -17,7 +17,8 @@ namespace Assets.Resources.Model.Bio
             XYZValue speed, 
             Multiplier x, 
             Multiplier y, 
-            Multiplier z) : base(transform)
+            Multiplier z,
+            Vector3 force) : base(transform, force)
         {
             _speed = speed;
             _x = x;
@@ -108,6 +109,7 @@ namespace Assets.Resources.Model.Bio
 
         public override void Do()
         {
+            base.Do();
             Move();
         }
     }
