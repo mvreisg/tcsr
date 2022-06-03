@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 66haste
+      name: log22_base
       rect:
         serializedVersion: 2
         x: 129
         y: 293
         width: 6
-        height: 66
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,6 +144,48 @@ TextureImporter:
       bones: []
       spriteID: 053b94d512c862e4aa66c678e8892e8b
       internalID: -151632283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: log22_center
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 315
+        width: 6
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c994c906b0eae484189942a7b77bd3fc
+      internalID: 1811102729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: log22_top
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 337
+        width: 6
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 199dc09c68845b548a30ba7efd124fbf
+      internalID: 81906964
       vertices: []
       indices: 
       edges: []
@@ -159,7 +201,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      66haste: -151632283
+      log22_base: -151632283
+      log22_top: 81906964
+      log22_center: 1811102729
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

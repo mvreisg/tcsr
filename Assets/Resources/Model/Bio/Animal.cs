@@ -105,12 +105,13 @@ namespace Assets.Resources.Model.Bio
             float sz = z * Speed.Z;
 
             Transform.Translate(Time.deltaTime * new Vector3(sx, sy, sz));
+            OnRepositioned(Transform.position);
         }
 
         public override void Do()
         {
-            base.Do();
             Move();
+            base.Do();
         }
     }
 }

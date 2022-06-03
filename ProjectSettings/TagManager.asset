@@ -41,15 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Background
+  - name: Atmosphere
     uniqueID: 3424868945
     locked: 0
-  - name: Ground
-    uniqueID: 4207343247
+  - name: Earth
+    uniqueID: 3162633577
     locked: 0
-  - name: Playerground
-    uniqueID: 3102934591
-    locked: 0
-  - name: Foreground
-    uniqueID: 1567114621
+  - name: GUI
+    uniqueID: 3291678125
     locked: 0
