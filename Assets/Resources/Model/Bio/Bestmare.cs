@@ -1,6 +1,4 @@
-using System.Collections.ObjectModel;
 using UnityEngine;
-using Assets.Resources.Model.Nature;
 
 namespace Assets.Resources.Model.Bio
 {
@@ -20,18 +18,9 @@ namespace Assets.Resources.Model.Bio
             Multiplier x,
             Multiplier y,
             Multiplier z,
-            Vector3 force,
-            Earth earth) : 
+            Vector3 force) : 
             base(transform, speed, x, y, z, force)
         {
-            ReadOnlyCollection<LivingBeing> livingBeings = earth.LivingBeings;
-            foreach (LivingBeing livingBeing in livingBeings)
-            {
-                if (livingBeing is Human)
-                    livingBeing.Repositioned += ReceiveTargetPosition;
-            }
-            earth.Birth += ListenBornLivingBeing;
-            earth.Death += UnListenDeadLivingBeing;
             _boxCollider2D = transform.GetComponent<BoxCollider2D>();
         }
 
@@ -69,22 +58,23 @@ namespace Assets.Resources.Model.Bio
             Acted?.Invoke(action);
         }
 
-        private void ReceiveTargetPosition(Vector3 target)
+        public void ListenHumanReposition(Vector3 position)
         {
-            if (_target.magnitude >= target.magnitude)
+            if (_target.magnitude >= position.magnitude)
                 return;
-            _target = target;
+            _target = position;
         }
 
-        private void ListenBornLivingBeing(LivingBeing livingBeing)
+        public void ListenHumanBirth(LivingBeing living)
         {
-            if (livingBeing is Human)
-                livingBeing.Repositioned += ReceiveTargetPosition;
+            if (living is Human)
+                living.Repositioned += ListenHumanReposition;
         }
 
-        private void UnListenDeadLivingBeing(LivingBeing livingBeing)
+        public void ListenHumanDeath(LivingBeing dead)
         {
-            livingBeing.Repositioned -= ReceiveTargetPosition;
+            if (dead is Human)
+                dead.Repositioned -= ListenHumanReposition;
         }
     }
 }

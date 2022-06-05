@@ -1,7 +1,7 @@
 using UnityEngine;
 using Assets.Resources.Model.Nature;
 
-namespace Assets.Resources.Component
+namespace Assets.Resources.Components
 {
     public class SunComponent : MonoBehaviour
     {

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using UnityEngine;
 using Assets.Resources.Model.Belong;
 using Assets.Resources.Model.Bio;
+using Assets.Resources.ScriptableObjects;
 
 namespace Assets.Resources.Model.Nature
 {
@@ -24,8 +24,6 @@ namespace Assets.Resources.Model.Nature
             _belongings = new List<Belonging>();
             _livingBeings = new List<LivingBeing>();
         }
-
-        public ReadOnlyCollection<LivingBeing> LivingBeings => _livingBeings.AsReadOnly();
 
         public override void Do()
         {
@@ -52,28 +50,74 @@ namespace Assets.Resources.Model.Nature
             Death?.Invoke(livingBeing);
         }
 
-        public void Create(Belonging belonging)
+        public GameObject Instantiate(ScriptableObject scriptableObject, Vector3 position)
         {
-            _belongings.Add(belonging);
-            OnCreated(belonging);
+            if (scriptableObject is BluScriptableObject)
+                return Object.Instantiate(
+                    (scriptableObject as BluScriptableObject).BluPrefab,
+                    position,
+                    Quaternion.identity,
+                    Transform
+                );
+            else if (scriptableObject is BestmareScriptableObject)
+                return Object.Instantiate(
+                    (scriptableObject as BestmareScriptableObject).BestmarePrefab,
+                    position,
+                    Quaternion.identity,
+                    Transform
+                );
+            else
+                throw new UnityException($"unhandled state: {scriptableObject.name}");
         }
 
-        public void Destroy(Belonging belonging)
+        public void Create(Belonging created)
         {
-            _belongings.Remove(belonging);
-            OnDestroyed(belonging);
+            _belongings.Add(created);
+            OnCreated(created);
         }
 
-        public void Conceive(LivingBeing livingBeing)
+        public void Destroy(Belonging destroyed)
         {
-            _livingBeings.Add(livingBeing);
-            OnBirth(livingBeing);
+            _belongings.Remove(destroyed);
+            OnDestroyed(destroyed);
         }
 
-        public void Kill(LivingBeing livingBeing)
+        public void Conceive(LivingBeing borning)
         {
-            _livingBeings.Remove(livingBeing);
-            OnDeath(livingBeing);
+            if (borning is Bestmare)
+            {
+                Bestmare bestmare = (Bestmare)borning;
+                _livingBeings.ForEach(living =>
+                {
+                    if (living is Human)
+                    {
+                        living.Repositioned += bestmare.ListenHumanReposition;
+                        Birth += bestmare.ListenHumanBirth;
+                        Death += bestmare.ListenHumanDeath;
+                    }
+                });
+            }
+            _livingBeings.Add(borning);
+            OnBirth(borning);
+        }
+
+        public void Kill(LivingBeing dying)
+        {
+            if (dying is Bestmare)
+            {
+                Bestmare bestmare = (Bestmare)dying;
+                _livingBeings.ForEach(living =>
+                {
+                    if (living is Human)
+                    {
+                        living.Repositioned -= bestmare.ListenHumanReposition;
+                        Birth -= bestmare.ListenHumanBirth;
+                        Death -= bestmare.ListenHumanDeath;
+                    }
+                });
+            }
+            _livingBeings.Remove(dying);
+            OnDeath(dying);
         }
     }
 }
