@@ -2,12 +2,9 @@ using UnityEngine;
 
 namespace Assets.Resources.Model.Bio
 {
-    public class Bestmare : Animal,
+    public class Bestmare : LivingBeing,
         IBoxCollider2D
     {
-        public delegate void BestmareActionEventHandler(Action action);
-        public event BestmareActionEventHandler Acted;
-
         private readonly BoxCollider2D _boxCollider2D;
         
         private Vector3 _target;
@@ -34,47 +31,26 @@ namespace Assets.Resources.Model.Bio
                 X = Multiplier.POSITIVE;
             else
                 X = Multiplier.ZERO;
-
             base.Do();
-
-            switch (X)
-            {
-                default:
-                    throw new UnityException($"unhandled state: {X}");
-                case Multiplier.ZERO:
-                    OnActed(Action.NONE);
-                    break;
-                case Multiplier.NEGATIVE:
-                    OnActed(Action.BACK);
-                    break;
-                case Multiplier.POSITIVE:
-                    OnActed(Action.FORWARD);
-                    break;
-            }
         }
 
-        private void OnActed(Action action)
-        {
-            Acted?.Invoke(action);
-        }
-
-        public void ListenHumanReposition(Vector3 position)
+        public void ListenEntityReposition(Vector3 position)
         {
             if (_target.magnitude >= position.magnitude)
                 return;
             _target = position;
         }
 
-        public void ListenHumanBirth(LivingBeing living)
+        public void ListenEntityCreation(Entity created)
         {
-            if (living is Human)
-                living.Repositioned += ListenHumanReposition;
+            if (created is Human)
+                created.Repositioned += ListenEntityReposition;
         }
 
-        public void ListenHumanDeath(LivingBeing dead)
+        public void ListenEntityDestruction(Entity destroyed)
         {
-            if (dead is Human)
-                dead.Repositioned -= ListenHumanReposition;
+            if (destroyed is Human)
+                destroyed.Repositioned -= ListenEntityReposition;
         }
     }
 }

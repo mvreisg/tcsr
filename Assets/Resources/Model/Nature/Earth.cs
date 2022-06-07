@@ -1,28 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.Model.Belong;
 using Assets.Resources.Model.Bio;
 using Assets.Resources.ScriptableObjects;
+using Assets.Resources.Components;
 
 namespace Assets.Resources.Model.Nature
 {
     public class Earth : Entity
     {
-        public delegate void BelongingEventHandler(Belonging belonging);
-        public event BelongingEventHandler Created;
-        public event BelongingEventHandler Destroyed;
+        public delegate void EarthEventHandler(Entity entity);
+        public event EarthEventHandler Created;
+        public event EarthEventHandler Destroyed;
 
-        public delegate void LivingBeingEventHandler(LivingBeing livingBeing);
-        public event LivingBeingEventHandler Birth;
-        public event LivingBeingEventHandler Death;
-
-        private readonly List<Belonging> _belongings;
-        private readonly List<LivingBeing> _livingBeings;
+        private readonly List<Entity> _entities;
 
         public Earth(Transform transform) : base(transform) 
         {
-            _belongings = new List<Belonging>();
-            _livingBeings = new List<LivingBeing>();
+            _entities = new List<Entity>();
         }
 
         public override void Do()
@@ -30,94 +24,82 @@ namespace Assets.Resources.Model.Nature
             Debug.Log("Earth...");
         }
 
-        private void OnCreated(Belonging belonging)
+        private void OnCreated(Entity entity)
         {
-            Created?.Invoke(belonging);
+            Created?.Invoke(entity);
         }
 
-        private void OnDestroyed(Belonging belonging)
+        private void OnDestroyed(Entity entity)
         {
-            Destroyed?.Invoke(belonging);
+            Destroyed?.Invoke(entity);
         }
 
-        private void OnBirth(LivingBeing livingBeing)
+        public void Instantiate(ScriptableObject scriptableObject, Vector3 position)
         {
-            Birth?.Invoke(livingBeing);
-        }
-
-        private void OnDeath(LivingBeing livingBeing)
-        {
-            Death?.Invoke(livingBeing);
-        }
-
-        public GameObject Instantiate(ScriptableObject scriptableObject, Vector3 position)
-        {
-            if (scriptableObject is BluScriptableObject)
-                return Object.Instantiate(
-                    (scriptableObject as BluScriptableObject).BluPrefab,
+            GameObject instance;
+            Entity entity;
+            if (scriptableObject is HumanScriptableObject)
+            {
+                instance = Object.Instantiate(
+                    (scriptableObject as HumanScriptableObject).Prefab,
                     position,
                     Quaternion.identity,
                     Transform
                 );
+                entity = instance.GetComponent<HumanComponent>().Human;
+            }
             else if (scriptableObject is BestmareScriptableObject)
-                return Object.Instantiate(
-                    (scriptableObject as BestmareScriptableObject).BestmarePrefab,
+            {
+                instance = Object.Instantiate(
+                    (scriptableObject as BestmareScriptableObject).Prefab,
                     position,
                     Quaternion.identity,
                     Transform
                 );
+                entity = instance.GetComponent<BestmareComponent>().Bestmare;
+            }
             else
                 throw new UnityException($"unhandled state: {scriptableObject.name}");
+
+            Create(entity);
         }
 
-        public void Create(Belonging created)
+        public void Create(Entity created)
         {
-            _belongings.Add(created);
+            if (created is Bestmare)
+            {
+                Bestmare bestmare = (Bestmare)created;
+                _entities.ForEach(entity =>
+                {
+                    if (entity is Human)
+                    {
+                        entity.Repositioned += bestmare.ListenEntityReposition;
+                        Created += bestmare.ListenEntityCreation;
+                        Destroyed += bestmare.ListenEntityDestruction;
+                    }
+                });
+            }
+            _entities.Add(created);
             OnCreated(created);
         }
 
-        public void Destroy(Belonging destroyed)
+        public void Destroy(Entity destroyed)
         {
-            _belongings.Remove(destroyed);
+            if (destroyed is Bestmare)
+            {
+                Bestmare bestmare = (Bestmare)destroyed;
+                _entities.ForEach(entity =>
+                {
+                    if (entity is Human)
+                    {
+                        entity.Repositioned -= bestmare.ListenEntityReposition;
+                        Created -= bestmare.ListenEntityCreation;
+                        Destroyed -= bestmare.ListenEntityDestruction;
+                    }
+                });
+            }
+            _entities.Remove(destroyed);
             OnDestroyed(destroyed);
-        }
-
-        public void Conceive(LivingBeing borning)
-        {
-            if (borning is Bestmare)
-            {
-                Bestmare bestmare = (Bestmare)borning;
-                _livingBeings.ForEach(living =>
-                {
-                    if (living is Human)
-                    {
-                        living.Repositioned += bestmare.ListenHumanReposition;
-                        Birth += bestmare.ListenHumanBirth;
-                        Death += bestmare.ListenHumanDeath;
-                    }
-                });
-            }
-            _livingBeings.Add(borning);
-            OnBirth(borning);
-        }
-
-        public void Kill(LivingBeing dying)
-        {
-            if (dying is Bestmare)
-            {
-                Bestmare bestmare = (Bestmare)dying;
-                _livingBeings.ForEach(living =>
-                {
-                    if (living is Human)
-                    {
-                        living.Repositioned -= bestmare.ListenHumanReposition;
-                        Birth -= bestmare.ListenHumanBirth;
-                        Death -= bestmare.ListenHumanDeath;
-                    }
-                });
-            }
-            _livingBeings.Remove(dying);
-            OnDeath(dying);
         }
     }
 }

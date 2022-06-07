@@ -128,10 +128,10 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: brown_n_edge
+      name: dirt_block
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 496
         width: 16
         height: 16
@@ -149,11 +149,74 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: brown_core
+      name: dirt_level_facing_nw
       rect:
         serializedVersion: 2
         x: 16
-        y: 480
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a9a9b5127eddf546bb5d0e2822b8124
+      internalID: -343050011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dirt_level_facing_ne
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee5b83e25e8e61845a85ee2c813be8ec
+      internalID: 829528530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dirt_level_facing_sw
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 496
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 314710fbfb0d31145a550bfde58084a2
+      internalID: 1922375927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dirt_level_facing_se
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 496
         width: 16
         height: 16
       alignment: 0
@@ -163,8 +226,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a9a9b5127eddf546bb5d0e2822b8124
-      internalID: -343050011
+      spriteID: 39f68731c68c74943aea21f8038781c2
+      internalID: 1816647420
       vertices: []
       indices: 
       edges: []
@@ -180,8 +243,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      brown_core: -343050011
-      brown_n_edge: -305709094
+      dirt_level_facing_nw: -343050011
+      dirt_level_facing_sw: 1922375927
+      dirt_block: -305709094
+      dirt_level_facing_se: 1816647420
+      dirt_level_facing_ne: 829528530
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

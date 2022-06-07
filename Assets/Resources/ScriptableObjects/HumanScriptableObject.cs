@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Assets.Resources.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "BestmareScriptableObject", menuName = "ScriptableObject/Bestmare", order = 1)]
-    public class BestmareScriptableObject : ScriptableObject
+    [CreateAssetMenu(fileName = "HumanScriptableObject", menuName = "ScriptableObject/Human", order = 0)]
+    public class HumanScriptableObject : ScriptableObject
     {
         [SerializeField]
         private GameObject _prefab;

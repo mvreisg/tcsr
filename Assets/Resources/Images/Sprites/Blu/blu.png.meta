@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: side
+      name: blu_x
       rect:
         serializedVersion: 2
-        x: 35
-        y: 67
-        width: 8
-        height: 22
+        x: 36
+        y: 68
+        width: 6
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,15 +137,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: front
+      name: blu_z_facing
       rect:
         serializedVersion: 2
-        x: 23
-        y: 67
-        width: 8
-        height: 22
+        x: 24
+        y: 68
+        width: 6
+        height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -168,14 +168,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      front: -2052098189
       side_feet: -2089841363
+      blu_x: 873402015
       side_arm: -1027851560
       side_head: 1150902560
       side_hand: -298162682
       side_torso: 150533397
-      side: 873402015
       side_leg: -1490508163
+      blu_z_facing: -2052098189
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2154383530522939643}
   - component: {fileID: 2154383530522939644}
   - component: {fileID: 2154383530522939647}
-  - component: {fileID: 2154383530522939646}
+  - component: {fileID: 2867064531908914124}
   - component: {fileID: 2154383530522939645}
   m_Layer: 0
   m_Name: blu
@@ -214,7 +214,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!61 &2154383530522939646
+--- !u!61 &2867064531908914124
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -231,14 +231,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 1.375}
+    oldSize: {x: 0.375, y: 1.25}
     newSize: {x: 0.5, y: 1.375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 1.375}
+  m_Size: {x: 0.375, y: 1.25}
   m_EdgeRadius: 0
 --- !u!114 &2154383530522939645
 MonoBehaviour:
@@ -252,4 +252,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e095ad08dcda494e8c9755e356dc340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _checkType: 0

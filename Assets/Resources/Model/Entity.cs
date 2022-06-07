@@ -14,7 +14,6 @@ namespace Assets.Resources.Model
 
         public Entity(Transform transform)
         {
-            Debug.Log($"Entity constructor: {GetType()}");
             _transform = transform;
         }
 

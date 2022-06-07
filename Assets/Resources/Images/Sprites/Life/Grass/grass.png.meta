@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: low
+      name: low_grass
       rect:
         serializedVersion: 2
         x: 108
@@ -207,7 +207,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      low: -1159278371
+      low_grass: -1159278371
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

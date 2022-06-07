@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gray_nw_edge
+      name: gray_rock_block
       rect:
         serializedVersion: 2
         x: 0
@@ -137,28 +137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_sw_edge
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7ad44d940d1e3e148a74b92db3237887
-      internalID: 1477018592
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_ne_edge
+      name: gray_rock_level_facing_ne
       rect:
         serializedVersion: 2
         x: 32
@@ -179,28 +158,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_se_edge
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d6032ca5be0f8434fa0973f1432824e8
-      internalID: -1326902427
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_n_edge
+      name: gray_rock_level_facing_nw
       rect:
         serializedVersion: 2
         x: 16
@@ -221,73 +179,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_s_edge
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5999965e98841a44b62be63f30c3985
-      internalID: 1246814745
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_single
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 496
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ef28b64ae6e98f4bbcd00774ef52b74
-      internalID: 1627249895
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_nw_triangle
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 480
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: 8, y: 8}
-        - {x: 8, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: d33994c0db46b644a802751a49d00d66
-      internalID: 1748801618
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_line_w
+      name: gray_rock_level_facing_sw
       rect:
         serializedVersion: 2
         x: 48
@@ -308,7 +200,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_line_c
+      name: gray_rock_level_facing_se
       rect:
         serializedVersion: 2
         x: 64
@@ -329,28 +221,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_line_e
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 496
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aecdb739c27639d468d3e9e084c28adb
-      internalID: 1100410232
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_core
+      name: gray_rock_level_background_facing_nw
       rect:
         serializedVersion: 2
         x: 16
@@ -371,7 +242,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_w_edge
+      name: gray_rock_background
       rect:
         serializedVersion: 2
         x: 0
@@ -392,7 +263,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_e_edge
+      name: gray_rock_level_background_facing_ne
       rect:
         serializedVersion: 2
         x: 32
@@ -413,184 +284,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_ne_triangle
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 480
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: 8, y: -8}
-        - {x: -8, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 72a057b247c1a1d4ea13310d7a2ec474
-      internalID: -611275474
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_sw_triangle
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: 8}
-        - {x: 8, y: 8}
-        - {x: 8, y: -8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7196181054bf93844ae1d1b1c42fe2ee
-      internalID: 1052872774
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_se_triangle
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape:
-      - - {x: -8, y: -8}
-        - {x: -8, y: 8}
-        - {x: 8, y: 8}
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3811e34d2703bbd4299aaadb0639360f
-      internalID: 311870087
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_bg
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 448
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2647f840bcf142145a27799c241fbf37
-      internalID: -1656971206
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_bg_nw
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 448
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf430071ac496f949af3cb8eccac9f84
-      internalID: 1477934327
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_bg_ne
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 448
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e0a9399cd0860084b9a6ca19530edcac
-      internalID: 341717281
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_bg_sw
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 432
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6555e3e01808d9849b3560ca293772ff
-      internalID: 445041648
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_bg_se
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 432
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b52f5293be7f3c49a7a9d818172dd51
-      internalID: -1299558204
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_se_dot
+      name: gray_rock_level_background_facing_sw
       rect:
         serializedVersion: 2
         x: 48
@@ -598,7 +292,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -611,7 +305,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gray_sw_dot
+      name: gray_rock_level_background_facing_n
       rect:
         serializedVersion: 2
         x: 64
@@ -619,7 +313,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -627,48 +321,6 @@ TextureImporter:
       bones: []
       spriteID: db439c7072086e545ac073d6b9abb3cf
       internalID: -710432068
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_ne_dot
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3bfba091b0375bb4b9a354938e6aabeb
-      internalID: -1831543709
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: gray_nw_dot
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 464
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d7fff04eacb9ca4bb0ac3adca23aad4
-      internalID: 801552681
       vertices: []
       indices: 
       edges: []
@@ -686,28 +338,28 @@ TextureImporter:
     nameFileIdTable:
       gray_se_edge: -1326902427
       gray_bg_se: -1299558204
+      gray_rock_level_background_facing_sw: -1141957019
       gray_nw_dot: 801552681
-      gray_line_c: 645229312
+      gray_rock_level_facing_se: 645229312
+      gray_rock_block: 1194074656
       gray_line_e: 1100410232
       gray_sw_edge: 1477018592
-      gray_ne_edge: 1087919582
+      gray_rock_level_background_facing_n: -710432068
       gray_sw_triangle: 1052872774
       gray_single: 1627249895
-      gray_nw_edge: 1194074656
+      gray_rock_level_facing_ne: 1087919582
       gray_se_triangle: 311870087
-      gray_n_edge: -2100437872
       gray_nw_triangle: 1748801618
       gray_s_edge: 1246814745
-      gray_se_dot: -1141957019
-      gray_core: -861703636
-      gray_line_w: 690482298
-      gray_w_edge: 1196068212
       gray_bg_sw: 445041648
-      gray_sw_dot: -710432068
-      gray_e_edge: 1177173440
+      gray_rock_background: 1196068212
+      gray_rock_level_background_facing_nw: -861703636
+      gray_rock_level_facing_sw: 690482298
+      gray_rock_level_facing_nw: -2100437872
       gray_bg: -1656971206
       gray_bg_nw: 1477934327
       gray_bg_ne: 341717281
+      gray_rock_level_background_facing_ne: 1177173440
       gray_ne_triangle: -611275474
       gray_ne_dot: -1831543709
       basisrock_triangle_facing_ne: -971218742

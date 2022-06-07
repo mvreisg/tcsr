@@ -9,7 +9,7 @@ namespace Assets.Resources.Components
         private Earth _earth;
 
         [SerializeField]
-        private BluScriptableObject _bluScriptableObject;
+        private HumanScriptableObject _humanScriptableObject;
 
         [SerializeField]
         private BestmareScriptableObject _bestmareScriptableObject;
@@ -18,12 +18,8 @@ namespace Assets.Resources.Components
         {
             _earth = new Earth(transform);
             CreateBlu(new Vector3(0f, 2f, 0f));
-            CreateBestmare(new Vector3(-3f, 2f, 0f));
-        }
-
-        private void Start()
-        {
-            
+            CreateBestmare(new Vector3(-6f, 2f, 0f));
+            CreateBestmare(new Vector3(6f, 2f, 0f));
         }
 
         private void Update()
@@ -33,22 +29,12 @@ namespace Assets.Resources.Components
 
         private void CreateBlu(Vector3 position)
         {
-            _earth.Conceive(
-                _earth.Instantiate(
-                    _bluScriptableObject, 
-                    position
-                ).GetComponent<BluComponent>().Human
-            );
+            _earth.Instantiate(_humanScriptableObject, position);
         }
 
         private void CreateBestmare(Vector3 position)
         {
-            _earth.Conceive(
-                _earth.Instantiate(
-                    _bestmareScriptableObject,
-                    position
-                ).GetComponent<BestmareComponent>().Bestmare
-            );
+            _earth.Instantiate(_bestmareScriptableObject, position);
         }
     }
 }

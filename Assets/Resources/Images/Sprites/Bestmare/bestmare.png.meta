@@ -116,11 +116,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: normal
+      name: bestmare_normal
       rect:
         serializedVersion: 2
-        x: 43
-        y: 59
+        x: 1
+        y: 94
         width: 17
         height: 33
       alignment: 0
@@ -137,11 +137,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: altered
+      name: bestmare_altered
       rect:
         serializedVersion: 2
-        x: 62
-        y: 59
+        x: 19
+        y: 94
         width: 17
         height: 33
       alignment: 0
@@ -168,8 +168,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      normal: 1431225487
-      altered: 299749018
+      bestmare_altered: 299749018
+      bestmare_normal: 1431225487
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
