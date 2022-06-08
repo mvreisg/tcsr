@@ -2,42 +2,20 @@ using UnityEngine;
 
 namespace Assets.Resources.Model.Nature
 {
-    public class Sun : Entity, ILight
+    public class Sun : Entity,
+        ISpriteRenderer
     {
-        private readonly Light _light;
-        private float _hours;
-        private float _minutes;
-        private float _seconds;
+        private readonly SpriteRenderer _spriteRenderer;
 
-        public Sun(Transform transform, float hours, float minutes, float seconds) : base(transform)
+        public Sun(Transform transform) : base(transform)
         {
-            _light = transform.GetComponent<Light>();
-            _hours = hours;
-            _minutes = minutes;
-            _seconds = seconds;
+            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
-        public Light Light => _light;
+        public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
         public override void Do()
         {
-            _seconds += Time.deltaTime;
-            if (_seconds >= 60f)
-            {
-                _seconds %= 60f;
-                _minutes += 1f;
-            }
-            if (_minutes >= 60f)
-            {
-                _minutes %= 60f;
-                _hours += 1f;
-            }
-            if (_hours >= 24f)
-            {
-                _seconds = (_hours % 24f) / (60f * 60f);
-                _minutes = (_hours % 24f) / 60f;
-                _hours %= 24f;
-            }
             Debug.Log("Sun...");
         }
     }

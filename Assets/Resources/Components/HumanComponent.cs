@@ -1,5 +1,4 @@
 using UnityEngine;
-using Assets.Resources.Model;
 using Assets.Resources.Model.Controllers;
 using Assets.Resources.Model.Bio;
 
@@ -15,23 +14,16 @@ namespace Assets.Resources.Components
 
         private void Awake()
         {
-            _human = new Human(
-                transform,
-                new XYZValue(1f, 0f, 0f),
-                Multiplier.ZERO,
-                Multiplier.ZERO,
-                Multiplier.ZERO,
-                new Vector3(0f, 0f, 0f)
-            );
+            _human = new Human(transform);
+            _human.Speed.X = 1.23f;
+            _keyboardController = new KeyboardController(transform);
+            _keyboardController.Acted += _human.ListenPlayerAction;
         }
 
         private void Start()
         {
-            _keyboardController = new KeyboardController(transform, true);
-            _keyboardController.Acted += _human.ListenPlayerAction;
             _guiController = new GUIController(
-                transform, 
-                true, 
+                transform,
                 FindObjectOfType<BackButtonComponent>(),
                 FindObjectOfType<ForwardButtonComponent>()
             );

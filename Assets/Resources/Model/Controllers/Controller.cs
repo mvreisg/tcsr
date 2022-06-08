@@ -7,17 +7,9 @@ namespace Assets.Resources.Model.Controllers
         public delegate void ActionEventHandler(Action action);
         public event ActionEventHandler Acted;
 
-        private bool _canControl;
-
-        public Controller(Transform transform, bool canCantrol) : base(transform)
+        public Controller(Transform transform) : base(transform)
         {
-            CanControl = canCantrol;
-        }
 
-        public bool CanControl
-        {
-            get => _canControl;
-            set => _canControl = value;
         }
 
         public void OnActed(Action action)

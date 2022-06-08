@@ -14,7 +14,7 @@ namespace Assets.Resources.Model.Nature
 
         private readonly List<Entity> _entities;
 
-        public Earth(Transform transform) : base(transform) 
+        public Earth(Transform transform) : base(transform)
         {
             _entities = new List<Entity>();
         }

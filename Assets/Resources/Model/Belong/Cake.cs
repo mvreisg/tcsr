@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Resources.Model.Belong
 {
-    public class Cake : Belonging,
+    public class Cake : Entity,
         ISpriteRenderer,
         INoisier,
         IBoxCollider2D
@@ -11,7 +11,7 @@ namespace Assets.Resources.Model.Belong
         private readonly AudioSource _audioSource;
         private readonly BoxCollider2D _boxCollider2D;
 
-        public Cake(Transform transform, Vector3 force) : base(transform, force)
+        public Cake(Transform transform) : base(transform)
         {
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
             _audioSource = transform.GetComponent<AudioSource>();
@@ -26,7 +26,7 @@ namespace Assets.Resources.Model.Belong
 
         public override void Do()
         {
-            base.Do();
+            Debug.Log("Cake...");
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Assets.Resources.Model.Controllers
     {
         private bool _released;
 
-        public KeyboardController(Transform transform, bool canControl) : base(transform, canControl)
+        public KeyboardController(Transform transform) : base(transform)
         {
             _released = true;    
         }

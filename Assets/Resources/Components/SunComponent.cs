@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Resources.Model;
 using Assets.Resources.Model.Nature;
 
 namespace Assets.Resources.Components
@@ -9,7 +10,7 @@ namespace Assets.Resources.Components
 
         private void Awake()
         {
-            _sun = new Sun(transform, 0f, 0f, 0f);
+            _sun = new Sun(transform);
         }
 
         private void Update()

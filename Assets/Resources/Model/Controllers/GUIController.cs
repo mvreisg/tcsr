@@ -7,10 +7,8 @@ namespace Assets.Resources.Model.Controllers
     {
         public GUIController(
             Transform transform, 
-            bool canControl,
-            BackButtonComponent backButtonComponent,
-            ForwardButtonComponent forwardButtonComponent) : 
-            base(transform, canControl)
+            BackButtonComponent backButtonComponent, 
+            ForwardButtonComponent forwardButtonComponent) : base(transform)
         {
             backButtonComponent.Up += ListenBackButtonUp;
             backButtonComponent.Down += ListenBackButtonDown;
