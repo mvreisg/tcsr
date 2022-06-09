@@ -1,11 +1,15 @@
 using UnityEngine;
+using Assets.Model;
 using Assets.Model.Nature;
 
 namespace Assets.Components
 {
-    public class CandleFireLightComponent : MonoBehaviour
+    public class CandleFireLightComponent : MonoBehaviour,
+        IEntityComponent
     {
         private LightEmitter _lightEmitter;
+
+        public IEntity Entity => _lightEmitter;
 
         private void Awake()
         {

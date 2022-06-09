@@ -5,13 +5,14 @@ using Assets.Model.Controllers;
 
 namespace Assets.Components
 {
-    public class PlayerHumanComponent : MonoBehaviour
+    public class PlayerHumanComponent : MonoBehaviour,
+        IEntityComponent
     {
         private KeyboardController _keyboardController;
         private GUIController _guiController;
         private Human _human;                          
 
-        public IEntity Human => _human;
+        public IEntity Entity => _human;
 
         private void Awake()
         {

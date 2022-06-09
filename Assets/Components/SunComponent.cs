@@ -1,11 +1,15 @@
 using UnityEngine;
+using Assets.Model;
 using Assets.Model.Nature;
 
 namespace Assets.Components
 {
-    public class SunComponent : MonoBehaviour
+    public class SunComponent : MonoBehaviour,
+        IEntityComponent
     {
         private Sun _sun;
+
+        public IEntity Entity => _sun;
 
         private void Awake()
         {

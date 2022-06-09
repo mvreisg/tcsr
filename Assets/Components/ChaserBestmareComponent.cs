@@ -5,12 +5,13 @@ using Assets.Model.Controllers;
 
 namespace Assets.Components
 {
-    public class ChaserBestmareComponent : MonoBehaviour
+    public class ChaserBestmareComponent : MonoBehaviour,
+        IEntityComponent
     {
         private Bestmare _bestmare;
         private ChaserIA _chaserIA;
 
-        public IEntity Bestmare => _bestmare;
+        public IEntity Entity => _bestmare;
 
         private void Awake()
         {

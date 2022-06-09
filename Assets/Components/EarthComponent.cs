@@ -1,10 +1,12 @@
 using UnityEngine;
+using Assets.Model;
 using Assets.Model.Nature;
 using Assets.ScriptableObjects;
 
 namespace Assets.Components
 {
-    public class EarthComponent : MonoBehaviour
+    public class EarthComponent : MonoBehaviour,
+        IEntityComponent
     {
         private Earth _earth;
 
@@ -13,6 +15,8 @@ namespace Assets.Components
 
         [SerializeField]
         private BestmareScriptableObject _bestmareScriptableObject;
+
+        public IEntity Entity => _earth;
 
         private void Awake()
         {

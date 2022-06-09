@@ -21,7 +21,7 @@ namespace Assets.Model.Nature
 
         public override void Do()
         {
-            Debug.Log("Earth...");
+            Debug.Log($"I acknowledge {_entities.Count} entities.");
         }
 
         private void OnCreated(IEntity entity)
@@ -34,37 +34,18 @@ namespace Assets.Model.Nature
             Destroyed?.Invoke(entity);
         }
 
-        public void Instantiate(ScriptableObject scriptableObject, Vector3 position)
+        public void Instantiate(IScriptableObject scriptableObject, Vector3 position)
         {
-            GameObject instance;
-            IEntity entity;
-            if (scriptableObject is HumanScriptableObject)
-            {
-                instance = Object.Instantiate(
-                    (scriptableObject as HumanScriptableObject).Prefab,
-                    position,
-                    Quaternion.identity,
-                    Transform
-                );
-                entity = instance.GetComponent<PlayerHumanComponent>().Human;
-            }
-            else if (scriptableObject is BestmareScriptableObject)
-            {
-                instance = Object.Instantiate(
-                    (scriptableObject as BestmareScriptableObject).Prefab,
-                    position,
-                    Quaternion.identity,
-                    Transform
-                );
-                entity = instance.GetComponent<ChaserBestmareComponent>().Bestmare;
-            }
-            else
-                throw new UnityException($"unhandled state: {scriptableObject.name}");
-
-            Create(entity);
+            GameObject instance = Object.Instantiate(
+                scriptableObject.Prefab,
+                position,
+                Quaternion.identity,
+                Transform
+            );
+            Acknowledge(instance.GetComponent<IEntityComponent>().Entity);
         }
 
-        public void Create(IEntity created)
+        public void Acknowledge(IEntity created)
         {
             if (created is Bestmare)
             {
@@ -83,7 +64,7 @@ namespace Assets.Model.Nature
             OnCreated(created);
         }
 
-        public void Destroy(IEntity destroyed)
+        public void Museum(IEntity destroyed)
         {
             if (destroyed is Bestmare)
             {

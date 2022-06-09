@@ -1,11 +1,15 @@
 using UnityEngine;
+using Assets.Model;
 using Assets.Model.Belong;
 
 namespace Assets.Components
 {
-    public class TableComponent : MonoBehaviour
+    public class TableComponent : MonoBehaviour,
+        IEntityComponent
     {
         private Table _table;
+
+        public IEntity Entity => _table;
 
         private void Awake()
         {
