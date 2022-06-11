@@ -2,16 +2,21 @@ using UnityEngine;
 
 namespace Assets.Model.Nature
 {
-    public class Atmosphere : Entity
+    public class Atmosphere : 
+        IEntity
     {
-        public Atmosphere(Transform transform) : base(transform)
-        {
+        private readonly Transform _transform;
 
+        public Atmosphere(Transform transform)
+        {
+            _transform = transform;
         }
 
-        public override void Do()
+        public Transform Transform => _transform;
+
+        public void Exist()
         {
-            Debug.Log("Atmosphere...");
+            throw new UnityException();
         }
     }
 }

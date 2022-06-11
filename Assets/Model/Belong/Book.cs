@@ -2,36 +2,26 @@ using UnityEngine;
 
 namespace Assets.Model.Belong
 {
-    public class Book : Entity,
-        ISpriteRenderer,
-        INoisier,
-        IBoxCollider2D
+    public class Book :
+        IEntity
     {
-        private readonly SpriteRenderer _spriteRenderer;
-        private readonly AudioSource _audioSource;
-        private readonly BoxCollider2D _boxCollider2D;
+        public readonly Transform _transform;
 
-        public Book(Transform transform) : base(transform)
+        public Book(Transform transform)
         {
-            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
-            _audioSource = transform.GetComponent<AudioSource>();
-            _boxCollider2D = transform.GetComponent<BoxCollider2D>();
+            _transform = transform;
         }
 
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public Transform Transform => _transform;
 
-        public AudioSource AudioSource => _audioSource;
-
-        public BoxCollider2D BoxCollider2D => _boxCollider2D;
-
-        public override void Move()
+        public void Exist()
         {
-            Debug.Log("Book movement here");
+            throw new UnityException();
         }
 
-        public override void Do()
+        public void OnRecycled()
         {
-            Move();
+            throw new UnityException();
         }
     }
 }

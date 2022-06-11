@@ -2,12 +2,13 @@ using UnityEngine;
 
 namespace Assets.Model
 {
+    /// <summary>
+    ///     <para>Entity interface.</para>
+    /// </summary>
     public interface IEntity
     {
-        delegate void PositionEventHandler(Vector3 position);
-        event PositionEventHandler Repositioned;
+        Transform Transform { get; }
 
-        delegate void RecycleEventHandler(Entity entity);
-        event RecycleEventHandler Recycled;
+        void Exist();
     }
 }

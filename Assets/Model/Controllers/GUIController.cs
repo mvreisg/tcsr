@@ -1,24 +1,18 @@
-using UnityEngine;
 using Assets.Components;
 
 namespace Assets.Model.Controllers
 {
-    public class GUIController : Controller
+    public class GUIController : 
+        IAct
     {
-        public GUIController(
-            Transform transform, 
-            BackButtonComponent backButtonComponent, 
-            ForwardButtonComponent forwardButtonComponent) : base(transform)
-        {
-            backButtonComponent.Up += ListenBackButtonUp;
-            backButtonComponent.Down += ListenBackButtonDown;
-            forwardButtonComponent.Up += ListenForwardButtonUp;
-            forwardButtonComponent.Down += ListenForwardButtonDown;
-        }
+        public event IAct.ActEventHandler Acted;
 
-        public override void Do()
+        public GUIController(IPressableComponent backButton, IPressableComponent forwardButton)
         {
-
+            backButton.Up += ListenBackButtonUp;
+            backButton.Down += ListenBackButtonDown;
+            forwardButton.Up += ListenForwardButtonUp;
+            forwardButton.Down += ListenForwardButtonDown;
         }
 
         private void ListenBackButtonUp()
@@ -39,6 +33,11 @@ namespace Assets.Model.Controllers
         private void ListenForwardButtonDown()
         {
             OnActed(Action.FORWARD);
+        }
+
+        public void OnActed(Action action)
+        {
+            Acted?.Invoke(action);
         }
     }
 }

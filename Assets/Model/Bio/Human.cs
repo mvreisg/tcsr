@@ -2,68 +2,123 @@ using UnityEngine;
 
 namespace Assets.Model.Bio
 {
-    public class Human : LivingBeing,
-        IRigidbody2D,
+    public class Human :
+        IEntity,
+        ILife,
+        IAct,
+        IMovable,
+        IForce,
+        IColliderable,
         IEar,
         INoisier,
-        IBoxCollider2D,
-        ISpriteRenderer
+        IRenderable
     {
+        public event ILife.LifeStateHandler Born;
+        public event ILife.LifeStateHandler Died;
+        public event IAct.ActEventHandler Acted;
+        public event IMovable.MovableEventHandler Moved;
+
+        private readonly Transform _transform;
+        private BioState _lifeState;
+        private readonly XYZValue _speed;
+        private Multiplier _x;
+        private Multiplier _y;
+        private Multiplier _z;
         private readonly Rigidbody2D _rigidbody2D;
         private Vector3 _force;
         private readonly AudioListener _audioListener;
         private readonly AudioSource _audioSource;
-        private readonly BoxCollider2D _boxCollider2D;
+        private readonly PolygonCollider2D _polygonCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
 
-        public Human(Transform transform) : base(transform)
+        public Human(Transform transform)
         {
+            _transform = transform;
+            _speed = XYZValue.ZERO;
+            _x = Multiplier.ZERO;
+            _y = Multiplier.ZERO;
+            _z = Multiplier.ZERO;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
             _force = Vector3.zero;
             _audioListener = transform.GetComponent<AudioListener>();
             _audioSource = transform.GetComponent<AudioSource>();
-            _boxCollider2D = transform.GetComponent<BoxCollider2D>();
+            _polygonCollider2D = transform.GetComponent<PolygonCollider2D>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
+        public BioState BioState
+        {
+            get => _lifeState;
+            set => _lifeState = value;
+        }
+
+        public XYZValue Speed => _speed;
+
+        public Multiplier X
+        {
+            get => _x;
+            set => _x = value;
+        }
+
+        public Multiplier Y
+        {
+            get => _y;
+            set => _y = value;
+        }
+
+        public Multiplier Z
+        {
+            get => _z;
+            set => _z = value;
+        }
+
+        public Transform Transform => _transform;
+
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public Vector3 Force => _force;
+        public Vector3 Force => throw new System.NotImplementedException();
+
+        public Collider2D Collider2D => _polygonCollider2D;
 
         public AudioListener AudioListener => _audioListener;
 
         public AudioSource AudioSource => _audioSource;
 
-        public BoxCollider2D BoxCollider2D => _boxCollider2D;
+        public Renderer Renderer => _spriteRenderer;
 
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public void Exist()
+        {
+            throw new UnityException();
+        }
+
+        public void Move()
+        {
+            throw new UnityException();
+        }
 
         public void FixedPhysics()
         {
-            Debug.Log("HumanFixedPhysics...");
-            //_rigidbody2D.AddForce(Force);
+            throw new UnityException();
         }
 
-        public override void Do()
+        public void OnBorn()
         {
-            Move();
+            throw new UnityException();
         }
 
-        public override void Stop()
+        public void OnDied()
         {
-            base.Stop();
+            throw new UnityException();
         }
 
-        public override void TurnBack()
+        public void OnActed(Action action)
         {
-            base.TurnBack();
-            SpriteRenderer.flipX = true;
+            throw new UnityException();
         }
 
-        public override void TurnForward()
+        public void OnMoved()
         {
-            base.TurnForward();
-            SpriteRenderer.flipX = false;
+            throw new UnityException();
         }
     }
 }

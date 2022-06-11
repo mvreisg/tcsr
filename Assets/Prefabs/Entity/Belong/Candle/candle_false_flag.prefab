@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6252590795722938604}
   - component: {fileID: 2861417475006364147}
   - component: {fileID: 3744916086350778068}
-  - component: {fileID: 6433899227736383865}
   m_Layer: 0
   m_Name: candle_false_flag
   m_TagString: Untagged
@@ -233,18 +232,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6433899227736383865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6252590795722938578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a0830febc318849b80ab2b90ad1809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1262801321
 PrefabInstance:
   m_ObjectHideFlags: 0

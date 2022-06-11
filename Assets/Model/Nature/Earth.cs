@@ -1,86 +1,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Components;
-using Assets.Model.Bio;
 using Assets.ScriptableObjects;
 
 namespace Assets.Model.Nature
 {
-    public class Earth : Entity
+    public class Earth : 
+        IEntity
     {
-        public delegate void EarthEventHandler(IEntity entity);
-        public event EarthEventHandler Created;
-        public event EarthEventHandler Destroyed;
-
+        private readonly Transform _transform;
         private readonly List<IEntity> _entities;
 
-        public Earth(Transform transform) : base(transform)
+        public Earth(Transform transform)
         {
+            _transform = transform;
             _entities = new List<IEntity>();
         }
 
-        public override void Do()
-        {
-            Debug.Log($"I acknowledge {_entities.Count} entities.");
-        }
+        public Transform Transform => _transform;
 
-        private void OnCreated(IEntity entity)
+        public void Exist()
         {
-            Created?.Invoke(entity);
-        }
-
-        private void OnDestroyed(IEntity entity)
-        {
-            Destroyed?.Invoke(entity);
+            throw new UnityException();
         }
 
         public void Instantiate(IScriptableObject scriptableObject, Vector3 position)
         {
-            GameObject instance = Object.Instantiate(
+            IEntity entity = Object.Instantiate(
                 scriptableObject.Prefab,
                 position,
                 Quaternion.identity,
                 Transform
-            );
-            Acknowledge(instance.GetComponent<IEntityComponent>().Entity);
-        }
-
-        public void Acknowledge(IEntity created)
-        {
-            if (created is Bestmare)
-            {
-                Bestmare bestmare = (Bestmare)created;
-                _entities.ForEach(entity =>
-                {
-                    if (entity is Human)
-                    {
-                        entity.Repositioned += bestmare.ListenEntityReposition;
-                        Created += bestmare.ListenEntityCreation;
-                        Destroyed += bestmare.ListenEntityDestruction;
-                    }
-                });
-            }
-            _entities.Add(created);
-            OnCreated(created);
-        }
-
-        public void Museum(IEntity destroyed)
-        {
-            if (destroyed is Bestmare)
-            {
-                Bestmare bestmare = (Bestmare)destroyed;
-                _entities.ForEach(entity =>
-                {
-                    if (entity is Human)
-                    {
-                        entity.Repositioned -= bestmare.ListenEntityReposition;
-                        Created -= bestmare.ListenEntityCreation;
-                        Destroyed -= bestmare.ListenEntityDestruction;
-                    }
-                });
-            }
-            _entities.Remove(destroyed);
-            OnDestroyed(destroyed);
+            ).GetComponent<IEntityComponent>().Entity;
+            _entities.Add(entity);
         }
     }
 }

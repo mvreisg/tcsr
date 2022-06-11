@@ -2,19 +2,14 @@ using UnityEngine;
 
 namespace Assets.Model.Controllers
 {
-    public class ChaserIA : Controller
+    public class ChaserIA : 
+        IAct
     {
-        public delegate void ChaserIAEventHandler(Action action);
-        public event ChaserIAEventHandler Act;
+        public event IAct.ActEventHandler Acted;
 
-        public ChaserIA(Transform transform) : base(transform)
+        public void OnActed(Action action)
         {
-
-        }
-
-        public override void Do()
-        {
-            Debug.Log("ChaserIA...");
+            Acted?.Invoke(action);
         }
 
         public void ReceiveTarget(Vector3 me, Vector3 target)
@@ -22,16 +17,11 @@ namespace Assets.Model.Controllers
             float mx = me.x;
             float tx = target.x;
             if (mx > tx)
-                OnAct(Action.BACK);
+                OnActed(Action.BACK);
             else if (mx < tx)
-                OnAct(Action.FORWARD);
+                OnActed(Action.FORWARD);
             else
-                OnAct(Action.STOP);
-        }
-
-        private void OnAct(Action action)
-        {
-            Act?.Invoke(action);
+                OnActed(Action.STOP);
         }
     }
 }

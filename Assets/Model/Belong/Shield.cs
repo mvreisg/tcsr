@@ -2,16 +2,26 @@ using UnityEngine;
 
 namespace Assets.Model.Belong
 {
-    public class Shield : Entity
+    public class Shield :
+        IEntity
     {
-        public Shield(Transform transform) : base(transform)
-        {
+        public readonly Transform _transform;
 
+        public Shield(Transform transform)
+        {
+            _transform = transform;
         }
 
-        public override void Do()
+        public Transform Transform => _transform;
+
+        public void Exist()
         {
-            Debug.Log("Shield...");
+            throw new UnityException();
+        }
+
+        public void OnRecycled()
+        {
+            throw new UnityException();
         }
     }
 }

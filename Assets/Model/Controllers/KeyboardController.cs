@@ -2,16 +2,19 @@ using UnityEngine;
 
 namespace Assets.Model.Controllers
 {
-    public class KeyboardController : Controller
+    public class KeyboardController : 
+        IAct
     {
+        public event IAct.ActEventHandler Acted;
+
         private bool _released;
 
-        public KeyboardController(Transform transform) : base(transform)
+        public KeyboardController()
         {
-            _released = true;    
+            _released = true;
         }
 
-        public override void Do()
+        public void Update()
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             if (horizontal < 0f)
@@ -30,7 +33,12 @@ namespace Assets.Model.Controllers
                 _released = true;
             }
             else
-                OnActed(Action.IDLE);   
+                OnActed(Action.IDLE);
+        }
+
+        public void OnActed(Action action)
+        {
+            Acted?.Invoke(action);
         }
     }
 }

@@ -2,26 +2,21 @@ using UnityEngine;
 
 namespace Assets.Model.Belong
 {
-    public class Balloon : Entity,
-        ISpriteRenderer,
-        INoisier
+    public class Balloon :
+        IEntity
     {
-        private readonly SpriteRenderer _spriteRenderer;
-        private readonly AudioSource _audioSource;
-        
-        public Balloon(Transform transform) : base(transform)
+        public readonly Transform _transform;
+
+        public Balloon(Transform transform)
         {
-            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
-            _audioSource = transform.GetComponent<AudioSource>();
+            _transform = transform;
         }
 
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public Transform Transform => _transform;
 
-        public AudioSource AudioSource => _audioSource;
-
-        public override void Do()
+        public void Exist()
         {
-            Debug.Log("Balloon...");
+            throw new UnityException();
         }
     }
 }

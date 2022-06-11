@@ -2,21 +2,26 @@ using UnityEngine;
 
 namespace Assets.Model.Nature
 {
-    public class Fire : Entity,
-        ISpriteRenderer
+    public class Fire : 
+        IEntity,
+        IRenderable
     {
+        private readonly Transform _transform;
         private readonly SpriteRenderer _spriteRenderer;
 
-        public Fire(Transform transform) : base(transform)
+        public Fire(Transform transform)
         {
+            _transform = transform;
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public Transform Transform => _transform;
 
-        public override void Do()
+        public Renderer Renderer => _spriteRenderer;
+
+        public void Exist()
         {
-            Debug.Log("Fire...");
+            throw new UnityException();
         }
     }
 }

@@ -1,117 +1,124 @@
 using UnityEngine;
-using Assets.Model.Controllers;
 
 namespace Assets.Model.Bio
 {
-    public class Bestmare : LivingBeing,
-        IRigidbody2D,
-        ICapsuleCollider2D,
+    public class Bestmare : 
+        IEntity,
+        ILife,
+        IAct,
+        IMovable,
+        IForce,
+        IColliderable,
+        IEar,
         INoisier,
-        ISpriteRenderer
+        IRenderable
     {
-        public delegate void BestmareEventHandler(Vector3 me, Vector3 target);
-        public event BestmareEventHandler ReadyToPursue;
+        public event ILife.LifeStateHandler Born;
+        public event ILife.LifeStateHandler Died;
+        public event IAct.ActEventHandler Acted;
+        public event IMovable.MovableEventHandler Moved;
 
+        private readonly Transform _transform;
+        private BioState _lifeState;
+        private readonly XYZValue _speed;
+        private Multiplier _x;
+        private Multiplier _y;
+        private Multiplier _z;
         private readonly Rigidbody2D _rigidbody2D;
         private Vector3 _force;
-        private readonly CapsuleCollider2D _capsuleCollider2D;
+        private readonly AudioListener _audioListener;
         private readonly AudioSource _audioSource;
+        private readonly CapsuleCollider2D _capsuleCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
 
-        private Vector3 _target;
-
-        public Bestmare(Transform transform) : base(transform)
+        public Bestmare(Transform transform)
         {
-            _force = Vector3.zero;
+            _transform = transform;
+            _speed = XYZValue.ZERO;
+            _x = Multiplier.ZERO;
+            _y = Multiplier.ZERO;
+            _z = Multiplier.ZERO;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
-            _capsuleCollider2D = transform.GetComponent<CapsuleCollider2D>();
+            _force = Vector3.zero;
+            _audioListener = transform.GetComponent<AudioListener>();
             _audioSource = transform.GetComponent<AudioSource>();
+            _capsuleCollider2D = transform.GetComponent<CapsuleCollider2D>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
+        public BioState BioState
+        {
+            get => _lifeState;
+            set => _lifeState = value;
+        }
+
+        public XYZValue Speed => _speed;
+
+        public Multiplier X
+        {
+            get => _x;
+            set => _x = value;
+        }
+
+        public Multiplier Y
+        {
+            get => _y;
+            set => _y = value;
+        }
+
+        public Multiplier Z
+        {
+            get => _z;
+            set => _z = value;
+        }
+
+        public Transform Transform => _transform;
+
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public Vector3 Force => _force;
+        public Vector3 Force => throw new System.NotImplementedException();
 
-        public CapsuleCollider2D CapsuleCollider2D => _capsuleCollider2D;
+        public Collider2D Collider2D => _capsuleCollider2D;
+
+        public AudioListener AudioListener => _audioListener;
 
         public AudioSource AudioSource => _audioSource;
 
-        public SpriteRenderer SpriteRenderer => _spriteRenderer;
+        public Renderer Renderer => _spriteRenderer;
+
+        public void Exist()
+        {
+            throw new UnityException();
+        }
+
+        public void Move()
+        {
+            throw new UnityException();
+        }
 
         public void FixedPhysics()
         {
-            Debug.Log("BestmareFixedPhysics...");
-            //_rigidbody2D.AddForce(Force);
+            throw new UnityException();
         }
 
-        public override void Do()
+        public void OnBorn()
         {
-            OnReadyToPursue(Transform.position, _target);
-            Move();
+            throw new UnityException();
         }
 
-        public override void Stop()
+        public void OnDied()
         {
-            base.Stop();
+            throw new UnityException();
         }
 
-        public override void TurnBack()
+        public void OnActed(Action action)
         {
-            base.TurnBack();
-            SpriteRenderer.flipX = true;
+            throw new UnityException();
         }
 
-        public override void TurnForward()
+        public void OnMoved()
         {
-            base.TurnForward();
-            SpriteRenderer.flipX = false;
-        }
-
-        public void ListenEntityReposition(Vector3 position)
-        {
-            if (_target.magnitude >= position.magnitude)
-                return;
-            _target = position;
-        }
-
-        public void ListenEntityCreation(IEntity created)
-        {
-            if (created is Human)
-                created.Repositioned += ListenEntityReposition;
-        }
-
-        public void ListenEntityDestruction(IEntity destroyed)
-        {
-            if (destroyed is Human)
-                destroyed.Repositioned -= ListenEntityReposition;
-        }
-
-        public void Act(Action action)
-        {
-            switch (action)
-            {
-                default:
-                    throw new UnityException($"unhandled state: {action}");
-                case Action.IDLE:
-                    break;
-                case Action.STOP:
-                    Stop();
-                    break;
-                case Action.BACK:
-                    TurnBack();
-                    break;
-                case Action.FORWARD:
-                    TurnForward();
-                    break;
-                case Action.USE:
-                    break;
-            }
-        }
-
-        private void OnReadyToPursue(Vector3 me, Vector3 target)
-        {
-            ReadyToPursue?.Invoke(me, target);
+            throw new UnityException();
         }
     }
 }

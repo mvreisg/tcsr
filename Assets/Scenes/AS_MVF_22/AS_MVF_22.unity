@@ -4995,7 +4995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 910167900137873430, guid: f1283d9c4cbf5254ab91509fd84e9cb1, type: 3}
       propertyPath: m_Name
-      value: full_sun
+      value: sun
       objectReference: {fileID: 0}
     - target: {fileID: 910167900137873430, guid: f1283d9c4cbf5254ab91509fd84e9cb1, type: 3}
       propertyPath: m_IsActive
