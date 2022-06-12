@@ -8,37 +8,46 @@ namespace Assets.Model.Controllers
         public event IAct.ActEventHandler Acted;
 
         private bool _released;
-
-        public KeyboardController()
-        {
-            _released = true;
-        }
+        private bool _overridedByGUI;
 
         public void Update()
         {
+            if (_overridedByGUI)
+                return;
+
             float horizontal = Input.GetAxisRaw("Horizontal");
             if (horizontal < 0f)
             {
-                OnActed(Action.BACK);
+                Act(Action.BACK);
                 _released = false;
             }
             else if (horizontal > 0f)
             {
-                OnActed(Action.FORWARD);
+                Act(Action.FORWARD);
                 _released = false;
             }
             else if (horizontal == 0f && !_released)
             {
-                OnActed(Action.STOP);
+                Act(Action.STOP);
                 _released = true;
             }
             else
-                OnActed(Action.IDLE);
+                Act(Action.IDLE);
         }
 
-        public void OnActed(Action action)
+        public void Act(Action action)
         {
-            Acted?.Invoke(action);
+            OnActed(new ActionInfo(null, action));
+        }
+
+        public void OnActed(ActionInfo actionInfo)
+        {
+            Acted?.Invoke(actionInfo);
+        }
+
+        public void ListenGUI(bool overridedByGUI)
+        {
+            _overridedByGUI = overridedByGUI;
         }
     }
 }

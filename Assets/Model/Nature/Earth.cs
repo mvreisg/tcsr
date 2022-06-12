@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Components;
 using Assets.ScriptableObjects;
+using System.Collections.ObjectModel;
+using Assets.Components.Entity.Controllable;
+using Assets.Model.Controllers;
+using Assets.Model.Bio;
 
 namespace Assets.Model.Nature
 {
@@ -21,17 +25,41 @@ namespace Assets.Model.Nature
 
         public void Exist()
         {
-            throw new UnityException();
+
         }
 
         public void Instantiate(IScriptableObject scriptableObject, Vector3 position)
         {
-            IEntity entity = Object.Instantiate(
+            GameObject instance = Object.Instantiate(
                 scriptableObject.Prefab,
                 position,
                 Quaternion.identity,
                 Transform
-            ).GetComponent<IEntityComponent>().Entity;
+            );
+
+            IEntity entity = 
+                instance.GetComponent<IEntityComponent>().Entity;
+
+            IControllableEntityComponent component = instance.GetComponent<IControllableEntityComponent>();
+            if (component != null)
+            {
+                ReadOnlyCollection<IAct> controllers = 
+                    instance.GetComponent<IControllableEntityComponent>().Controllers;
+
+                if (controllers != null)
+                {
+                    _entities.ForEach(e =>
+                    {
+                        foreach(IAct controller in controllers)
+                        {
+                            if (controller is ChaserAI && e is Human && e is IAct)
+                                (e as IAct).Acted += (controller as ChaserAI).ListenAction;
+                            if (controller is ChaserAI && e is Human && e is IMovable)
+                                (e as IMovable).Moved += (controller as ChaserAI).ListenMovement;
+                        }
+                    });
+                }
+            }
             _entities.Add(entity);
         }
     }

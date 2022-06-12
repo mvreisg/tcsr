@@ -16,7 +16,7 @@ namespace Assets.Model.Nature
 
         public void Exist()
         {
-            throw new UnityException();
+            
         }
     }
 }

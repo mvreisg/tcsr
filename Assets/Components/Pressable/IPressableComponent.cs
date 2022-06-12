@@ -1,4 +1,4 @@
-namespace Assets.Components
+namespace Assets.Components.Pressable
 {
     public interface IPressableComponent
     {

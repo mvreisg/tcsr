@@ -1,5 +1,4 @@
 using UnityEngine;
-using Assets.Model;
 
 namespace Assets.ScriptableObjects
 {

@@ -5,9 +5,11 @@ namespace Assets.Model
     /// </summary>
     public interface IAct
     {
-        delegate void ActEventHandler(Action action);
+        delegate void ActEventHandler(ActionInfo actionInfo);
         event ActEventHandler Acted;
 
-        void OnActed(Action action);
+        void Act(Action action);
+
+        void OnActed(ActionInfo actionInfo);
     }
 }

@@ -46,11 +46,9 @@ namespace Assets.Model.Bio
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
-        public BioState BioState
-        {
-            get => _lifeState;
-            set => _lifeState = value;
-        }
+        public Transform Transform => _transform;
+
+        public BioState BioState => BioState.ALIVE;
 
         public XYZValue Speed => _speed;
 
@@ -72,11 +70,9 @@ namespace Assets.Model.Bio
             set => _z = value;
         }
 
-        public Transform Transform => _transform;
-
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public Vector3 Force => throw new System.NotImplementedException();
+        public Vector3 Force => _force;
 
         public Collider2D Collider2D => _capsuleCollider2D;
 
@@ -88,12 +84,55 @@ namespace Assets.Model.Bio
 
         public void Exist()
         {
-            throw new UnityException();
+            Move();
+        }
+
+        public void Act(Action action)
+        {
+            switch (action)
+            {
+                default:
+                    throw new UnityException($"unhandled state: {action}");
+                case Action.FORWARD:
+                    X = Multiplier.POSITIVE;
+                    break;
+                case Action.BACK:
+                    X = Multiplier.NEGATIVE;
+                    break;
+                case Action.STOP:
+                    X = Multiplier.ZERO;
+                    break;
+                case Action.IDLE:
+                    break;
+                case Action.USE:
+                    break;
+            }
+            OnActed(new ActionInfo(this, action));
         }
 
         public void Move()
         {
-            throw new UnityException();
+            float x;
+            switch (X)
+            {
+                default:
+                    throw new UnityException($"unhandled state: {X}");
+                case Multiplier.NEGATIVE:
+                    x = -1f;
+                    (Renderer as SpriteRenderer).flipX = true;
+                    break;
+                case Multiplier.ZERO:
+                    x = 0f;
+                    break;
+                case Multiplier.POSITIVE:
+                    x = 1f;
+                    (Renderer as SpriteRenderer).flipX = false;
+                    break;
+            }
+
+            float sx = x * Speed.X;
+            Transform.Translate(Time.deltaTime * new Vector3(sx, 0f, 0f));
+            OnMoved();
         }
 
         public void FixedPhysics()
@@ -111,14 +150,19 @@ namespace Assets.Model.Bio
             throw new UnityException();
         }
 
-        public void OnActed(Action action)
+        public void OnActed(ActionInfo actionInfo)
         {
-            throw new UnityException();
+            Acted?.Invoke(actionInfo);
         }
 
         public void OnMoved()
         {
-            throw new UnityException();
+            Moved?.Invoke(Transform.position);
+        }
+
+        public void ReceiveOrder(ActionInfo actionInfo)
+        {
+            Act(actionInfo.Action);
         }
     }
 }

@@ -4274,6 +4274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _humanScriptableObject: {fileID: 11400000, guid: cf6210f377fa58a42915672f3924f267, type: 2}
   _bestmareScriptableObject: {fileID: 11400000, guid: c55c605760e6a5a4a8c62291164db21b, type: 2}
+  _balloonScriptableObject: {fileID: 11400000, guid: 66cd6c78e21e27642a20ae8b37b31189, type: 2}
 --- !u!4 &1779324785
 Transform:
   m_ObjectHideFlags: 0
@@ -4943,7 +4944,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 910167900110937961, guid: f1283d9c4cbf5254ab91509fd84e9cb1, type: 3}
       propertyPath: m_Intensity
-      value: 0.23
+      value: 1.023
       objectReference: {fileID: 0}
     - target: {fileID: 910167900110937962, guid: f1283d9c4cbf5254ab91509fd84e9cb1, type: 3}
       propertyPath: m_IsActive

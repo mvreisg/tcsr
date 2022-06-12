@@ -1,4 +1,4 @@
-using Assets.Components;
+using Assets.Components.Pressable;
 
 namespace Assets.Model.Controllers
 {
@@ -7,37 +7,59 @@ namespace Assets.Model.Controllers
     {
         public event IAct.ActEventHandler Acted;
 
+        public delegate void GUIEventHandler(bool overriding);
+        public event GUIEventHandler Override;
+
         public GUIController(IPressableComponent backButton, IPressableComponent forwardButton)
         {
             backButton.Up += ListenBackButtonUp;
             backButton.Down += ListenBackButtonDown;
             forwardButton.Up += ListenForwardButtonUp;
             forwardButton.Down += ListenForwardButtonDown;
+            OnOverride(false);
+            Act(Action.STOP);
+            Act(Action.IDLE);
         }
 
         private void ListenBackButtonUp()
         {
-            OnActed(Action.STOP);
+            OnOverride(false);
+            Act(Action.STOP);
+            Act(Action.IDLE);
         }
 
         private void ListenBackButtonDown()
         {
-            OnActed(Action.BACK);
+            OnOverride(true);
+            Act(Action.BACK);
         }
 
         private void ListenForwardButtonUp()
         {
-            OnActed(Action.STOP);
+            OnOverride(false);
+            Act(Action.STOP);
+            Act(Action.IDLE);
         }
 
         private void ListenForwardButtonDown()
         {
-            OnActed(Action.FORWARD);
+            OnOverride(true);
+            Act(Action.FORWARD);
         }
 
-        public void OnActed(Action action)
+        public void Act(Action action)
         {
-            Acted?.Invoke(action);
+            OnActed(new ActionInfo(null, action));
+        }
+
+        public void OnActed(ActionInfo actionInfo)
+        {
+            Acted?.Invoke(actionInfo);
+        }
+
+        public void OnOverride(bool overriding)
+        {
+            Override?.Invoke(overriding);
         }
     }
 }
