@@ -2,7 +2,7 @@ using UnityEngine;
 using Assets.Model;
 using Assets.Model.Belong;
 
-namespace Assets.Components.Entity.Useable
+namespace Assets.Components.Entity
 {
     public class BookComponent : MonoBehaviour,
         IEntityComponent

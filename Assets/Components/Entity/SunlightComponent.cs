@@ -4,7 +4,7 @@ using Assets.Model.Nature;
 
 namespace Assets.Components.Entity
 {
-    public class SunlightComponent : MonoBehaviour,
+    public class SunLightComponent : MonoBehaviour,
         IEntityComponent
     {
         private LightEmitter _lightEmitter;

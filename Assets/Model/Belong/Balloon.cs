@@ -26,11 +26,17 @@ namespace Assets.Model.Belong
         {
             get
             {
-                float x = Random.Range(0f, 1f);
-                if (x >= .5f)
-                    return new Vector3(0.000001f, 0.000001f, 0f);
+                float xMultiplier;
+                if (Random.Range(0f, 1f) >= 0.5f)
+                    xMultiplier = 1f;
                 else
-                    return new Vector3(-0.000001f, 0.000001f, 0f);
+                    xMultiplier = -1f;
+
+                return new Vector3(
+                    Random.Range(0.00005f, 0.000075f) * xMultiplier,
+                    Random.Range(0.00005f, 0.000075f),
+                    0f
+                );
             }    
         }
 

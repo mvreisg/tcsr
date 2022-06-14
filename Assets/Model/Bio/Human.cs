@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Components;
+using Assets.Components.Entity;
 using Assets.Model.Belong;
 
 namespace Assets.Model.Bio
@@ -18,8 +18,6 @@ namespace Assets.Model.Bio
         IPicker,
         IUse
     {
-        public event ILife.LifeStateHandler Born;
-        public event ILife.LifeStateHandler Died;
         public event IAct.ActEventHandler Acted;
         public event IMovable.MovableEventHandler Moved;
         public event IPicker.PickEventHandler Picked;
@@ -160,16 +158,6 @@ namespace Assets.Model.Bio
         }
 
         public void FixedUpdate()
-        {
-            throw new UnityException();
-        }
-
-        public void OnBorn()
-        {
-            throw new UnityException();
-        }
-
-        public void OnDied()
         {
             throw new UnityException();
         }

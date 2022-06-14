@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Components;
+using Assets.Components.Entity;
 using Assets.Components.Entity.Controllable;
 using Assets.Model.Belong;
 using Assets.Model.Bio;
@@ -57,35 +57,36 @@ namespace Assets.Model.Nature
             foreach (IEntity e in _existants)
             {
                 // Linking controllers to entities
-                {
-                    IControllableEntityComponent component =
-                        entity.Transform.GetComponent<IControllableEntityComponent>();
+                IControllableComponent component =
+                    entity.Transform.GetComponent<IControllableComponent>();
 
-                    if (component is not null)
+                if (component is not null)
+                {
+                    foreach (IAct controller in component.Controllers)
                     {
-                        foreach (IAct controller in component.Controllers)
+                        // ChaserAI linking
+                        if (controller is ChaserAI && e is Human && e is IAct)
                         {
-                            // ChaserAI linking
-                            {
-                                if (controller is ChaserAI && e is Human && e is IAct)
-                                    (e as IAct).Acted += (controller as ChaserAI).ListenAction;
-                                if (controller is ChaserAI && e is Human && e is IMovable)
-                                    (e as IMovable).Moved += (controller as ChaserAI).ListenMovement;
-                            }
+                            (e as IAct).Acted += (controller as ChaserAI).ListenAction;
+                        }
+                        if (controller is ChaserAI && e is Human && e is IMovable)
+                        {
+                            (e as IMovable).Moved += (controller as ChaserAI).ListenMovement;
                         }
                     }
                 }
 
                 // Link pickable to picker
+                if (e is IPicker && entity is Book)
                 {
-                    if (e is IPicker && entity is Book)
-                       (e as IPicker).Picked += (entity as Book).ListenPicking;
+                    (e as IPicker).Picked += (entity as Book).ListenPicking;
                 }
             }
         }
 
         public void Instantiate(IScriptableObject scriptableObject, Vector3 position)
         {
+            // Instantiate (prefab -> instance)
             GameObject instance = Object.Instantiate(
                 scriptableObject.Prefab,
                 position,
@@ -105,6 +106,13 @@ namespace Assets.Model.Nature
             LinkEntity(entity);
             
             // Add the entity to the existance list
+            _existants.Add(entity);
+        }
+
+        public void ListenSpawn(SpawnInfo info)
+        {
+            IEntity entity = info.Spawned;
+            LinkEntity(entity);
             _existants.Add(entity);
         }
     }

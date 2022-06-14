@@ -27,11 +27,7 @@ namespace Assets.Model.Controllers
 
             float use = Input.GetAxisRaw("Use");
             if (use > 0f)
-            {
-                Act(Action.STOP);
-                Act(Action.IDLE);
                 Act(Action.USE);
-            }
         }
 
         public void Act(Action action)

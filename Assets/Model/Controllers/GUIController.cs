@@ -8,7 +8,10 @@ namespace Assets.Model.Controllers
         public event IAct.ActEventHandler Acted;
 
         public delegate void GUIEventHandler(bool overriding);
-        public event GUIEventHandler Override;
+        public event GUIEventHandler Overriden;
+
+        private bool _back;
+        private bool _forward;
 
         public GUIController(
             IPressableComponent backButton, 
@@ -22,47 +25,55 @@ namespace Assets.Model.Controllers
             forwardButton.Up += ListenForwardButtonUp;
             useButton.Down += ListenUseButtonDown;
             useButton.Up += ListenUseButtonUp;
-            OnOverride(false);
+            Override(false);
             Act(Action.STOP);
             Act(Action.IDLE);
         }
 
         private void ListenBackButtonDown()
         {
-            OnOverride(true);
+            if (_forward)
+                return;
+            Override(true);
+            _back = true;
             Act(Action.BACK);
         }
 
         private void ListenBackButtonUp()
         {
-            OnOverride(false);
+            _back = false;
             Act(Action.STOP);
             Act(Action.IDLE);
+            Override(false);
         }
 
         private void ListenForwardButtonDown()
         {
-            OnOverride(true);
+            if (_back)
+                return;
+            Override(true);
+            _forward = true;
             Act(Action.FORWARD);
         }
 
         private void ListenForwardButtonUp()
         {
-            OnOverride(false);
+            _forward = false;
             Act(Action.STOP);
             Act(Action.IDLE);
+            Override(false);
         }
 
         private void ListenUseButtonUp()
         {
-            OnOverride(false);
             Act(Action.STOP);
             Act(Action.IDLE);
+            Override(false);
         }
 
         private void ListenUseButtonDown()
         {
-            OnOverride(true);
+            Override(true);
             Act(Action.STOP);
             Act(Action.IDLE);
             Act(Action.USE);
@@ -78,9 +89,14 @@ namespace Assets.Model.Controllers
             Acted?.Invoke(actionInfo);
         }
 
-        public void OnOverride(bool overriding)
+        private void Override(bool will)
         {
-            Override?.Invoke(overriding);
+            OnOverriden(will);
+        }
+
+        private void OnOverriden(bool overriding)
+        {
+            Overriden?.Invoke(overriding);
         }
     }
 }

@@ -1,7 +1,7 @@
 namespace Assets.Model
 {
     /// <summary>
-    ///     <para>A Entity that can act.</para>
+    ///     <para>Something that can act and notify his action.</para>
     /// </summary>
     public interface IAct
     {

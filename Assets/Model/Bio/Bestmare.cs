@@ -13,8 +13,6 @@ namespace Assets.Model.Bio
         INoisier,
         IRenderable
     {
-        public event ILife.LifeStateHandler Born;
-        public event ILife.LifeStateHandler Died;
         public event IAct.ActEventHandler Acted;
         public event IMovable.MovableEventHandler Moved;
 
@@ -136,16 +134,6 @@ namespace Assets.Model.Bio
         }
 
         public void FixedUpdate()
-        {
-            throw new UnityException();
-        }
-
-        public void OnBorn()
-        {
-            throw new UnityException();
-        }
-
-        public void OnDied()
         {
             throw new UnityException();
         }

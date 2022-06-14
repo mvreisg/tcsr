@@ -3,8 +3,8 @@ using Assets.Model;
 
 namespace Assets.Components.Entity.Controllable
 {
-    public interface IControllableEntityComponent
+    public interface IControllableComponent
     {
-        ReadOnlyCollection<IAct> Controllers { get; }
+        public ReadOnlyCollection<IAct> Controllers { get; }
     }
 }

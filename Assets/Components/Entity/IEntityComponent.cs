@@ -1,6 +1,6 @@
 using Assets.Model;
 
-namespace Assets.Components
+namespace Assets.Components.Entity
 {
     public interface IEntityComponent
     {

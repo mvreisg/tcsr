@@ -10,7 +10,7 @@ namespace Assets.Components.Entity.Controllable
 {
     public class PlayerHumanComponent : MonoBehaviour,
         IEntityComponent,
-        IControllableEntityComponent
+        IControllableComponent
     {
         private IAct _keyboardController;
         private IAct _guiController;
@@ -47,7 +47,7 @@ namespace Assets.Components.Entity.Controllable
                 FindObjectOfType<ForwardButtonComponent>(),
                 FindObjectOfType<UseButtonComponent>()
             );
-            (_guiController as GUIController).Override += (_keyboardController as KeyboardController).ListenGUI;
+            (_guiController as GUIController).Overriden += (_keyboardController as KeyboardController).ListenGUI;
             _guiController.Acted += _human.ReceiveOrder;
         }
 

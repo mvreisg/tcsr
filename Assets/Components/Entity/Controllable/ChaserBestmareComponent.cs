@@ -9,7 +9,7 @@ namespace Assets.Components.Entity.Controllable
 {
     public class ChaserBestmareComponent : MonoBehaviour,
         IEntityComponent,
-        IControllableEntityComponent
+        IControllableComponent
     {
         private Bestmare _bestmare;
         private IAct _chaserAI;
