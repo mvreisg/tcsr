@@ -19,7 +19,7 @@ namespace Assets.Model.Nature
 
         public Renderer Renderer => _spriteRenderer;
 
-        public void Exist()
+        public void Update()
         {
             
         }

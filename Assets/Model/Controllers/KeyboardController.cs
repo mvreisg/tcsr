@@ -7,7 +7,6 @@ namespace Assets.Model.Controllers
     {
         public event IAct.ActEventHandler Acted;
 
-        private bool _released;
         private bool _overridedByGUI;
 
         public void Update()
@@ -17,30 +16,30 @@ namespace Assets.Model.Controllers
 
             float horizontal = Input.GetAxisRaw("Horizontal");
             if (horizontal < 0f)
-            {
                 Act(Action.BACK);
-                _released = false;
-            }
             else if (horizontal > 0f)
-            {
                 Act(Action.FORWARD);
-                _released = false;
-            }
-            else if (horizontal == 0f && !_released)
+            else
             {
                 Act(Action.STOP);
-                _released = true;
-            }
-            else
                 Act(Action.IDLE);
+            }
+
+            float use = Input.GetAxisRaw("Use");
+            if (use > 0f)
+            {
+                Act(Action.STOP);
+                Act(Action.IDLE);
+                Act(Action.USE);
+            }
         }
 
         public void Act(Action action)
         {
-            OnActed(new ActionInfo(null, action));
+            OnActed(new ActionInfo<IAct>(this, action));
         }
 
-        public void OnActed(ActionInfo actionInfo)
+        public void OnActed(ActionInfo<IAct> actionInfo)
         {
             Acted?.Invoke(actionInfo);
         }

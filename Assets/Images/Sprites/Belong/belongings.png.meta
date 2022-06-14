@@ -131,10 +131,10 @@ TextureImporter:
       name: mvf_22_banner
       rect:
         serializedVersion: 2
-        x: 85
-        y: 476
-        width: 91
-        height: 35
+        x: 87
+        y: 477
+        width: 89
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,11 +149,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mvf_22_table
+      name: small_table
       rect:
         serializedVersion: 2
-        x: 177
-        y: 502
+        x: 178
+        y: 501
         width: 16
         height: 9
       alignment: 0
@@ -170,10 +170,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mvf_22_cake
+      name: small_cake
       rect:
         serializedVersion: 2
-        x: 194
+        x: 196
         y: 502
         width: 11
         height: 5
@@ -191,11 +191,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mvf_22_balloon
+      name: white_balloon
       rect:
         serializedVersion: 2
-        x: 177
-        y: 492
+        x: 178
+        y: 490
         width: 6
         height: 9
       alignment: 0
@@ -216,7 +216,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 78
-        y: 481
+        y: 480
         width: 6
         height: 7
       alignment: 0
@@ -236,8 +236,8 @@ TextureImporter:
       name: shield
       rect:
         serializedVersion: 2
-        x: 71
-        y: 481
+        x: 70
+        y: 480
         width: 6
         height: 7
       alignment: 0
@@ -320,7 +320,7 @@ TextureImporter:
       name: mvf_22_5.2
       rect:
         serializedVersion: 2
-        x: 67
+        x: 68
         y: 489
         width: 17
         height: 22
@@ -338,10 +338,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mvf_22_1
+      name: candle_1
       rect:
         serializedVersion: 2
-        x: 195
+        x: 197
         y: 507
         width: 1
         height: 3
@@ -359,10 +359,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mvf_22_0
+      name: candle_0
       rect:
         serializedVersion: 2
-        x: 197
+        x: 199
         y: 507
         width: 1
         height: 2
@@ -391,23 +391,23 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       balloon_green: 1866108298
+      small_table: 630127662
       mvf_22_2: 1429147715
-      mvf_22_cake: -913902756
       mvf_22_bit: 1155916247
       mvf_22_5.1: -1828581093
       balloon_blue: -393552706
+      small_cake: -913902756
       mvf_22_pow21: 1252483701
       mvf_22_banner: 999786481
       shield: 118879582
-      mvf_22_table: 630127662
+      candle_0: -663294296
       book_sheet: -1391899500
+      candle_1: -1183256032
       mvf_22_5.2: 1349810583
-      mvf_22_0: -663294296
       mvf_22_forward_dash: -2080511523
-      mvf_22_1: -1183256032
       mvf_22_pow22: -1424914199
-      mvf_22_balloon: 1218109025
       mvf_22_pow20: -158109662
+      white_balloon: 1218109025
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

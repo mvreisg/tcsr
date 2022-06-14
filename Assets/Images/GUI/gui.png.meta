@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gui_button_left
+      name: gui_arrow_left
       rect:
         serializedVersion: 2
         x: 1
@@ -149,7 +149,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gui_button_right
+      name: gui_arrow_right
       rect:
         serializedVersion: 2
         x: 18
@@ -169,6 +169,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: gui_use
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 500
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ab93575ad582154a8a238f2370219d1
+      internalID: -622922925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -180,8 +201,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      gui_button_left: -680972319
-      gui_button_right: 336225865
+      gui_use: -622922925
+      gui_arrow_left: -680972319
+      gui_arrow_right: 336225865
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

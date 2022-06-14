@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Components;
-using Assets.ScriptableObjects;
-using System.Collections.ObjectModel;
 using Assets.Components.Entity.Controllable;
-using Assets.Model.Controllers;
+using Assets.Model.Belong;
 using Assets.Model.Bio;
+using Assets.Model.Controllers;
+using Assets.ScriptableObjects;
 
 namespace Assets.Model.Nature
 {
@@ -13,19 +13,75 @@ namespace Assets.Model.Nature
         IEntity
     {
         private readonly Transform _transform;
-        private readonly List<IEntity> _entities;
+        private readonly List<IEntity> _existants;
 
         public Earth(Transform transform)
         {
             _transform = transform;
-            _entities = new List<IEntity>();
+            _existants = new List<IEntity>();
         }
 
         public Transform Transform => _transform;
 
-        public void Exist()
+        public void Update()
         {
 
+        }
+
+        public void AcknowledgeExistants()
+        {
+            Object[] components = Object.FindObjectsOfType<Object>();
+            IEntity entity;
+            foreach (Object obj in components)
+            {
+                if (obj is IEntityComponent)
+                {
+                    entity = (obj as IEntityComponent).Entity;
+                    if (_existants.Contains(entity))
+                        continue;
+                    
+                    if (_existants.Count > 0)
+                        LinkEntity(entity);
+
+                    _existants.Add(entity);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     <para>Will link the parameter Entity with another Entities</para>
+        /// </summary>
+        /// <param name="entity">The emitter or listener</param>
+        private void LinkEntity(IEntity entity)
+        {
+            foreach (IEntity e in _existants)
+            {
+                // Linking controllers to entities
+                {
+                    IControllableEntityComponent component =
+                        entity.Transform.GetComponent<IControllableEntityComponent>();
+
+                    if (component is not null)
+                    {
+                        foreach (IAct controller in component.Controllers)
+                        {
+                            // ChaserAI linking
+                            {
+                                if (controller is ChaserAI && e is Human && e is IAct)
+                                    (e as IAct).Acted += (controller as ChaserAI).ListenAction;
+                                if (controller is ChaserAI && e is Human && e is IMovable)
+                                    (e as IMovable).Moved += (controller as ChaserAI).ListenMovement;
+                            }
+                        }
+                    }
+                }
+
+                // Link pickable to picker
+                {
+                    if (e is IPicker && entity is Book)
+                       (e as IPicker).Picked += (entity as Book).ListenPicking;
+                }
+            }
         }
 
         public void Instantiate(IScriptableObject scriptableObject, Vector3 position)
@@ -37,30 +93,19 @@ namespace Assets.Model.Nature
                 Transform
             );
 
-            IEntity entity = 
-                instance.GetComponent<IEntityComponent>().Entity;
+            // Checks if it is a Entity Holder Component
+            IEntityComponent component = instance.GetComponent<IEntityComponent>();
+            if (component is null)
+                return;
 
-            IControllableEntityComponent component = instance.GetComponent<IControllableEntityComponent>();
-            if (component != null)
-            {
-                ReadOnlyCollection<IAct> controllers = 
-                    instance.GetComponent<IControllableEntityComponent>().Controllers;
+            // And get the entity
+            IEntity entity = component.Entity;
 
-                if (controllers != null)
-                {
-                    _entities.ForEach(e =>
-                    {
-                        foreach(IAct controller in controllers)
-                        {
-                            if (controller is ChaserAI && e is Human && e is IAct)
-                                (e as IAct).Acted += (controller as ChaserAI).ListenAction;
-                            if (controller is ChaserAI && e is Human && e is IMovable)
-                                (e as IMovable).Moved += (controller as ChaserAI).ListenMovement;
-                        }
-                    });
-                }
-            }
-            _entities.Add(entity);
+            // New entity linking
+            LinkEntity(entity);
+            
+            // Add the entity to the existance list
+            _existants.Add(entity);
         }
     }
 }

@@ -1,17 +1,17 @@
 namespace Assets.Model
 {
-    public sealed class ActionInfo
+    public sealed class ActionInfo<T> where T : IAct
     {
-        private readonly IEntity _entity;
+        private readonly T _actor;
         private readonly Action _action;
 
-        public ActionInfo(IEntity entity, Action action)
+        public ActionInfo(T actor, Action action)
         {
-            _entity = entity;
+            _actor = actor;
             _action = action;
         }
 
-        public IEntity Entity => _entity;
+        public T Actor => _actor;
 
         public Action Action => _action;
     }

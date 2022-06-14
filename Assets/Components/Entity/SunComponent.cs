@@ -18,7 +18,7 @@ namespace Assets.Components.Entity
 
         private void Update()
         {
-            _sun.Exist();
+            _sun.Update();
         }
     }
 }

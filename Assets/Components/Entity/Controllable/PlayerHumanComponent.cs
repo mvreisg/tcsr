@@ -44,7 +44,8 @@ namespace Assets.Components.Entity.Controllable
             // here the model will listen another model: human listen the GUI
             _guiController = new GUIController(
                 FindObjectOfType<BackButtonComponent>(),
-                FindObjectOfType<ForwardButtonComponent>()
+                FindObjectOfType<ForwardButtonComponent>(),
+                FindObjectOfType<UseButtonComponent>()
             );
             (_guiController as GUIController).Override += (_keyboardController as KeyboardController).ListenGUI;
             _guiController.Acted += _human.ReceiveOrder;
@@ -53,7 +54,12 @@ namespace Assets.Components.Entity.Controllable
         private void Update()
         {
             (_keyboardController as KeyboardController).Update();
-            _human.Exist();
+            _human.Update();
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            _human.OnCollisionEnter2D(collision);
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
-using Assets.Model.Belong;
 using Assets.Model;
+using Assets.Model.Belong;
 
 namespace Assets.Components.Entity
 {
@@ -23,7 +23,7 @@ namespace Assets.Components.Entity
 
         private void FixedUpdate()
         {
-            _balloon.FixedPhysics();
+            _balloon.FixedUpdate();
         }
     }
 }

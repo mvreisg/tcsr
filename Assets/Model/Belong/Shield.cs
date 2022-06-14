@@ -14,12 +14,7 @@ namespace Assets.Model.Belong
 
         public Transform Transform => _transform;
 
-        public void Exist()
-        {
-            throw new UnityException();
-        }
-
-        public void OnRecycled()
+        public void Update()
         {
             throw new UnityException();
         }

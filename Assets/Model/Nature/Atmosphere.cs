@@ -14,7 +14,7 @@ namespace Assets.Model.Nature
 
         public Transform Transform => _transform;
 
-        public void Exist()
+        public void Update()
         {
             
         }

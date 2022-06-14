@@ -19,7 +19,7 @@ namespace Assets.Model.Nature
 
         public Light Light => _light;
 
-        public void Exist()
+        public void Update()
         {
             
         }

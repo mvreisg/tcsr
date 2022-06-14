@@ -82,7 +82,7 @@ namespace Assets.Model.Bio
 
         public Renderer Renderer => _spriteRenderer;
 
-        public void Exist()
+        public void Update()
         {
             Move();
         }
@@ -107,7 +107,7 @@ namespace Assets.Model.Bio
                 case Action.USE:
                     break;
             }
-            OnActed(new ActionInfo(this, action));
+            OnActed(new ActionInfo<IAct>(this, action));
         }
 
         public void Move()
@@ -135,7 +135,7 @@ namespace Assets.Model.Bio
             OnMoved();
         }
 
-        public void FixedPhysics()
+        public void FixedUpdate()
         {
             throw new UnityException();
         }
@@ -150,17 +150,17 @@ namespace Assets.Model.Bio
             throw new UnityException();
         }
 
-        public void OnActed(ActionInfo actionInfo)
+        public void OnActed(ActionInfo<IAct> actionInfo)
         {
             Acted?.Invoke(actionInfo);
         }
 
         public void OnMoved()
         {
-            Moved?.Invoke(Transform.position);
+            Moved?.Invoke(new MovementInfo(this, Transform.position));
         }
 
-        public void ReceiveOrder(ActionInfo actionInfo)
+        public void ReceiveOrder(ActionInfo<IAct> actionInfo)
         {
             Act(actionInfo.Action);
         }

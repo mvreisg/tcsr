@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Assets.Components;
+using Assets.Model.Belong;
 
 namespace Assets.Model.Bio
 {
@@ -11,12 +14,16 @@ namespace Assets.Model.Bio
         IColliderable,
         IEar,
         INoisier,
-        IRenderable
+        IRenderable,
+        IPicker,
+        IUse
     {
         public event ILife.LifeStateHandler Born;
         public event ILife.LifeStateHandler Died;
         public event IAct.ActEventHandler Acted;
         public event IMovable.MovableEventHandler Moved;
+        public event IPicker.PickEventHandler Picked;
+        public event IUse.UseEventHandler Used;
 
         private readonly Transform _transform;
         private BioState _lifeState;
@@ -31,6 +38,9 @@ namespace Assets.Model.Bio
         private readonly PolygonCollider2D _polygonCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
 
+        private readonly List<IUseable> _useables;
+        private int _useableIndex;
+
         public Human(Transform transform)
         {
             _transform = transform;
@@ -44,6 +54,9 @@ namespace Assets.Model.Bio
             _audioSource = transform.GetComponent<AudioSource>();
             _polygonCollider2D = transform.GetComponent<PolygonCollider2D>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
+            _useables = new List<IUseable>();
+            _useableIndex = -1;
+            Picked += ListenPicking;
         }
 
         public Transform Transform => _transform;
@@ -82,7 +95,7 @@ namespace Assets.Model.Bio
 
         public Renderer Renderer => _spriteRenderer;
 
-        public void Exist()
+        public void Update()
         {
             Move();
         }
@@ -105,9 +118,10 @@ namespace Assets.Model.Bio
                     X = Multiplier.POSITIVE;
                     break;
                 case Action.USE:
+                    Use();
                     break;
             }
-            OnActed(new ActionInfo(this, action));
+            OnActed(new ActionInfo<IAct>(this, action));
         }
 
         public void Move()
@@ -135,7 +149,17 @@ namespace Assets.Model.Bio
             OnMoved();
         }
 
-        public void FixedPhysics()
+        public void Use()
+        {
+            OnUsed();
+        }
+
+        public void Pick(PickInfo pickInfo)
+        {
+            OnPicked(pickInfo);
+        }
+
+        public void FixedUpdate()
         {
             throw new UnityException();
         }
@@ -150,21 +174,70 @@ namespace Assets.Model.Bio
             throw new UnityException();
         }
 
-        public void OnActed(ActionInfo actionInfo)
+        public void OnActed(ActionInfo<IAct> actionInfo)
         {
             Acted?.Invoke(actionInfo);
         }
 
         public void OnMoved()
         {
-            Moved?.Invoke(Transform.position);
+            Moved?.Invoke(new MovementInfo(this, Transform.position));
+        }
+
+        public void OnPicked(PickInfo pickInfo)
+        {
+            Picked?.Invoke(pickInfo);
+        }
+
+        public void OnUsed()
+        {
+            Used?.Invoke(new UseInfo(_useables[_useableIndex]));
         }
 
         // Class originals
 
-        public void ReceiveOrder(ActionInfo actionInfo)
+        public void ReceiveOrder(ActionInfo<IAct> actionInfo)
         {
             Act(actionInfo.Action);
+        }
+
+        public void ListenPicking(PickInfo pickInfo)
+        {
+            if (!pickInfo.Picker.Equals(this))
+                return;
+
+            IEntity picked = pickInfo.Picked;
+            if (picked is IUseable)
+                AddUseable(picked as IUseable);
+        }
+
+        private void AddUseable(IUseable useable)
+        {
+            if (_useables.Contains(useable))
+                throw new UnityException("picking same item >:( (burro as mvreisg)");
+            if (_useables.Count == 0)
+                _useableIndex = 0;
+            _useables.Add(useable);
+            if (useable is Book)
+            {
+                Used += (useable as Book).ListenRequestToUse;
+            }
+        }
+
+        // Collisions
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            IEntityComponent component = collision.collider.GetComponent<IEntityComponent>();
+            if (component == null)
+                return;
+            
+            IEntity entity = component.Entity;
+            if (entity is IUseable)
+            {
+                Pick(new PickInfo(this, entity));
+                return;
+            }
         }
     }
 }

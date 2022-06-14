@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2861417475006364147}
   - component: {fileID: 3744916086350778068}
   m_Layer: 0
-  m_Name: candle_false_flag
+  m_Name: candle_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

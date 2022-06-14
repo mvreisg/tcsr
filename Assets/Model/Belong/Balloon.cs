@@ -36,14 +36,14 @@ namespace Assets.Model.Belong
 
         public Renderer Renderer => _spriteRenderer;
 
-        public void Exist()
+        public void Update()
         {
             
         }
 
-        public void FixedPhysics()
+        public void FixedUpdate()
         {
-            Rigidbody2D.AddForce(Force, ForceMode2D.Impulse);
+            Rigidbody2D.AddForce(Time.fixedDeltaTime * Force, ForceMode2D.Impulse);
         }
     }
 }

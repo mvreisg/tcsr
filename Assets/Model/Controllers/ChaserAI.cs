@@ -18,20 +18,25 @@ namespace Assets.Model.Controllers
 
         public void Act(Action action)
         {
-            OnActed(new ActionInfo(null, action));
+            OnActed(new ActionInfo<IAct>(this, action));
         }
 
-        public void OnActed(ActionInfo actionInfo)
+        public void OnActed(ActionInfo<IAct> actionInfo)
         {
             Acted?.Invoke(actionInfo);
         }
 
-        public void ListenAction(ActionInfo actionInfo)
+        public void ListenAction(ActionInfo<IAct> info)
         {
-            switch (actionInfo.Action)
+            IAct actor = info.Actor;
+            if (actor is not IEntity)
+                return;
+            IEntity entity = actor as IEntity;
+            Action action = info.Action;
+            switch (action)
             {
                 default:
-                    throw new UnityException($"unhandled state: {actionInfo.Action}");
+                    throw new UnityException($"unhandled state: {action}");
                 case Action.STOP:
                 case Action.IDLE:
                     Act(Action.STOP);
@@ -44,7 +49,7 @@ namespace Assets.Model.Controllers
                         _transform.position
                     );
                     float suggested = Vector3.Distance(
-                        actionInfo.Entity.Transform.position, 
+                        entity.Transform.position, 
                         _transform.position
                     );
 
@@ -55,7 +60,7 @@ namespace Assets.Model.Controllers
                         return;
                     }
 
-                    float targetX = actionInfo.Entity.Transform.position.x;
+                    float targetX = entity.Transform.position.x;
                     float thisX = _transform.position.x;
                     if (thisX < targetX)
                         Act(Action.FORWARD);
@@ -72,9 +77,9 @@ namespace Assets.Model.Controllers
             }
         }
 
-        public void ListenMovement(Vector3 target)
+        public void ListenMovement(MovementInfo movementInfo)
         {
-            _target = target;
+            _target = movementInfo.NewPosition;
         }
     }
 }

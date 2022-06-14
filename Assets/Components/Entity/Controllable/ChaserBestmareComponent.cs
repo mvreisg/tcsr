@@ -38,7 +38,7 @@ namespace Assets.Components.Entity.Controllable
 
         private void Update()
         {
-            _bestmare.Exist();
+            _bestmare.Update();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Assets.Components.Entity
 
         private void Update()
         {
-            _atmosphere.Exist();
+            _atmosphere.Update();
         }
     }
 }

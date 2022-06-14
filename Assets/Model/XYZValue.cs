@@ -2,7 +2,7 @@ namespace Assets.Model
 {
     public class XYZValue
     {
-        public static XYZValue ZERO => new XYZValue(0f, 0f, 0f);
+        public static XYZValue ZERO => new(0f, 0f, 0f);
 
         private float _x;
         private float _y;

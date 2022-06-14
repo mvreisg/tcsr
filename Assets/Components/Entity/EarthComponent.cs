@@ -34,14 +34,19 @@ namespace Assets.Components.Entity
             _balloonCooldown = BalloonCooldown;
         }
 
+        private void Start()
+        {
+            _earth.AcknowledgeExistants();
+        }
+
         private void Update()
         {
-            _earth.Exist();
+            _earth.Update();
             _balloonCooldown -= Time.deltaTime;
             if (_balloonCooldown < 0f)
             {
                 _balloonCooldown = BalloonCooldown;
-                InstantiateBalloon(new Vector3(Random.Range(-5f, 5f), 1f, 0f));
+                InstantiateBalloon(new Vector3(Random.Range(-5f, 5f), 0.23f, 0f));
             }
         }
 

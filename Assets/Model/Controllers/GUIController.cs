@@ -10,19 +10,18 @@ namespace Assets.Model.Controllers
         public delegate void GUIEventHandler(bool overriding);
         public event GUIEventHandler Override;
 
-        public GUIController(IPressableComponent backButton, IPressableComponent forwardButton)
+        public GUIController(
+            IPressableComponent backButton, 
+            IPressableComponent forwardButton,
+            IPressableComponent useButton
+        )
         {
-            backButton.Up += ListenBackButtonUp;
             backButton.Down += ListenBackButtonDown;
-            forwardButton.Up += ListenForwardButtonUp;
+            backButton.Up += ListenBackButtonUp;
             forwardButton.Down += ListenForwardButtonDown;
-            OnOverride(false);
-            Act(Action.STOP);
-            Act(Action.IDLE);
-        }
-
-        private void ListenBackButtonUp()
-        {
+            forwardButton.Up += ListenForwardButtonUp;
+            useButton.Down += ListenUseButtonDown;
+            useButton.Up += ListenUseButtonUp;
             OnOverride(false);
             Act(Action.STOP);
             Act(Action.IDLE);
@@ -34,7 +33,7 @@ namespace Assets.Model.Controllers
             Act(Action.BACK);
         }
 
-        private void ListenForwardButtonUp()
+        private void ListenBackButtonUp()
         {
             OnOverride(false);
             Act(Action.STOP);
@@ -47,12 +46,34 @@ namespace Assets.Model.Controllers
             Act(Action.FORWARD);
         }
 
-        public void Act(Action action)
+        private void ListenForwardButtonUp()
         {
-            OnActed(new ActionInfo(null, action));
+            OnOverride(false);
+            Act(Action.STOP);
+            Act(Action.IDLE);
         }
 
-        public void OnActed(ActionInfo actionInfo)
+        private void ListenUseButtonUp()
+        {
+            OnOverride(false);
+            Act(Action.STOP);
+            Act(Action.IDLE);
+        }
+
+        private void ListenUseButtonDown()
+        {
+            OnOverride(true);
+            Act(Action.STOP);
+            Act(Action.IDLE);
+            Act(Action.USE);
+        }
+
+        public void Act(Action action)
+        {
+            OnActed(new ActionInfo<IAct>(this, action));
+        }
+
+        public void OnActed(ActionInfo<IAct> actionInfo)
         {
             Acted?.Invoke(actionInfo);
         }

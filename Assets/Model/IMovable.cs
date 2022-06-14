@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Assets.Model
 {
     public interface IMovable
@@ -11,7 +9,7 @@ namespace Assets.Model
 
         void Move();
 
-        delegate void MovableEventHandler(Vector3 position);
+        delegate void MovableEventHandler(MovementInfo movementInfo);
         event MovableEventHandler Moved;
 
         void OnMoved();
