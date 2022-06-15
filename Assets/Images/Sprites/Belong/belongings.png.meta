@@ -131,7 +131,7 @@ TextureImporter:
       name: mvf_22_banner
       rect:
         serializedVersion: 2
-        x: 87
+        x: 80
         y: 477
         width: 89
         height: 33
@@ -152,7 +152,7 @@ TextureImporter:
       name: small_table
       rect:
         serializedVersion: 2
-        x: 178
+        x: 171
         y: 501
         width: 16
         height: 9
@@ -173,7 +173,7 @@ TextureImporter:
       name: small_cake
       rect:
         serializedVersion: 2
-        x: 196
+        x: 189
         y: 502
         width: 11
         height: 5
@@ -194,7 +194,7 @@ TextureImporter:
       name: white_balloon
       rect:
         serializedVersion: 2
-        x: 178
+        x: 171
         y: 490
         width: 6
         height: 9
@@ -215,7 +215,7 @@ TextureImporter:
       name: book_sheet
       rect:
         serializedVersion: 2
-        x: 78
+        x: 71
         y: 480
         width: 6
         height: 7
@@ -236,7 +236,7 @@ TextureImporter:
       name: shield
       rect:
         serializedVersion: 2
-        x: 70
+        x: 63
         y: 480
         width: 6
         height: 7
@@ -257,7 +257,7 @@ TextureImporter:
       name: mvf_22_2
       rect:
         serializedVersion: 2
-        x: 8
+        x: 1
         y: 490
         width: 23
         height: 21
@@ -278,7 +278,7 @@ TextureImporter:
       name: mvf_22_5.1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 25
         y: 489
         width: 14
         height: 22
@@ -299,7 +299,7 @@ TextureImporter:
       name: mvf_22_forward_dash
       rect:
         serializedVersion: 2
-        x: 47
+        x: 40
         y: 489
         width: 20
         height: 22
@@ -320,7 +320,7 @@ TextureImporter:
       name: mvf_22_5.2
       rect:
         serializedVersion: 2
-        x: 68
+        x: 61
         y: 489
         width: 17
         height: 22
@@ -341,7 +341,7 @@ TextureImporter:
       name: candle_1
       rect:
         serializedVersion: 2
-        x: 197
+        x: 190
         y: 507
         width: 1
         height: 3
@@ -362,7 +362,7 @@ TextureImporter:
       name: candle_0
       rect:
         serializedVersion: 2
-        x: 199
+        x: 192
         y: 507
         width: 1
         height: 2
@@ -379,6 +379,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: analog_clock
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 487
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7cafafe7edbe7a4790f716213c30313
+      internalID: -1711497652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: analog_clock_minutes_pointer
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 495
+        width: 1
+        height: 3
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 361d1968c2dfafe4a8fa565856c11615
+      internalID: -1294199164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: analog_clock_hours_pointer
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 487
+        width: 1
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1968954f641612744a554b103566e7f1
+      internalID: -417229460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -390,6 +453,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      analog_clock: -1711497652
+      analog_clock_hours_pointer: -417229460
       balloon_green: 1866108298
       small_table: 630127662
       mvf_22_2: 1429147715
@@ -398,6 +463,7 @@ TextureImporter:
       balloon_blue: -393552706
       small_cake: -913902756
       mvf_22_pow21: 1252483701
+      analog_clock_minutes_pointer: -1294199164
       mvf_22_banner: 999786481
       shield: 118879582
       candle_0: -663294296
