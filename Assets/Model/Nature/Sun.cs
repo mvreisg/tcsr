@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Model.Belong;
 
 namespace Assets.Model.Nature
 {
@@ -6,12 +7,21 @@ namespace Assets.Model.Nature
         IEntity,
         IRenderable
     {
+        private const int RISE = 6;
+        private const int PEAK = 12;
+        private const int SET = 18;
+
         private readonly Transform _transform;
         private readonly SpriteRenderer _spriteRenderer;
 
-        public Sun(Transform transform)
+        private readonly float _low;
+        private readonly float _peak;
+
+        public Sun(Transform transform, float low, float peak)
         {
             _transform = transform;
+            _low = low;
+            _peak = peak;
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
@@ -22,6 +32,56 @@ namespace Assets.Model.Nature
         public void Update()
         {
             
+        }
+
+        // Class originals
+
+        public void ListenUniversalClockTick(ClockInfo info)
+        {
+            float hour = info.Hour;
+            float minute = info.Minute;
+            float second = info.Second;
+            if (hour >= RISE && hour <= PEAK)
+            {
+                float t = hour * 60f + minute * 60f + second / Clock.ONE_HOUR * 12f;
+                float y = Mathf.Lerp(
+                    _low,
+                    _peak,
+                    t
+                );
+                Transform.position = new Vector3(0f, y, 0f);
+                Debug.LogFormat(
+                    "Morning. {0}:{1}:{2}, y: {3}, t: {4}",
+                    hour,
+                    minute,
+                    second,
+                    y,
+                    t
+                );
+            }
+            else if (hour < SET)
+            {
+                float t = (Clock.ONE_HOUR * 18f - (hour * 60f + minute * 60f + second)) / Clock.ONE_HOUR * 18f;
+                float y = Mathf.Lerp(
+                    _low,
+                    _peak,
+                    t
+                );
+                Transform.position = new Vector3(0f, y, 0f);
+                Debug.LogFormat(
+                    "Afternoon. {0}:{1}:{2}, y: {3}, t: {4}",
+                    hour,
+                    minute,
+                    second,
+                    y,
+                    t
+                );
+            }
+            else // SETTED
+            {
+                Transform.position = new Vector3(0f, _low, 0f);
+                return;
+            }
         }
     }
 }

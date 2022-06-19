@@ -39,13 +39,10 @@ namespace Assets.Model.Nature
                     entity = (obj as IEntityComponent).Entity;
                     if (_existants.Contains(entity))
                         continue;
-                    
-                    if (_existants.Count > 0)
-                        LinkEntity(entity);
-
                     _existants.Add(entity);
                 }
             }
+            _existants.ForEach(e => LinkEntity(e));
         }
 
         /// <summary>
@@ -56,6 +53,10 @@ namespace Assets.Model.Nature
         {
             foreach (IEntity e in _existants)
             {
+                // Avoid self-listening
+                if (entity.Equals(e))
+                    continue;
+
                 // Linking controllers to entities
                 IControllableComponent component =
                     entity.Transform.GetComponent<IControllableComponent>();
@@ -80,6 +81,17 @@ namespace Assets.Model.Nature
                 if (e is IPicker && entity is Book)
                 {
                     (e as IPicker).Picked += (entity as Book).ListenPicking;
+                }
+
+                // SunLight listening Universal Clock a.k.a Time Simulator
+                if (e is Clock && entity is SunLight)
+                {
+                    (e as Clock).Ticked += (entity as SunLight).ListenUniversalClockTick;
+                }
+
+                if (e is Clock && entity is Sun)
+                {
+                    (e as Clock).Ticked += (entity as Sun).ListenUniversalClockTick;
                 }
             }
         }

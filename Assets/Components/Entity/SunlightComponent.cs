@@ -7,18 +7,18 @@ namespace Assets.Components.Entity
     public class SunLightComponent : MonoBehaviour,
         IEntityComponent
     {
-        private LightEmitter _lightEmitter;
+        private SunLight _sunLight;
 
-        public IEntity Entity => _lightEmitter;
+        public IEntity Entity => _sunLight;
 
         private void Awake()
         {
-            _lightEmitter = new LightEmitter(transform);
+            _sunLight = new SunLight(transform);
         }
 
         private void Update()
         {
-            _lightEmitter.Update();
+            _sunLight.Update();
         }
     }
 }
