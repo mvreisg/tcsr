@@ -5,7 +5,7 @@ using Assets.Model.Nature;
 namespace Assets.Components.Entity
 {
     public class SunComponent : MonoBehaviour,
-        IEntityComponent
+        IModelComponent
     {
         private Sun _sun;
 
@@ -15,7 +15,7 @@ namespace Assets.Components.Entity
         [SerializeField]
         private float _peak;
 
-        public IEntity Entity => _sun;
+        public IModel Model => _sun;
 
         private void Awake()
         {

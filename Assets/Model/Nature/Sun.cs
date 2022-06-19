@@ -4,7 +4,7 @@ using Assets.Model.Belong;
 namespace Assets.Model.Nature
 {
     public class Sun : 
-        IEntity,
+        IModel,
         IRenderable
     {
         private const int RISE = 6;
@@ -29,6 +29,16 @@ namespace Assets.Model.Nature
 
         public Renderer Renderer => _spriteRenderer;
 
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
+        }
+
         public void Update()
         {
             
@@ -36,14 +46,14 @@ namespace Assets.Model.Nature
 
         // Class originals
 
-        public void ListenUniversalClockTick(ClockInfo info)
+        public void ListenEarthClockTick(ClockInfo info)
         {
             float hour = info.Hour;
             float minute = info.Minute;
             float second = info.Second;
             if (hour >= RISE && hour <= PEAK)
             {
-                float t = hour * 60f + minute * 60f + second / Clock.ONE_HOUR * 12f;
+                float t = hour * 60f + minute * 60f + second / Clock.ONE_HOUR_IN_SECONDS * 12f;
                 float y = Mathf.Lerp(
                     _low,
                     _peak,
@@ -61,7 +71,7 @@ namespace Assets.Model.Nature
             }
             else if (hour < SET)
             {
-                float t = (Clock.ONE_HOUR * 18f - (hour * 60f + minute * 60f + second)) / Clock.ONE_HOUR * 18f;
+                float t = (Clock.ONE_HOUR_IN_SECONDS * 18f - (hour * 60f + minute * 60f + second)) / Clock.ONE_HOUR_IN_SECONDS * 18f;
                 float y = Mathf.Lerp(
                     _low,
                     _peak,

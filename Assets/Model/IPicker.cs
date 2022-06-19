@@ -2,11 +2,11 @@ namespace Assets.Model
 {
     public interface IPicker
     {
-        delegate void PickEventHandler(PickInfo pickInfo);
-        event PickEventHandler Picked;
+        delegate void PickerEventHandler(PickInfo info);
+        event PickerEventHandler Picked;
 
-        void Pick(PickInfo pickInfo);
+        void Pick(PickInfo info);
 
-        void OnPicked(PickInfo pickInfo);
+        void OnPicked(PickInfo info);
     }
 }

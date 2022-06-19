@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Assets.Model.Belong
 {
     public class Shield :
-        IEntity
+        IModel
     {
         public readonly Transform _transform;
 
@@ -14,9 +14,19 @@ namespace Assets.Model.Belong
 
         public Transform Transform => _transform;
 
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
+        }
+
         public void Update()
         {
-            throw new UnityException();
+            
         }
     }
 }

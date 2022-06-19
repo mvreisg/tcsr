@@ -2,13 +2,13 @@ namespace Assets.Model
 {
     public sealed class SpawnInfo
     {
-        private readonly IEntity _spawned;
+        private readonly IModel _spawned;
 
-        public SpawnInfo(IEntity spawned)
+        public SpawnInfo(IModel spawned)
         {
             _spawned = spawned;
         }
 
-        public IEntity Spawned => _spawned;
+        public IModel Spawned => _spawned;
     }
 }

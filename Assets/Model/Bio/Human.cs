@@ -6,84 +6,60 @@ using Assets.Model.Belong;
 namespace Assets.Model.Bio
 {
     public class Human :
-        IEntity,
-        ILife,
+        IModel,
         IAct,
         IMovable,
-        IForce,
+        IPhysics,
         IColliderable,
         IEar,
         INoisier,
         IRenderable,
         IPicker,
-        IUse
+        IUser
     {
         public event IAct.ActEventHandler Acted;
         public event IMovable.MovableEventHandler Moved;
-        public event IPicker.PickEventHandler Picked;
-        public event IUse.UseEventHandler Used;
+        public event IPicker.PickerEventHandler Picked;
+        public event IUser.UserEventHandler Used;
 
         private readonly Transform _transform;
-        private BioState _lifeState;
         private readonly XYZValue _speed;
-        private Multiplier _x;
-        private Multiplier _y;
-        private Multiplier _z;
+        private readonly Multiplier _multiplier;
         private readonly Rigidbody2D _rigidbody2D;
-        private Vector3 _force;
+        private readonly XYZValue _acceleration;
         private readonly AudioListener _audioListener;
         private readonly AudioSource _audioSource;
         private readonly PolygonCollider2D _polygonCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
 
-        private readonly List<IUseable> _useables;
+        private readonly List<IUsable> _useables;
         private int _useableIndex;
 
         public Human(Transform transform)
         {
             _transform = transform;
             _speed = XYZValue.ZERO;
-            _x = Multiplier.ZERO;
-            _y = Multiplier.ZERO;
-            _z = Multiplier.ZERO;
+            _multiplier = new Multiplier();
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
-            _force = Vector3.zero;
+            _acceleration = XYZValue.ZERO;
             _audioListener = transform.GetComponent<AudioListener>();
             _audioSource = transform.GetComponent<AudioSource>();
             _polygonCollider2D = transform.GetComponent<PolygonCollider2D>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
-            _useables = new List<IUseable>();
+            _useables = new List<IUsable>();
             _useableIndex = -1;
             Picked += ListenPicking;
         }
 
         public Transform Transform => _transform;
 
-        public BioState BioState => BioState.ALIVE;
-
         public XYZValue Speed => _speed;
 
-        public Multiplier X
-        {
-            get => _x;
-            set => _x = value;
-        }
-
-        public Multiplier Y
-        {
-            get => _y;
-            set => _y = value;
-        }
-
-        public Multiplier Z
-        {
-            get => _z;
-            set => _z = value;
-        }
+        public Multiplier Multiplier => _multiplier;
 
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public Vector3 Force => _force;
+        public XYZValue Acceleration => _acceleration;
 
         public Collider2D Collider2D => _polygonCollider2D;
 
@@ -92,6 +68,16 @@ namespace Assets.Model.Bio
         public AudioSource AudioSource => _audioSource;
 
         public Renderer Renderer => _spriteRenderer;
+
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
+        }
 
         public void Update()
         {
@@ -107,36 +93,37 @@ namespace Assets.Model.Bio
                 case Action.IDLE:
                     break;
                 case Action.STOP:
-                    X = Multiplier.ZERO;
+                    Multiplier.X = Flag.ZERO;
                     break;
                 case Action.BACK:
-                    X = Multiplier.NEGATIVE;
+                    Multiplier.X = Flag.NEGATIVE;
                     break;
                 case Action.FORWARD:
-                    X = Multiplier.POSITIVE;
+                    Multiplier.X = Flag.POSITIVE;
                     break;
                 case Action.USE:
                     Use();
                     break;
             }
-            OnActed(new ActionInfo<IAct>(this, action));
+            OnActed(new ActionInfo(this, action));
         }
 
         public void Move()
         {
+            Flag xFlag = Multiplier.X;
             float x;
-            switch (X)
+            switch (xFlag)
             {
                 default:
-                    throw new UnityException($"unhandled state: {X}");
-                case Multiplier.NEGATIVE:
+                    throw new UnityException($"unhandled state: {xFlag}");
+                case Flag.NEGATIVE:
                     x = -1f;
                     (Renderer as SpriteRenderer).flipX = true;
                     break;
-                case Multiplier.ZERO:
+                case Flag.ZERO:
                     x = 0f;
                     break;
-                case Multiplier.POSITIVE:
+                case Flag.POSITIVE:
                     x = 1f;
                     (Renderer as SpriteRenderer).flipX = false;
                     break;
@@ -152,19 +139,19 @@ namespace Assets.Model.Bio
             OnUsed();
         }
 
-        public void Pick(PickInfo pickInfo)
+        public void Pick(PickInfo info)
         {
-            OnPicked(pickInfo);
+            OnPicked(info);
         }
 
         public void FixedUpdate()
         {
-            throw new UnityException();
+            
         }
 
-        public void OnActed(ActionInfo<IAct> actionInfo)
+        public void OnActed(ActionInfo info)
         {
-            Acted?.Invoke(actionInfo);
+            Acted?.Invoke(info);
         }
 
         public void OnMoved()
@@ -172,34 +159,32 @@ namespace Assets.Model.Bio
             Moved?.Invoke(new MovementInfo(this, Transform.position));
         }
 
-        public void OnPicked(PickInfo pickInfo)
+        public void OnPicked(PickInfo info)
         {
-            Picked?.Invoke(pickInfo);
+            Picked?.Invoke(info);
         }
 
         public void OnUsed()
         {
-            Used?.Invoke(new UseInfo(_useables[_useableIndex]));
+            Used?.Invoke(new UserInfo(this, _useables[_useableIndex]));
         }
 
         // Class originals
 
-        public void ReceiveOrder(ActionInfo<IAct> actionInfo)
+        public void ReceiveOrder(ActionInfo info)
         {
-            Act(actionInfo.Action);
+            Act(info.Action);
         }
 
-        public void ListenPicking(PickInfo pickInfo)
+        public void ListenPicking(PickInfo info)
         {
-            if (!pickInfo.Picker.Equals(this))
+            if (!info.Picker.Equals(this))
                 return;
 
-            IEntity picked = pickInfo.Picked;
-            if (picked is IUseable)
-                AddUseable(picked as IUseable);
+            AddUseable(info.Picked);
         }
 
-        private void AddUseable(IUseable useable)
+        private void AddUseable(IUsable useable)
         {
             if (_useables.Contains(useable))
                 throw new UnityException("picking same item >:( (burro as mvreisg)");
@@ -216,14 +201,14 @@ namespace Assets.Model.Bio
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
-            IEntityComponent component = collision.collider.GetComponent<IEntityComponent>();
+            IModelComponent component = collision.collider.GetComponent<IModelComponent>();
             if (component == null)
                 return;
             
-            IEntity entity = component.Entity;
-            if (entity is IUseable)
+            IModel entity = component.Model;
+            if (entity is IUsable)
             {
-                Pick(new PickInfo(this, entity));
+                Pick(new PickInfo(this, entity as IUsable));
                 return;
             }
         }

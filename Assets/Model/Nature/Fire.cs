@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Assets.Model.Nature
 {
     public class Fire : 
-        IEntity,
+        IModel,
         IRenderable
     {
         private readonly Transform _transform;
@@ -21,7 +21,17 @@ namespace Assets.Model.Nature
 
         public void Update()
         {
-            throw new UnityException();
+            
+        }
+
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
         }
     }
 }

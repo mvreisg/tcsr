@@ -5,11 +5,11 @@ using Assets.Model.Nature;
 namespace Assets.Components.Entity
 {
     public class SunLightComponent : MonoBehaviour,
-        IEntityComponent
+        IModelComponent
     {
         private SunLight _sunLight;
 
-        public IEntity Entity => _sunLight;
+        public IModel Model => _sunLight;
 
         private void Awake()
         {

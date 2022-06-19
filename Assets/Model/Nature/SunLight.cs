@@ -4,7 +4,7 @@ using Assets.Model.Belong;
 namespace Assets.Model.Nature
 {
     public class SunLight :  
-        IEntity,
+        IModel,
         ILight
     {
         public delegate void SunLightEventHandler(SunLightInfo info);
@@ -20,16 +20,35 @@ namespace Assets.Model.Nature
             Shun += ListenShun;
         }
 
+        public Transform Transform => _transform;
+
+        public Light Light => _light;
+
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
+        }
+
+        public void Update()
+        {
+
+        }
+
         // Class originals
 
-        public void ListenUniversalClockTick(ClockInfo info)
+        public void ListenEarthClockTick(ClockInfo info)
         {
             float hour = info.Hour;
             float minute = info.Minute;
             float second = info.Second;
             float intensity;
             bool emit;
-            
+
             if (hour < 6 || hour > 18)
             {
                 intensity = 0f;
@@ -42,12 +61,12 @@ namespace Assets.Model.Nature
             }
             else if (hour == 6)
             {
-                intensity = minute * 60f + second / Clock.ONE_HOUR;
+                intensity = minute * 60f + second / Clock.ONE_HOUR_IN_SECONDS;
                 emit = true;
             }
             else if (hour == 17)
             {
-                intensity = Clock.ONE_HOUR - (minute * 60f + second) / Clock.ONE_HOUR;
+                intensity = Clock.ONE_HOUR_IN_SECONDS - (minute * 60f + second) / Clock.ONE_HOUR_IN_SECONDS;
                 emit = true;
             }
             else
@@ -61,17 +80,6 @@ namespace Assets.Model.Nature
             else
                 OnShun(new SunLightInfo(intensity));
         }
-
-        public Transform Transform => _transform;
-
-        public Light Light => _light;
-
-        public void Update()
-        {
-
-        }
-
-        // Class originals
 
         private void OnShun(SunLightInfo info)
         {

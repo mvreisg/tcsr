@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Assets.Model.Belong
 {
     public class Balloon :
-        IEntity,
-        IForce,
+        IModel,
+        IPhysics,
         IRenderable
     {
         private readonly Transform _transform;
@@ -22,7 +22,7 @@ namespace Assets.Model.Belong
 
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public Vector3 Force
+        public XYZValue Acceleration
         {
             get
             {
@@ -32,7 +32,7 @@ namespace Assets.Model.Belong
                 else
                     xMultiplier = -1f;
 
-                return new Vector3(
+                return new XYZValue(
                     Random.Range(0.00005f, 0.000075f) * xMultiplier,
                     Random.Range(0.00005f, 0.000075f),
                     0f
@@ -42,6 +42,16 @@ namespace Assets.Model.Belong
 
         public Renderer Renderer => _spriteRenderer;
 
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
+        }
+
         public void Update()
         {
             
@@ -49,7 +59,13 @@ namespace Assets.Model.Belong
 
         public void FixedUpdate()
         {
-            Rigidbody2D.AddForce(Time.fixedDeltaTime * Force, ForceMode2D.Impulse);
+            Rigidbody2D.AddForce(
+                new Vector3(
+                    Time.fixedDeltaTime * Acceleration.X,
+                    Time.fixedDeltaTime * Acceleration.Y,
+                    Time.fixedDeltaTime * Acceleration.Z
+                )
+            );
         }
     }
 }

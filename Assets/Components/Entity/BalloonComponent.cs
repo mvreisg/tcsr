@@ -5,7 +5,7 @@ using Assets.Model.Belong;
 namespace Assets.Components.Entity
 {
     public class BalloonComponent : MonoBehaviour,
-        IEntityComponent
+        IModelComponent
     {
         private Balloon _balloon;
 
@@ -19,7 +19,7 @@ namespace Assets.Components.Entity
             );
         }
 
-        public IEntity Entity => _balloon;
+        public IModel Model => _balloon;
 
         private void FixedUpdate()
         {

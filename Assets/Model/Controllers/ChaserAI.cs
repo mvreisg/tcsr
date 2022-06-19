@@ -18,20 +18,20 @@ namespace Assets.Model.Controllers
 
         public void Act(Action action)
         {
-            OnActed(new ActionInfo<IAct>(this, action));
+            OnActed(new ActionInfo(this, action));
         }
 
-        public void OnActed(ActionInfo<IAct> actionInfo)
+        public void OnActed(ActionInfo info)
         {
-            Acted?.Invoke(actionInfo);
+            Acted?.Invoke(info);
         }
 
-        public void ListenAction(ActionInfo<IAct> info)
+        public void ListenAction(ActionInfo info)
         {
             IAct actor = info.Actor;
-            if (actor is not IEntity)
+            if (actor is not IModel)
                 return;
-            IEntity entity = actor as IEntity;
+            IModel entity = actor as IModel;
             Action action = info.Action;
             switch (action)
             {
@@ -79,7 +79,7 @@ namespace Assets.Model.Controllers
 
         public void ListenMovement(MovementInfo movementInfo)
         {
-            _target = movementInfo.NewPosition;
+            _target = movementInfo.Position;
         }
     }
 }

@@ -5,127 +5,95 @@ using Assets.Components.Entity.Controllable;
 using Assets.Model.Belong;
 using Assets.Model.Bio;
 using Assets.Model.Controllers;
-using Assets.ScriptableObjects;
 
 namespace Assets.Model.Nature
 {
     public class Earth : 
-        IEntity
+        IModel
     {
         private readonly Transform _transform;
-        private readonly List<IEntity> _existants;
+        private readonly List<IModel> _existants;
 
         public Earth(Transform transform)
         {
             _transform = transform;
-            _existants = new List<IEntity>();
+            _existants = new List<IModel>();
         }
 
         public Transform Transform => _transform;
+
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            AcknowledgeExistants();
+        }
 
         public void Update()
         {
 
         }
 
-        public void AcknowledgeExistants()
+        private void AcknowledgeExistants()
         {
             Object[] components = Object.FindObjectsOfType<Object>();
-            IEntity entity;
-            foreach (Object obj in components)
+            IModel model;
+            foreach (Object c in components)
             {
-                if (obj is IEntityComponent)
+                if (c is IModelComponent)
                 {
-                    entity = (obj as IEntityComponent).Entity;
-                    if (_existants.Contains(entity))
+                    model = (c as IModelComponent).Model;
+                    if (_existants.Contains(model))
                         continue;
-                    _existants.Add(entity);
+                    _existants.Add(model);
                 }
             }
-            _existants.ForEach(e => LinkEntity(e));
+            _existants.ForEach(m => LinkExistants(m));
         }
 
-        /// <summary>
-        ///     <para>Will link the parameter Entity with another Entities</para>
-        /// </summary>
-        /// <param name="entity">The emitter or listener</param>
-        private void LinkEntity(IEntity entity)
+        private void LinkExistants(IModel parameter)
         {
-            foreach (IEntity e in _existants)
+            foreach (IModel item in _existants)
             {
-                // Avoid self-listening
-                if (entity.Equals(e))
+                if (parameter.Equals(item))
                     continue;
 
-                // Linking controllers to entities
-                IControllableComponent component =
-                    entity.Transform.GetComponent<IControllableComponent>();
-
-                if (component is not null)
+                IControllableComponent cmp = parameter.Transform.GetComponent<IControllableComponent>();
+                if (cmp is not null)
                 {
-                    foreach (IAct controller in component.Controllers)
+                    foreach (IAct controller in cmp.Controllers)
                     {
                         // ChaserAI linking
-                        if (controller is ChaserAI && e is Human && e is IAct)
+                        if (controller is ChaserAI && item is Human && item is IAct)
                         {
-                            (e as IAct).Acted += (controller as ChaserAI).ListenAction;
+                            (item as IAct).Acted += (controller as ChaserAI).ListenAction;
                         }
-                        if (controller is ChaserAI && e is Human && e is IMovable)
+                        if (controller is ChaserAI && item is Human && item is IMovable)
                         {
-                            (e as IMovable).Moved += (controller as ChaserAI).ListenMovement;
+                            (item as IMovable).Moved += (controller as ChaserAI).ListenMovement;
                         }
                     }
                 }
 
-                // Link pickable to picker
-                if (e is IPicker && entity is Book)
-                {
-                    (e as IPicker).Picked += (entity as Book).ListenPicking;
-                }
+                if (item is IPicker && parameter is Book)
+                    (item as IPicker).Picked += (parameter as Book).ListenPicking;
 
-                // SunLight listening Universal Clock a.k.a Time Simulator
-                if (e is Clock && entity is SunLight)
-                {
-                    (e as Clock).Ticked += (entity as SunLight).ListenUniversalClockTick;
-                }
+                if (item is Clock && parameter is SunLight)
+                    (item as Clock).Ticked += (parameter as SunLight).ListenEarthClockTick;
 
-                if (e is Clock && entity is Sun)
-                {
-                    (e as Clock).Ticked += (entity as Sun).ListenUniversalClockTick;
-                }
+                if (item is Clock && parameter is Sun)
+                    (item as Clock).Ticked += (parameter as Sun).ListenEarthClockTick;
             }
-        }
-
-        public void Instantiate(IScriptableObject scriptableObject, Vector3 position)
-        {
-            // Instantiate (prefab -> instance)
-            GameObject instance = Object.Instantiate(
-                scriptableObject.Prefab,
-                position,
-                Quaternion.identity,
-                Transform
-            );
-
-            // Checks if it is a Entity Holder Component
-            IEntityComponent component = instance.GetComponent<IEntityComponent>();
-            if (component is null)
-                return;
-
-            // And get the entity
-            IEntity entity = component.Entity;
-
-            // New entity linking
-            LinkEntity(entity);
-            
-            // Add the entity to the existance list
-            _existants.Add(entity);
         }
 
         public void ListenSpawn(SpawnInfo info)
         {
-            IEntity entity = info.Spawned;
-            LinkEntity(entity);
-            _existants.Add(entity);
+            IModel model = info.Spawned;
+            LinkExistants(model);
+            _existants.Add(model);
         }
     }
 }

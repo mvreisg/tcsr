@@ -3,14 +3,14 @@ using UnityEngine;
 namespace Assets.Model.Belong
 {
     public class Book :
-        IEntity,
-        IForce,
-        IUseable,
+        IModel,
+        IPhysics,
+        IUsable,
         IColliderable,
         IRenderable,
         INoisier
     {
-        public event IUseable.UseableEventHandler Used;
+        public event IUsable.UsableEventHandler Used;
 
         private const float START_DEGREES = 90f;
         private const float MAXIMUM_DEGREES = 450f;
@@ -18,7 +18,7 @@ namespace Assets.Model.Belong
 
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody2D;
-        private Vector3 _force;
+        private readonly XYZValue _acceleration;
         private readonly BoxCollider2D _boxCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
         private readonly AudioSource _audioSource;
@@ -30,7 +30,7 @@ namespace Assets.Model.Belong
         {
             _transform = transform;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
-            _force = Vector3.zero;
+            _acceleration = XYZValue.ZERO;
             _boxCollider2D = transform.GetComponent<BoxCollider2D>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
             _audioSource = transform.GetComponent<AudioSource>();
@@ -47,19 +47,29 @@ namespace Assets.Model.Belong
 
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public Vector3 Force => _force;
+        public XYZValue Acceleration => _acceleration;
 
-        public void Update()
+        public void Awake()
         {
             
         }
 
-        public void FixedUpdate()
+        public void Start()
         {
-            FixedUse();
+            
         }
 
-        public void FixedUse()
+        public void Update()
+        {
+            Use();
+        }
+
+        public void FixedUpdate()
+        {
+            
+        }
+
+        public void Use()
         {
             if (!_using)
                 return;
@@ -80,37 +90,31 @@ namespace Assets.Model.Belong
                 return;
             }
 
-            _degrees += Time.fixedDeltaTime * SPEED;
+            _degrees += Time.deltaTime * SPEED;
         }
 
         public void OnUsed()
         {
-            Used?.Invoke(new UseableInfo(this));
+            Used?.Invoke(new UsableInfo(this));
         }
 
         // Class originals
 
-        public void ListenPicking(PickInfo pickInfo)
+        public void ListenPicking(PickInfo info)
         {
-            IEntity picker;
-            if (pickInfo.Picker is IEntity)
-                picker = pickInfo.Picker;
-            else
-                return;
-
-            if (!pickInfo.Picked.Equals(this))
+            if (!info.Picked.Equals(this))
                 return;
             else
             {
                 Rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
                 Renderer.enabled = false;
                 Collider2D.isTrigger = true;
-                Transform.SetParent(picker.Transform);
+                Transform.SetParent((info.Picker as IModel).Transform);
                 Transform.localPosition = new Vector3(0f, 0f, Transform.parent.position.z);
             }
         }
 
-        public void ListenRequestToUse(UseInfo useInfo)
+        public void ListenRequestToUse(UserInfo useInfo)
         {
             if (!useInfo.Used.Equals(this))
                 return;

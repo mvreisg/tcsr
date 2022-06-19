@@ -5,11 +5,11 @@ using Assets.Model.Belong;
 namespace Assets.Components.Entity
 {
     public class BookComponent : MonoBehaviour,
-        IEntityComponent
+        IModelComponent
     {
         private Book _book;
 
-        public IEntity Entity => _book;
+        public IModel Model => _book;
 
         private void Awake()
         {

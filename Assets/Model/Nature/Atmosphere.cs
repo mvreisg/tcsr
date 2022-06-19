@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Assets.Model.Nature
 {
     public class Atmosphere : 
-        IEntity
+        IModel
     {
         private readonly Transform _transform;
 
@@ -13,6 +13,16 @@ namespace Assets.Model.Nature
         }
 
         public Transform Transform => _transform;
+
+        public void Awake()
+        {
+            
+        }
+
+        public void Start()
+        {
+            
+        }
 
         public void Update()
         {

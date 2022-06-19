@@ -1,16 +1,17 @@
+using UnityEngine;
+
 namespace Assets.Model
 {
-    public interface IMovable
+    public interface IMovable 
     {
+        delegate void MovableEventHandler(MovementInfo info);
+        event MovableEventHandler Moved;
+
         XYZValue Speed { get; }
-        Multiplier X { get; }
-        Multiplier Y { get; }
-        Multiplier Z { get; }
+
+        Multiplier Multiplier { get; }
 
         void Move();
-
-        delegate void MovableEventHandler(MovementInfo movementInfo);
-        event MovableEventHandler Moved;
 
         void OnMoved();
     }

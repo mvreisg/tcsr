@@ -2,17 +2,17 @@ namespace Assets.Model
 {
     public sealed class PickInfo
     {
-        private readonly IEntity _picker;
-        private readonly IEntity _picked;
+        private readonly IUser _picker;
+        private readonly IUsable _picked;
 
-        public PickInfo(IEntity picker, IEntity picked)
+        public PickInfo(IUser picker, IUsable picked)
         {
             _picker = picker;
             _picked = picked;
         }
 
-        public IEntity Picker => _picker;
+        public IUser Picker => _picker;
 
-        public IEntity Picked => _picked;
+        public IUsable Picked => _picked;
     }
 }

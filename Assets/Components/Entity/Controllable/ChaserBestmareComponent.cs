@@ -8,13 +8,13 @@ using Assets.Model.Controllers;
 namespace Assets.Components.Entity.Controllable
 {
     public class ChaserBestmareComponent : MonoBehaviour,
-        IEntityComponent,
+        IModelComponent,
         IControllableComponent
     {
         private Bestmare _bestmare;
         private IAct _chaserAI;
 
-        public IEntity Entity => _bestmare;
+        public IModel Model => _bestmare;
 
         public ReadOnlyCollection<IAct> Controllers
         {

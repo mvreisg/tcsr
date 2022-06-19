@@ -4,17 +4,17 @@ namespace Assets.Model
 {
     public sealed class MovementInfo
     {
-        private readonly IEntity _entity;
-        private readonly Vector3 _newPosition;
+        private readonly IModel _entity;
+        private readonly Vector3 _position;
 
-        public MovementInfo(IEntity entity, Vector3 newPosition)
+        public MovementInfo(IModel entity, Vector3 position)
         {
             _entity = entity;
-            _newPosition = newPosition;
+            _position = position;
         }
 
-        public IEntity Entity => _entity;
+        public IModel Entity => _entity;
 
-        public Vector3 NewPosition => _newPosition;
+        public Vector3 Position => _position;
     }
 }

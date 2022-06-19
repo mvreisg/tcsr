@@ -9,14 +9,14 @@ using Assets.Model.Controllers;
 namespace Assets.Components.Entity.Controllable
 {
     public class PlayerHumanComponent : MonoBehaviour,
-        IEntityComponent,
+        IModelComponent,
         IControllableComponent
     {
         private IAct _keyboardController;
         private IAct _guiController;
         private Human _human;
 
-        public IEntity Entity => _human;
+        public IModel Model => _human;
 
         public ReadOnlyCollection<IAct> Controllers
         {

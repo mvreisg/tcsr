@@ -32,12 +32,12 @@ namespace Assets.Model.Controllers
 
         public void Act(Action action)
         {
-            OnActed(new ActionInfo<IAct>(this, action));
+            OnActed(new ActionInfo(this, action));
         }
 
-        public void OnActed(ActionInfo<IAct> actionInfo)
+        public void OnActed(ActionInfo info)
         {
-            Acted?.Invoke(actionInfo);
+            Acted?.Invoke(info);
         }
 
         public void ListenGUI(bool overridedByGUI)
