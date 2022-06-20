@@ -14,11 +14,17 @@ namespace Assets.Components.Entity
         private void Awake()
         {
             _earth = new Earth(transform);
+            _earth.Awake();
         }
 
         private void Start()
         {
             _earth.Start();
+        }
+
+        private void Update()
+        {
+            _earth.Update();
         }
     }
 }

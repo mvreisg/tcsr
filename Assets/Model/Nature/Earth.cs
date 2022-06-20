@@ -1,10 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
-using Assets.Components.Entity;
-using Assets.Components.Entity.Controllable;
-using Assets.Model.Belong;
-using Assets.Model.Bio;
-using Assets.Model.Controllers;
 
 namespace Assets.Model.Nature
 {
@@ -12,88 +8,47 @@ namespace Assets.Model.Nature
         IModel
     {
         private readonly Transform _transform;
-        private readonly List<IModel> _existants;
+        private readonly List<IModel> _models;
 
         public Earth(Transform transform)
         {
             _transform = transform;
-            _existants = new List<IModel>();
+            _models = new List<IModel>();
         }
 
         public Transform Transform => _transform;
 
-        public void Awake()
+        public ReadOnlyCollection<IModel> Models => new ReadOnlyCollection<IModel>(_models);
+
+        public void Awake(){}
+
+        public void Start(){}
+
+        public void Update(){}
+
+        public void ListenGeneration(GenerationInfo info)
         {
-            
-        }
-
-        public void Start()
-        {
-            AcknowledgeExistants();
-        }
-
-        public void Update()
-        {
-
-        }
-
-        private void AcknowledgeExistants()
-        {
-            Object[] components = Object.FindObjectsOfType<Object>();
-            IModel model;
-            foreach (Object c in components)
-            {
-                if (c is IModelComponent)
-                {
-                    model = (c as IModelComponent).Model;
-                    if (_existants.Contains(model))
-                        continue;
-                    _existants.Add(model);
-                }
-            }
-            _existants.ForEach(m => LinkExistants(m));
-        }
-
-        private void LinkExistants(IModel parameter)
-        {
-            foreach (IModel item in _existants)
-            {
-                if (parameter.Equals(item))
-                    continue;
-
-                IControllableComponent cmp = parameter.Transform.GetComponent<IControllableComponent>();
-                if (cmp is not null)
-                {
-                    foreach (IAct controller in cmp.Controllers)
-                    {
-                        // ChaserAI linking
-                        if (controller is ChaserAI && item is Human && item is IAct)
-                        {
-                            (item as IAct).Acted += (controller as ChaserAI).ListenAction;
-                        }
-                        if (controller is ChaserAI && item is Human && item is IMovable)
-                        {
-                            (item as IMovable).Moved += (controller as ChaserAI).ListenMovement;
-                        }
-                    }
-                }
-
-                if (item is IPicker && parameter is Book)
-                    (item as IPicker).Picked += (parameter as Book).ListenPicking;
-
-                if (item is Clock && parameter is SunLight)
-                    (item as Clock).Ticked += (parameter as SunLight).ListenEarthClockTick;
-
-                if (item is Clock && parameter is Sun)
-                    (item as Clock).Ticked += (parameter as Sun).ListenEarthClockTick;
-            }
+            IModel generated = info.Generated;
+            if (!generated.Transform.IsChildOf(Transform) || _models.Contains(generated))
+                return;
+            _models.Add(generated);
+            Debug.LogFormat("Generated {0}", generated.Transform.name);
         }
 
         public void ListenSpawn(SpawnInfo info)
         {
-            IModel model = info.Spawned;
-            LinkExistants(model);
-            _existants.Add(model);
+            IModel spawned = info.Spawned;
+            if (!spawned.Transform.IsChildOf(Transform) || _models.Contains(spawned))
+                return;
+            _models.Add(spawned);
+            Debug.LogFormat("Added {0}", spawned.Transform.name);
+        }
+
+        public void ListenLate(LateInfo info)
+        {
+            IModel late = info.Late;
+            _models.Remove(late);
+            Debug.LogFormat("Removed {0}", late.Transform.name);
         }
     }
 }

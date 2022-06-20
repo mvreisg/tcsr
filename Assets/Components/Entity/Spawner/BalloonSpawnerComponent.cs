@@ -1,10 +1,12 @@
 using UnityEngine;
-using Assets.Model.Spawn;
+using Assets.Model.Spawner;
 using Assets.ScriptableObjects;
+using Assets.Model;
 
-namespace Assets.Components.Entity.Spawn
+namespace Assets.Components.Entity.Spawner
 {
-    public class BalloonSpawnComponent : MonoBehaviour
+    public class BalloonSpawnerComponent : MonoBehaviour,
+        IModelComponent
     {
         [SerializeField]
         private BalloonScriptableObject _balloonScriptableObject;
@@ -12,11 +14,14 @@ namespace Assets.Components.Entity.Spawn
         [SerializeField]
         private int _threshold;
 
-        private BalloonSpawn _balloonSpawn;
+        private BalloonSpawner _balloonSpawn;
+
+        public IModel Model => _balloonSpawn;
 
         private void Awake()
         {
-            _balloonSpawn = new BalloonSpawn(transform, _balloonScriptableObject, _threshold);
+            _balloonSpawn = new BalloonSpawner(transform, _balloonScriptableObject, _threshold);
+            _balloonSpawn.Awake();
         }
 
         private void Start()

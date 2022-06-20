@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets.Model.Controllers
 {
-    public class ChaserAI : 
+    public class PassiveChaser : 
         IAct
     {
         public event IAct.ActEventHandler Acted;
@@ -10,7 +10,7 @@ namespace Assets.Model.Controllers
         private readonly Transform _transform;
         private Vector3 _target;
 
-        public ChaserAI(Transform transform)
+        public PassiveChaser(Transform transform)
         {
             _transform = transform;
             _target = Vector3.zero;

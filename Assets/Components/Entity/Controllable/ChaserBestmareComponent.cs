@@ -31,7 +31,7 @@ namespace Assets.Components.Entity.Controllable
             _bestmare = new Bestmare(transform);
             _bestmare.Speed.X = Random.Range(0.3f, 0.9f);
 
-            _chaserAI = new ChaserAI(transform);
+            _chaserAI = new PassiveChaser(transform);
             // links the AI with the Bestmare
             _chaserAI.Acted += _bestmare.ReceiveOrder;
         }

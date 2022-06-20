@@ -1,11 +1,15 @@
 using UnityEngine;
 using Assets.Model.Belong;
+using Assets.Model;
 
 namespace Assets.Components.Entity
 {
-    public class EarthClockComponent : MonoBehaviour
+    public class EarthClockComponent : MonoBehaviour,
+        IModelComponent
     {
         private Clock _clock;
+
+        public IModel Model => _clock;
 
         private void Awake()
         {
