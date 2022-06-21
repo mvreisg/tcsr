@@ -4,16 +4,22 @@ using Assets.Model.Nature;
 
 namespace Assets.Components.Entity
 {
-    public class SunLightComponent : MonoBehaviour,
+    public class SunlightComponent : MonoBehaviour,
         IModelComponent
     {
-        private SunLight _sunLight;
+        private Sunlight _sunLight;
 
         public IModel Model => _sunLight;
 
         private void Awake()
         {
-            _sunLight = new SunLight(transform);
+            _sunLight = new Sunlight(transform);
+            _sunLight.Awake();
+        }
+
+        private void Start()
+        {
+            _sunLight.Start();
         }
 
         private void Update()

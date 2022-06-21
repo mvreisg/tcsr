@@ -13,6 +13,16 @@ namespace Assets.Model.Belong
             _second = second;
         }
 
+        public override string ToString()
+        {
+            return string.Format(
+                "{0}:{1}:{2}", 
+                Hour, 
+                Minute, 
+                Second
+            );
+        }
+
         public float Hour => _hour;
 
         public float Minute => _minute;

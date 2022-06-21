@@ -7,11 +7,9 @@ namespace Assets.Model.Spawner
 {
     public class BalloonSpawner :
         IModel,
-        IGenerate,
         ISpawn,
         IPass
     {
-        public event IGenerate.GenerateEventHandler Generated;
         public event ISpawn.SpawnEventHandler Spawned;
         public event IPass.PassEventHandler Passed;
 
@@ -42,10 +40,9 @@ namespace Assets.Model.Spawner
         public void Start()
         {
             Earth earth = (Transform.GetComponentInParent<EarthComponent>() as IModelComponent).Model as Earth;
-            Generated += earth.ListenGeneration;
             Spawned += earth.ListenSpawn;
             Passed += earth.ListenLate;
-            Generate();
+            Spawn();
         }
 
         public void Update()
@@ -55,46 +52,18 @@ namespace Assets.Model.Spawner
                 return;
 
             _cooldown = RandomCooldown;
-            Spawn();
-        }
-
-        public void Generate()
-        {
-            OnGenerated(new GenerationInfo(this));
+            Instantiate();
         }
 
         public void Spawn()
         {
-            IModel model = Object.Instantiate(
-                _scriptableObject.Prefab,
-                new Vector3(
-                    Random.Range(-5f, 5f),
-                    Random.Range(1f, 2.3f),
-                    0f
-                ),
-                Quaternion.identity,
-                Transform.parent
-            ).GetComponent<BalloonComponent>().Model;
-
-            OnSpawned(new SpawnInfo(model));
-
-            _count++;
-            if (_count > _threshold)
-                throw new UnityException("what");
-
-            if (_count == _threshold)
-                Pass();
+            OnSpawned(new SpawnInfo(this));
         }
 
         public void Pass()
         {
             OnPassed(new LateInfo(this));
             Object.Destroy(Transform.gameObject);
-        }
-
-        public void OnGenerated(GenerationInfo info)
-        {
-            Generated?.Invoke(info);
         }
 
         public void OnSpawned(SpawnInfo info)
@@ -105,6 +74,27 @@ namespace Assets.Model.Spawner
         public void OnPassed(LateInfo info)
         {
             Passed?.Invoke(info);
+        }
+
+        // Class original
+
+        private void Instantiate()
+        {
+            Object.Instantiate(
+                _scriptableObject.Prefab,
+                new Vector3(
+                    Transform.position.x,
+                    Transform.position.y,
+                    Transform.position.z
+                ),
+                Quaternion.identity,
+                Transform.parent
+            );
+
+            _count++;
+
+            if (_count == _threshold)
+                Pass();
         }
     }
 }

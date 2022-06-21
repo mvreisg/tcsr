@@ -9,17 +9,23 @@ namespace Assets.Components.Entity
     {
         private Balloon _balloon;
 
+        public IModel Model => _balloon;
+
         private void Awake()
         {
             _balloon = new Balloon(transform);
-            (_balloon.Renderer as SpriteRenderer).color = new Color(
-                Random.Range(0f, 1f),
-                Random.Range(0f, 1f),
-                Random.Range(0f, 1f)
-            );
+            _balloon.Awake();
         }
 
-        public IModel Model => _balloon;
+        private void Start()
+        {
+            _balloon.Start();
+        }
+
+        private void Update()
+        {
+            _balloon.Update();
+        }
 
         private void FixedUpdate()
         {

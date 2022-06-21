@@ -1138,7 +1138,7 @@ GameObject:
   - component: {fileID: 388938642}
   - component: {fileID: 388938643}
   m_Layer: 0
-  m_Name: clock
+  m_Name: day
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3078,7 +3078,7 @@ GameObject:
   - component: {fileID: 1368527266}
   - component: {fileID: 1368527269}
   m_Layer: 0
-  m_Name: air
+  m_Name: atmosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4918,7 +4918,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457227430}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.5, y: 0.5, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4938,7 +4938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _balloonScriptableObject: {fileID: 11400000, guid: 66cd6c78e21e27642a20ae8b37b31189, type: 2}
-  _threshold: 5
+  _threshold: 10
 --- !u!1 &1496185155
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,12 @@ namespace Assets.Model.Controllers
         public event IAct.ActEventHandler Acted;
 
         private readonly Transform _transform;
+
         private Vector3 _target;
 
         public PassiveChaser(Transform transform)
         {
             _transform = transform;
-            _target = Vector3.zero;
         }
 
         public void Act(Action action)
@@ -25,6 +25,8 @@ namespace Assets.Model.Controllers
         {
             Acted?.Invoke(info);
         }
+
+        // Class originals
 
         public void ListenAction(ActionInfo info)
         {
@@ -44,6 +46,12 @@ namespace Assets.Model.Controllers
                     break;
                 case Action.FORWARD:
                 case Action.BACK:
+                    if (_target == null)
+                    {
+                        Act(Action.STOP);
+                        Act(Action.IDLE);
+                        return;
+                    }
                     float actual = Vector3.Distance(
                         _target, 
                         _transform.position

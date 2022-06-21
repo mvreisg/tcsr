@@ -24,31 +24,36 @@ namespace Assets.Model.Nature
 
         public void Start(){}
 
-        public void Update(){}
-
-        public void ListenGeneration(GenerationInfo info)
+        public void Update()
         {
-            IModel generated = info.Generated;
-            if (!generated.Transform.IsChildOf(Transform) || _models.Contains(generated))
-                return;
-            _models.Add(generated);
-            Debug.LogFormat("Generated {0}", generated.Transform.name);
+            Debug.LogFormat("{0} knows {1} models.", Transform.name, _models.Count);
         }
 
         public void ListenSpawn(SpawnInfo info)
         {
             IModel spawned = info.Spawned;
-            if (!spawned.Transform.IsChildOf(Transform) || _models.Contains(spawned))
+            if (!spawned.Transform.IsChildOf(Transform))
+            {
+                Debug.LogFormat("{0} is not child of {1}", spawned.Transform.name, Transform.name);
                 return;
+            }
+            if (_models.Contains(spawned))
+            {
+                Debug.LogFormat("{0} is already acknowledged by {1}", spawned.Transform.name, Transform.name);
+                return;
+            }
             _models.Add(spawned);
-            Debug.LogFormat("Added {0}", spawned.Transform.name);
+            Debug.LogFormat("Added to {0}: {1}", Transform.name, spawned.Transform.name);
         }
 
         public void ListenLate(LateInfo info)
         {
             IModel late = info.Late;
-            _models.Remove(late);
-            Debug.LogFormat("Removed {0}", late.Transform.name);
+            bool removed = _models.Remove(late);
+            if (removed)
+                Debug.LogFormat("Departed from {0}: {1}", Transform.name, late.Transform.name);
+            else
+                Debug.LogFormat("Non-pertencent to {0}: {1}", Transform.name, late.Transform.name);
         }
     }
 }

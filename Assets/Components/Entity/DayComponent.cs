@@ -4,7 +4,7 @@ using Assets.Model;
 
 namespace Assets.Components.Entity
 {
-    public class EarthClockComponent : MonoBehaviour,
+    public class DayComponent : MonoBehaviour,
         IModelComponent
     {
         private Clock _clock;

@@ -1,10 +1,10 @@
 namespace Assets.Model.Nature
 {
-    public sealed class SunLightInfo
+    public sealed class SunlightInfo
     {
         private readonly float _intensity;
 
-        public SunLightInfo(float intensity)
+        public SunlightInfo(float intensity)
         {
             _intensity = intensity;
         }
