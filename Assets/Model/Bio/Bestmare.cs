@@ -19,7 +19,7 @@ namespace Assets.Model.Bio
         private readonly XYZValue _speed;
         private readonly Multiplier _multiplier;
         private readonly Rigidbody2D _rigidbody2D;
-        private readonly XYZValue _acceleration;
+        private readonly XYZValue _force;
         private readonly AudioListener _audioListener;
         private readonly AudioSource _audioSource;
         private readonly CapsuleCollider2D _capsuleCollider2D;
@@ -31,7 +31,7 @@ namespace Assets.Model.Bio
             _speed = XYZValue.ZERO;
             _multiplier = new Multiplier();
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
-            _acceleration = XYZValue.ZERO;
+            _force = XYZValue.ZERO;
             _audioListener = transform.GetComponent<AudioListener>();
             _audioSource = transform.GetComponent<AudioSource>();
             _capsuleCollider2D = transform.GetComponent<CapsuleCollider2D>();
@@ -46,7 +46,7 @@ namespace Assets.Model.Bio
 
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public XYZValue Acceleration => _acceleration;
+        public XYZValue Force => _force;
 
         public Collider2D Collider2D => _capsuleCollider2D;
 

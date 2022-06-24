@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a23ab429e1bb55e4eb88266f431cf8d8, type: 3}
-  m_Name: HumanScriptableObject
+  m_Name: BluScriptableObject
   m_EditorClassIdentifier: 
   _prefab: {fileID: 2154383530522939642, guid: cf9d967f41d2d8c4ebc02930b9bd9320, type: 3}

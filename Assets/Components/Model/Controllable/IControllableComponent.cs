@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using Assets.Model;
 
-namespace Assets.Components.Entity.Controllable
+namespace Assets.Components.Model.Controllable
 {
     public interface IControllableComponent
     {

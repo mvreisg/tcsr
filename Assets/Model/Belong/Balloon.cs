@@ -1,4 +1,4 @@
-using Assets.Components.Entity;
+using Assets.Components.Model;
 using Assets.Model.Nature;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ namespace Assets.Model.Belong
 
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public XYZValue Acceleration
+        public XYZValue Force
         {
             get
             {
@@ -76,9 +76,9 @@ namespace Assets.Model.Belong
             Rigidbody2D.AddForce(
                 Time.fixedDeltaTime * 
                 new Vector3(
-                    Acceleration.X,
-                    Acceleration.Y,
-                    Acceleration.Z
+                    Force.X,
+                    Force.Y,
+                    Force.Z
                 )
             );
         }

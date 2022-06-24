@@ -1,5 +1,5 @@
 using UnityEngine;
-using Assets.Components.Entity;
+using Assets.Components.Model;
 using Assets.Model.Belong;
 
 namespace Assets.Model.Nature

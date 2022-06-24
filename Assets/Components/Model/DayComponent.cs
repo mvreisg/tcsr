@@ -2,7 +2,7 @@ using UnityEngine;
 using Assets.Model.Belong;
 using Assets.Model;
 
-namespace Assets.Components.Entity
+namespace Assets.Components.Model
 {
     public class DayComponent : MonoBehaviour,
         IModelComponent

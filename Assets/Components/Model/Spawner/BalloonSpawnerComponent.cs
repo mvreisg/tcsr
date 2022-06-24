@@ -3,7 +3,7 @@ using Assets.Model.Spawner;
 using Assets.ScriptableObjects;
 using Assets.Model;
 
-namespace Assets.Components.Entity.Spawner
+namespace Assets.Components.Model.Spawner
 {
     public class BalloonSpawnerComponent : MonoBehaviour,
         IModelComponent

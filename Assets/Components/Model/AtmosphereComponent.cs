@@ -2,7 +2,7 @@ using UnityEngine;
 using Assets.Model;
 using Assets.Model.Nature;
 
-namespace Assets.Components.Entity
+namespace Assets.Components.Model
 {
     public class AtmosphereComponent : MonoBehaviour,
         IModelComponent

@@ -18,7 +18,7 @@ namespace Assets.Model.Belong
 
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody2D;
-        private readonly XYZValue _acceleration;
+        private readonly XYZValue _force;
         private readonly BoxCollider2D _boxCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
         private readonly AudioSource _audioSource;
@@ -30,7 +30,7 @@ namespace Assets.Model.Belong
         {
             _transform = transform;
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
-            _acceleration = XYZValue.ZERO;
+            _force = XYZValue.ZERO;
             _boxCollider2D = transform.GetComponent<BoxCollider2D>();
             _spriteRenderer = transform.GetComponent<SpriteRenderer>();
             _audioSource = transform.GetComponent<AudioSource>();
@@ -47,7 +47,7 @@ namespace Assets.Model.Belong
 
         public Rigidbody2D Rigidbody2D => _rigidbody2D;
 
-        public XYZValue Acceleration => _acceleration;
+        public XYZValue Force => _force;
 
         public void Awake()
         {

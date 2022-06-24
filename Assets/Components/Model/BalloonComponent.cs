@@ -2,7 +2,7 @@ using UnityEngine;
 using Assets.Model;
 using Assets.Model.Belong;
 
-namespace Assets.Components.Entity
+namespace Assets.Components.Model
 {
     public class BalloonComponent : MonoBehaviour,
         IModelComponent

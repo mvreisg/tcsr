@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Assets.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "HumanScriptableObject", menuName = "ScriptableObject/Human", order = 0)]
-    public class HumanScriptableObject : ScriptableObject,
+    [CreateAssetMenu(fileName = "BluScriptableObject", menuName = "ScriptableObject/Blu", order = 0)]
+    public class BluScriptableObject : ScriptableObject,
         IScriptableObject
     {
         [SerializeField]

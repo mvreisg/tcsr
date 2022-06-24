@@ -5,9 +5,9 @@ using Assets.Model;
 using Assets.Model.Bio;
 using Assets.Model.Controllers;
 
-namespace Assets.Components.Entity.Controllable
+namespace Assets.Components.Model.Controllable
 {
-    public class ChaserBestmareComponent : MonoBehaviour,
+    public class PassiveChaserBestmareComponent : MonoBehaviour,
         IModelComponent,
         IControllableComponent
     {

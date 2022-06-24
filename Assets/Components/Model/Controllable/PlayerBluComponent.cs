@@ -6,17 +6,17 @@ using Assets.Model;
 using Assets.Model.Bio;
 using Assets.Model.Controllers;
 
-namespace Assets.Components.Entity.Controllable
+namespace Assets.Components.Model.Controllable
 {
-    public class PlayerHumanComponent : MonoBehaviour,
+    public class PlayerBluComponent : MonoBehaviour,
         IModelComponent,
         IControllableComponent
     {
         private IAct _keyboardController;
         private IAct _guiController;
-        private Human _human;
+        private Human _blu;
 
-        public IModel Model => _human;
+        public IModel Model => _blu;
 
         public ReadOnlyCollection<IAct> Controllers
         {
@@ -31,12 +31,12 @@ namespace Assets.Components.Entity.Controllable
 
         private void Awake()
         {
-            _human = new Human(transform);
-            _human.Speed.X = 1.7523f;
+            _blu = new Human(transform);
+            _blu.Speed.X = 1.7523f;
             _keyboardController = new KeyboardController();
 
             // here the model will listen another model: human listen the keyboard
-            _keyboardController.Acted += _human.ReceiveOrder;
+            _keyboardController.Acted += _blu.ReceiveOrder;
         }
 
         private void Start()
@@ -48,18 +48,18 @@ namespace Assets.Components.Entity.Controllable
                 FindObjectOfType<UseButtonComponent>()
             );
             (_guiController as GUIController).Overriden += (_keyboardController as KeyboardController).ListenGUI;
-            _guiController.Acted += _human.ReceiveOrder;
+            _guiController.Acted += _blu.ReceiveOrder;
         }
 
         private void Update()
         {
             (_keyboardController as KeyboardController).Update();
-            _human.Update();
+            _blu.Update();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            _human.OnCollisionEnter2D(collision);
+            _blu.OnCollisionEnter2D(collision);
         }
     }
 }
