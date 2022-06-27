@@ -20,14 +20,7 @@ namespace Assets.Rules.Grids
 
         public void Awake()
         {
-            Vector3Int size = _tilemap.cellBounds.size;
-            Debug.LogFormat(
-                "{0} plantation grid size: [x:{1}, y:{2}, z:{3}]",
-                Transform.name,
-                size.x,
-                size.y,
-                size.z
-            );
+            
         }
 
         public void Start()

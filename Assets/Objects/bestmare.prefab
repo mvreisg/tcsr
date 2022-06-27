@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1746238809962068941}
   - component: {fileID: 1746238809962068786}
   - component: {fileID: 1644577830402793417}
-  - component: {fileID: -7346204209126136411}
+  - component: {fileID: -599853547863713504}
   m_Layer: 0
   m_Name: bestmare
   m_TagString: Untagged
@@ -124,7 +124,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.0625, y: 2.0625}
   m_Direction: 0
---- !u!114 &-7346204209126136411
+--- !u!114 &-599853547863713504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,6 +133,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746238809962068784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ca717e46957354d890caaacea22f5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5573276b9b8dbf74f8a8f5e8849fd37d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

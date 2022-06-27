@@ -1,6 +1,5 @@
 using UnityEngine;
-using Assets.Rules.Items;
-using Assets.Scripts.Rules;
+using Assets.Scripts;
 
 namespace Assets.Rules.Nature
 {

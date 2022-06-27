@@ -136,6 +136,16 @@ namespace Assets.Rules.Bio
             throw new UnityException();
         }
 
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            Debug.Log(string.Format("{0} collided in me as {1}", collision.collider.name, Transform.name));
+        }
+
+        public void OnTriggerEnter2D(Collider2D collider)
+        {
+            Debug.Log(string.Format("{0} passed through {1}", collider.name, Transform.name));
+        }
+
         public void OnActed(ActionInfo info)
         {
             Acted?.Invoke(info);

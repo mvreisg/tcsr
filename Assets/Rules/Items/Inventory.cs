@@ -1,6 +1,6 @@
-using Assets.Scripts.Rules;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 namespace Assets.Rules.Items
 {

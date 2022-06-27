@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gui_arrow_left
+      name: left_arrow
       rect:
         serializedVersion: 2
         x: 1
@@ -149,10 +149,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gui_arrow_right
+      name: right_arrow
       rect:
         serializedVersion: 2
-        x: 18
+        x: 19
         y: 499
         width: 16
         height: 12
@@ -170,10 +170,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gui_use
+      name: use_hand
       rect:
         serializedVersion: 2
-        x: 41
+        x: 37
         y: 500
         width: 6
         height: 8
@@ -190,6 +190,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: inventory_selection
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 495
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec2226260b43dfa4a91563eeb048977e
+      internalID: 221432463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -201,9 +222,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      gui_use: -622922925
-      gui_arrow_left: -680972319
-      gui_arrow_right: 336225865
+      right_arrow: 336225865
+      use_hand: -622922925
+      inventory_selection: 221432463
+      left_arrow: -680972319
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

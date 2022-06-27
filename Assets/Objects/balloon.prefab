@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2410070401282496038}
   - component: {fileID: 2410070401282496039}
   - component: {fileID: 2410070401282496041}
-  - component: {fileID: -617474457496085806}
+  - component: {fileID: 4866484935450382027}
   m_Layer: 0
   m_Name: balloon
   m_TagString: Untagged
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &-617474457496085806
+--- !u!114 &4866484935450382027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

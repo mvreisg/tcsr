@@ -1,7 +1,8 @@
 using UnityEngine;
 using Assets.Rules.Items;
-using Assets.Rules.Control;
-using Assets.Scripts.Rules;
+using Assets.Rules.GUI;
+using Assets.Scripts;
+using Assets.Scripts.GUI;
 
 namespace Assets.Rules.Bio
 {
@@ -15,7 +16,8 @@ namespace Assets.Rules.Bio
         INoisier,
         IRenderable,
         IPicker,
-        IUser
+        IUser,
+        IButtonListener
     {
         public event IAct.ActEventHandler Acted;
         public event IMovable.MovableEventHandler Moved;
@@ -35,10 +37,10 @@ namespace Assets.Rules.Bio
 
         private Item _holding;
 
-        public Human(Transform transform)
+        public Human(Transform transform, XYZValue speed)
         {
             _transform = transform;
-            _speed = XYZValue.ZERO;
+            _speed = speed;
             _orientation = new Orientation();
             _facing = new Facing(Flag.POSITIVE);
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
@@ -76,7 +78,12 @@ namespace Assets.Rules.Bio
 
         public void Start()
         {
-            
+            ((Object.FindObjectOfType<BackButtonScript>() as IRuleScript).Rule as IButton).StateChanged 
+                += ListenButton;
+            ((Object.FindObjectOfType<ForwardButtonScript>() as IRuleScript).Rule as IButton).StateChanged 
+                += ListenButton;
+            ((Object.FindObjectOfType<UseButtonScript>() as IRuleScript).Rule as IButton).StateChanged
+                += ListenButton;
         }
 
         public void Update()
@@ -152,7 +159,66 @@ namespace Assets.Rules.Bio
 
         public void FixedUpdate()
         {
-            
+
+        }
+
+        public void OnCollisionEnter2D(Collision2D collision)
+        {
+            IRuleScript component = collision.collider.GetComponent<IRuleScript>();
+            if (component is null)
+                return;
+
+            IRule rule = component.Rule;
+            if (rule is not IUsable)
+                return;
+
+            IUsable usable = rule as IUsable;
+            Pick(new PickInfo(this, usable));
+        }
+
+        public void OnTriggerEnter2D(Collider2D collider)
+        {
+            Debug.Log(string.Format("{0} passed through {1}", collider.name, Transform.name));
+        }
+
+        public void ListenButton(ButtonInfo info)
+        {
+            Buttons button = info.Button;
+            bool pressed = info.Pressed;
+            switch (button)
+            {
+                default:
+                    throw new UnityException(string.Format("unahndled state: {0}", button));
+                case Buttons.BACK:
+                    if (pressed)
+                    {
+                        Act(Action.TURN_BACK);
+                        Act(Action.BACK);
+                    }
+                    else
+                    {
+                        Act(Action.STOP);
+                        Act(Action.IDLE);
+                    }
+                    break;
+                case Buttons.FORWARD:
+                    if (pressed)
+                    {
+                        Act(Action.TURN_FORWARD);
+                        Act(Action.FORWARD);
+                    }
+                    else
+                    {
+                        Act(Action.STOP);
+                        Act(Action.IDLE);
+                    }
+                    break;
+                case Buttons.USE:
+                    Act(Action.USE);
+                    break;
+                case Buttons.INVENTORY:
+                    break;
+            }
         }
 
         public void OnActed(ActionInfo info)
@@ -173,29 +239,6 @@ namespace Assets.Rules.Bio
         public void OnUsed()
         {
             Used?.Invoke(new UseInfo(this, _holding));
-        }
-
-        // Class originals
-
-        public void ReceiveOrder(OrderInfo info)
-        {
-            Act(info.Action);
-        }
-
-        // Collisions
-
-        public void OnCollisionEnter2D(Collision2D collision)
-        {
-            IRuleScript component = collision.collider.GetComponent<IRuleScript>();
-            if (component is null)
-                return;
-            
-            IRule rule = component.Rule;
-            if (rule is not IUsable)
-                return;
-
-            IUsable usable = rule as IUsable;
-            Pick(new PickInfo(this, usable));
         }
     }
 }

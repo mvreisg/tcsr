@@ -1,6 +1,6 @@
 using UnityEngine;
-using Assets.Scripts.Rules;
 using Assets.Rules.Grids;
+using Assets.Scripts;
 
 namespace Assets.Rules.Items
 {
