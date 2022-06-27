@@ -409,7 +409,7 @@ TextureImporter:
         width: 1
         height: 3
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -430,7 +430,7 @@ TextureImporter:
         width: 1
         height: 2
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -438,6 +438,27 @@ TextureImporter:
       bones: []
       spriteID: 1968954f641612744a554b103566e7f1
       internalID: -417229460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: scythe
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 497
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c06b96c8500a7b4eae9bb5b9a777aec
+      internalID: -493704934
       vertices: []
       indices: 
       edges: []
@@ -468,6 +489,7 @@ TextureImporter:
       shield: 118879582
       candle_0: -663294296
       book_sheet: -1391899500
+      scythe: -493704934
       candle_1: -1183256032
       mvf_22_5.2: 1349810583
       mvf_22_forward_dash: -2080511523
