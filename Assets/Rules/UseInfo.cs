@@ -1,20 +1,14 @@
-using Assets.Rules.Items;
-
 namespace Assets.Rules
 {
     public sealed class UseInfo
     {
-        private readonly IUser _user;
-        private readonly Item _type;
+        private readonly IUse _user;
 
-        public UseInfo(IUser user, Item type)
+        public UseInfo(IUse user)
         {
             _user = user;
-            _type = type;
         }
 
-        public IUser User => _user;
-
-        public Item Type => _type;
+        public IUse User => _user;
     }
 }

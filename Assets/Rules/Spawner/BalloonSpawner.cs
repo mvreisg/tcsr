@@ -6,22 +6,22 @@ namespace Assets.Rules.Spawner
     public class BalloonSpawner :
         IRule,
         ISpawn,
-        IPass
+        ILate
     {
         public event ISpawn.SpawnEventHandler Spawned;
-        public event IPass.PassEventHandler Passed;
+        public event ILate.PassEventHandler Passed;
 
         private readonly Transform _transform;
-        private readonly IObject _scriptableObject;
+        private readonly IObject _object;
         private readonly int _threshold;
 
         private int _count;
         private float _cooldown;
 
-        public BalloonSpawner(Transform transform, IObject scriptableObject, int threshold)
+        public BalloonSpawner(Transform transform, IObject obj, int threshold)
         {
             _transform = transform;
-            _scriptableObject = scriptableObject;
+            _object = obj;
             _threshold = threshold;
         }
 
@@ -55,7 +55,7 @@ namespace Assets.Rules.Spawner
             OnSpawned(new SpawnInfo(this));
         }
 
-        public void Pass()
+        public void Late()
         {
             OnPassed(new LateInfo(this));
             Object.Destroy(Transform.gameObject);
@@ -76,7 +76,7 @@ namespace Assets.Rules.Spawner
         private void Instantiate()
         {
             Object.Instantiate(
-                _scriptableObject.Prefab,
+                _object.Prefab,
                 new Vector3(
                     Transform.position.x,
                     Transform.position.y,
@@ -89,7 +89,7 @@ namespace Assets.Rules.Spawner
             _count++;
 
             if (_count == _threshold)
-                Pass();
+                Late();
         }
     }
 }

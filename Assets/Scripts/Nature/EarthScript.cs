@@ -7,7 +7,7 @@ namespace Assets.Scripts.Nature
     public class EarthScript : MonoBehaviour,
         IRuleScript
     {
-        private Earth _earth;
+        private IRule _earth;
 
         public IRule Rule => _earth;
 

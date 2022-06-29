@@ -7,7 +7,7 @@ namespace Assets.Scripts.Nature
     public class SunScript : MonoBehaviour,
         IRuleScript
     {
-        private Sun _sun;
+        private IRule _sun;
 
         [SerializeField]
         private float _low;

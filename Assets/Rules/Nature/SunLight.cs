@@ -5,7 +5,8 @@ namespace Assets.Rules.Nature
 {
     public class SunLight :  
         IRule,
-        ILight
+        ILight,
+        IDayListener
     {
         public delegate void SunlightEventHandler(SunLightInfo info);
         public event SunlightEventHandler Shun;
@@ -35,15 +36,15 @@ namespace Assets.Rules.Nature
 
         public void Start()
         {
-            ((Object.FindObjectOfType<DayScript>() as IRuleScript).Rule as Day).SecondPassed += ListenDay;
+            DayScript dayScript = Object.FindObjectOfType<DayScript>();
+            IRule rule = (dayScript as IRuleScript).Rule;
+            (rule as Day).SecondPassed += ListenDay;
         }
 
         public void Update()
         {
 
         }
-
-        // Class originals
 
         public void ListenDay(DayInfo info)
         {

@@ -5,13 +5,23 @@ namespace Assets.Rules.Items
 {
     public class Book :
         IRule,
-        IColliderable,
+        ICollider,
+        ICollision,
+        ICollisionListener,
+        ITrigger,
+        ITriggerListener,
         IPhysics,
         IRenderable,
         INoisier,
+        IUseListener,
         IUsable
     {
-        public event IUsable.UsableEventHandler Used;
+        public event ICollision.CollisionEventHandler CollisionEntered;
+        public event ICollision.CollisionEventHandler CollisionExited;
+        public event ITrigger.TriggerEventHandler TriggerEntered;
+        public event ITrigger.TriggerEventHandler TriggerExited;
+        public event IUsable.UsableEventHandler BeingUsed;
+        public event IUsable.UsableEventHandler WasUsed;
 
         private const float START_DEGREES = 90f;
         private const float MAXIMUM_DEGREES = 450f;
@@ -50,7 +60,7 @@ namespace Assets.Rules.Items
 
         public XYZValue Force => _force;
 
-        public Item Type => Item.BOOK;
+        public ItemTypes Type => ItemTypes.BOOK;
 
         public bool Using
         {
@@ -60,7 +70,10 @@ namespace Assets.Rules.Items
 
         public void Awake()
         {
-            
+            CollisionEntered += ListenCollisionEntered;
+            CollisionExited += ListenCollisionExited;
+            TriggerEntered += ListenTriggerEntered;
+            TriggerExited += ListenTriggerExited;
         }
 
         public void Start()
@@ -89,42 +102,53 @@ namespace Assets.Rules.Items
 
             Transform.localPosition = new Vector3(x, y, Transform.localPosition.z);
 
+            OnBeingUsed(new UsableInfo(this));
+
             if (_degrees >= MAXIMUM_DEGREES)
             {
                 Using = false;
                 _degrees = START_DEGREES;
                 Transform.localPosition = Vector3.zero;
                 Renderer.enabled = false;
-                OnUsed();
+                OnWasUsed(new UsableInfo(this));
                 return;
             }
-
             _degrees += Time.deltaTime * SPEED;
         }
 
-        public void OnUsed()
+        public void OnBeingUsed(UsableInfo info)
         {
-            Used?.Invoke(new UsableInfo(this));
+            BeingUsed?.Invoke(info);
         }
 
-        // Class originals
-
-        public void ListenUse(UseInfo info)
+        public void OnWasUsed(UsableInfo info)
         {
-            IRule parent = Transform.parent.GetComponent<IRuleScript>().Rule;
-            if (parent is not IUser)
-                throw new UnityException("why is this object listening use?");
-            if (!info.User.Equals(parent))
-                return;
-            if (Using)
-                return;
-            Using = true;
+            WasUsed?.Invoke(info);
         }
-
-        // Collisions
 
         public void OnCollisionEnter2D(Collision2D collision)
         {
+            CollisionEntered?.Invoke(new CollisionInfo(this, collision));   
+        }
+
+        public void OnCollisionExit2D(Collision2D collision)
+        {
+            CollisionExited?.Invoke(new CollisionInfo(this, collision));
+        }
+
+        public void OnTriggerEnter2D(Collider2D collider)
+        {
+            TriggerEntered?.Invoke(new TriggerInfo(this, collider));
+        }
+
+        public void OnTriggerExit2D(Collider2D collider)
+        {
+            TriggerExited?.Invoke(new TriggerInfo(this, collider));
+        }
+
+        public void ListenCollisionEntered(CollisionInfo info)
+        {
+            Collision2D collision = info.Collision;
             IRuleScript script = collision.transform.GetComponent<IRuleScript>();
             if (script is null)
                 return;
@@ -138,9 +162,31 @@ namespace Assets.Rules.Items
             Rigidbody2D.isKinematic = true;
         }
 
-        public void OnTriggerEnter2D(Collider2D collider)
+        public void ListenCollisionExited(CollisionInfo info)
         {
 
+        }
+
+        public void ListenTriggerEntered(TriggerInfo info)
+        {
+            
+        }
+
+        public void ListenTriggerExited(TriggerInfo info)
+        {
+            
+        }
+
+        public void ListenUse(UseInfo info)
+        {
+            IRule parent = Transform.parent.GetComponent<IRuleScript>().Rule;
+            if (parent is not IUse)
+                throw new UnityException("why is this object listening use?");
+            if (!info.User.Equals(parent))
+                return;
+            if (Using)
+                return;
+            Using = true;
         }
     }
 }

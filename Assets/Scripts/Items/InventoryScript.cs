@@ -7,7 +7,7 @@ namespace Assets.Scripts.Items
     public class InventoryScript : MonoBehaviour,
         IRuleScript
     {
-        private Inventory _inventory;
+        private IRule _inventory;
 
         public IRule Rule => _inventory;
 

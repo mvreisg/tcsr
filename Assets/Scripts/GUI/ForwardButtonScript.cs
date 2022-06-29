@@ -7,12 +7,15 @@ namespace Assets.Scripts.GUI
 {
     public class ForwardButtonScript : MonoBehaviour,
         IRuleScript,
+        IButtonScript,
         IPointerDownHandler,
         IPointerUpHandler
     {
         private IRule _forwardButton;
 
         public IRule Rule => _forwardButton;
+
+        public IButton Button => _forwardButton as IButton;
 
         public void OnPointerDown(PointerEventData eventData)
         {

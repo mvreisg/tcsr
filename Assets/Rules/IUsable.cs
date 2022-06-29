@@ -5,16 +5,17 @@ namespace Assets.Rules
     public interface IUsable
     {
         delegate void UsableEventHandler(UsableInfo info);
-        event UsableEventHandler Used;
+        event UsableEventHandler BeingUsed;
+        event UsableEventHandler WasUsed;
 
-        Item Type { get; }
+        ItemTypes Type { get; }
 
         bool Using { get; }
 
         void Use();
 
-        void OnUsed();
+        void OnBeingUsed(UsableInfo info);
 
-        void ListenUse(UseInfo info);
+        void OnWasUsed(UsableInfo info);
     }
 }

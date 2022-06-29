@@ -7,12 +7,15 @@ namespace Assets.Scripts.GUI
 {
     public class UseButtonScript : MonoBehaviour,
         IRuleScript,
+        IButtonScript,
         IPointerDownHandler,
         IPointerUpHandler
     {
         private IRule _useButton;
 
         public IRule Rule => _useButton;
+
+        public IButton Button => _useButton as IButton;
 
         public void OnPointerDown(PointerEventData eventData)
         {

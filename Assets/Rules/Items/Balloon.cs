@@ -5,7 +5,7 @@ namespace Assets.Rules.Items
     public class Balloon :
         IRule,
         ISpawn,
-        IPass,
+        ILate,
         IPhysics,
         IRenderable
     {
@@ -14,7 +14,7 @@ namespace Assets.Rules.Items
         private readonly SpriteRenderer _spriteRenderer;
 
         public event ISpawn.SpawnEventHandler Spawned;
-        public event IPass.PassEventHandler Passed;
+        public event ILate.PassEventHandler Passed;
 
         public Balloon(Transform transform)
         {
@@ -83,7 +83,7 @@ namespace Assets.Rules.Items
             OnSpawned(new SpawnInfo(this));
         }
 
-        public void Pass()
+        public void Late()
         {
             OnPassed(new LateInfo(this));
         }

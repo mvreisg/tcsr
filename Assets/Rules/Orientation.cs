@@ -2,30 +2,30 @@ namespace Assets.Rules
 {
     public class Orientation
     {
-        private Flag _x;
-        private Flag _y;
-        private Flag _z;
+        private Flags _x;
+        private Flags _y;
+        private Flags _z;
 
         public Orientation()
         {
-            _x = Flag.ZERO;
-            _y = Flag.ZERO;
-            _z = Flag.ZERO;
+            _x = Flags.ZERO;
+            _y = Flags.ZERO;
+            _z = Flags.ZERO;
         }
 
-        public Flag X
+        public Flags X
         {
             get => _x;
             set => _x = value;
         }
 
-        public Flag Y
+        public Flags Y
         {
             get => _y;
             set => _y = value;
         }
 
-        public Flag Z
+        public Flags Z
         {
             get => _z;
             set => _z = value;

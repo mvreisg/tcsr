@@ -5,7 +5,8 @@ namespace Assets.Rules.Nature
 {
     public class Sun : 
         IRule,
-        IRenderable
+        IRenderable,
+        IDayListener
     {
         private const float RISE = Day.SECONDS_PER_HOUR * 6f;
         private const float PEAK = Day.SECONDS_PER_HOUR * 12f;
@@ -36,7 +37,9 @@ namespace Assets.Rules.Nature
 
         public void Start()
         {
-            ((Object.FindObjectOfType<DayScript>() as IRuleScript).Rule as Day).SecondPassed += ListenClock;
+            DayScript dayScript = Object.FindObjectOfType<DayScript>();
+            IRule rule = (dayScript as IRuleScript).Rule;
+            (rule as Day).SecondPassed += ListenDay;
         }
 
         public void Update()
@@ -44,9 +47,7 @@ namespace Assets.Rules.Nature
             
         }
 
-        // Class originals
-
-        public void ListenClock(DayInfo info)
+        public void ListenDay(DayInfo info)
         {
             int hour = (int)info.Hour;
             int minute = (int)info.Minute;

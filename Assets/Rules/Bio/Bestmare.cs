@@ -5,16 +5,15 @@ namespace Assets.Rules.Bio
 {
     public class Bestmare : 
         IRule,
-        IAct,
-        IMovable,
+        IRenderable,
+        ICollider,
         IPhysics,
-        IColliderable,
-        IEar,
-        INoisier,
-        IRenderable
+        IMovable,
+        IOrderListener,
+        IAct
     {
-        public event IAct.ActEventHandler Acted;
         public event IMovable.MovableEventHandler Moved;
+        public event IAct.ActEventHandler Acted;
 
         private readonly Transform _transform;
         private readonly XYZValue _speed;
@@ -22,23 +21,19 @@ namespace Assets.Rules.Bio
         private readonly Facing _facing;
         private readonly Rigidbody2D _rigidbody2D;
         private readonly XYZValue _force;
-        private readonly AudioListener _audioListener;
-        private readonly AudioSource _audioSource;
         private readonly CapsuleCollider2D _capsuleCollider2D;
         private readonly SpriteRenderer _spriteRenderer;
 
         public Bestmare(Transform transform)
         {
             _transform = transform;
+            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
             _speed = XYZValue.ZERO;
             _orientation = new Orientation();
-            _facing = new Facing(Flag.POSITIVE);
+            _facing = new Facing(Flags.POSITIVE);
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
             _force = XYZValue.ZERO;
-            _audioListener = transform.GetComponent<AudioListener>();
-            _audioSource = transform.GetComponent<AudioSource>();
             _capsuleCollider2D = transform.GetComponent<CapsuleCollider2D>();
-            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
         public Transform Transform => _transform;
@@ -54,10 +49,6 @@ namespace Assets.Rules.Bio
         public XYZValue Force => _force;
 
         public Collider2D Collider2D => _capsuleCollider2D;
-
-        public AudioListener AudioListener => _audioListener;
-
-        public AudioSource AudioSource => _audioSource;
 
         public Renderer Renderer => _spriteRenderer;
 
@@ -76,6 +67,11 @@ namespace Assets.Rules.Bio
             Move();
         }
 
+        public void ListenOrder(OrderInfo info)
+        {
+            Act(info.Action);
+        }
+
         public void Act(Action action)
         {
             switch (action)
@@ -83,19 +79,19 @@ namespace Assets.Rules.Bio
                 default:
                     throw new UnityException($"unhandled state: {action}");
                 case Action.TURN_FORWARD:
-                    Facing.X = Flag.POSITIVE;
+                    Facing.X = Flags.POSITIVE;
                     break;
                 case Action.FORWARD:
-                    Orientation.X = Flag.POSITIVE;
+                    Orientation.X = Flags.POSITIVE;
                     break;
                 case Action.TURN_BACK:
-                    Facing.X = Flag.NEGATIVE;
+                    Facing.X = Flags.NEGATIVE;
                     break;
                 case Action.BACK:
-                    Orientation.X = Flag.NEGATIVE;
+                    Orientation.X = Flags.NEGATIVE;
                     break;
                 case Action.STOP:
-                    Orientation.X = Flag.ZERO;
+                    Orientation.X = Flags.ZERO;
                     break;
                 case Action.IDLE:
                     break;
@@ -107,20 +103,20 @@ namespace Assets.Rules.Bio
 
         public void Move()
         {
-            Flag xFlag = Orientation.X;
+            Flags xFlag = Orientation.X;
             float x;
             switch (xFlag)
             {
                 default:
                     throw new UnityException($"unhandled state: {xFlag}");
-                case Flag.NEGATIVE:
+                case Flags.NEGATIVE:
                     x = -1f;
                     (Renderer as SpriteRenderer).flipX = true;
                     break;
-                case Flag.ZERO:
+                case Flags.ZERO:
                     x = 0f;
                     break;
-                case Flag.POSITIVE:
+                case Flags.POSITIVE:
                     x = 1f;
                     (Renderer as SpriteRenderer).flipX = false;
                     break;
@@ -128,22 +124,12 @@ namespace Assets.Rules.Bio
 
             float sx = x * Speed.X;
             Transform.Translate(Time.deltaTime * new Vector3(sx, 0f, 0f));
-            OnMoved();
+            OnMoved(new MovementInfo(this, Transform.position));
         }
 
         public void FixedUpdate()
         {
-            throw new UnityException();
-        }
-
-        public void OnCollisionEnter2D(Collision2D collision)
-        {
-            Debug.Log(string.Format("{0} collided in me as {1}", collision.collider.name, Transform.name));
-        }
-
-        public void OnTriggerEnter2D(Collider2D collider)
-        {
-            Debug.Log(string.Format("{0} passed through {1}", collider.name, Transform.name));
+            
         }
 
         public void OnActed(ActionInfo info)
@@ -151,16 +137,9 @@ namespace Assets.Rules.Bio
             Acted?.Invoke(info);
         }
 
-        public void OnMoved()
+        public void OnMoved(MovementInfo info)
         {
-            Moved?.Invoke(new MovementInfo(this, Transform.position));
-        }
-
-        // Class originals
-
-        public void ReceiveOrder(OrderInfo info)
-        {
-            Act(info.Action);
+            Moved?.Invoke(info);
         }
     }
 }

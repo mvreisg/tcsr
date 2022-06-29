@@ -13,6 +13,6 @@ namespace Assets.Rules
 
         void Move();
 
-        void OnMoved();
+        void OnMoved(MovementInfo info);
     }
 }

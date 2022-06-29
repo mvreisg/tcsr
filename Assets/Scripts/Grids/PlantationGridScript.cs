@@ -7,7 +7,7 @@ namespace Assets.Scripts.Grids
     public class PlantationGridScript : MonoBehaviour,
         IRuleScript
     {
-        private PlantationGrid _plantationGrid;
+        private IRule _plantationGrid;
 
         public IRule Rule => _plantationGrid;
 

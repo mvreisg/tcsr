@@ -7,7 +7,7 @@ namespace Assets.Scripts.Nature
     public class SunLightScript : MonoBehaviour,
         IRuleScript
     {
-        private SunLight _sunLight;
+        private IRule _sunLight;
 
         public IRule Rule => _sunLight;
 

@@ -2,16 +2,16 @@ namespace Assets.Rules.Control
 {
     public sealed class OrderInfo
     {
-        private readonly IOrder _ordinator;
+        private readonly IOrder _orderer;
         private readonly Action _action;
 
-        public OrderInfo(IOrder ordinator, Action action)
+        public OrderInfo(IOrder orderer, Action action)
         {
-            _ordinator = ordinator;
+            _orderer = orderer;
             _action = action;
         }
 
-        public IOrder Ordinator => _ordinator;
+        public IOrder Orderer => _orderer;
 
         public Action Action => _action;
     }

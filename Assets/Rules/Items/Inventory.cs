@@ -5,15 +5,16 @@ using Assets.Scripts;
 namespace Assets.Rules.Items
 {
     public class Inventory : 
-        IRule
+        IRule,
+        IPickerListener
     {
         private readonly Transform _transform;
-        private readonly Dictionary<Item, IUsable> _items;
+        private readonly Dictionary<ItemTypes, IUsable> _items;
 
         public Inventory(Transform transform)
         {
             _transform = transform;
-            _items = new Dictionary<Item, IUsable>();
+            _items = new Dictionary<ItemTypes, IUsable>();
         }
 
         public Transform Transform => _transform;
@@ -28,7 +29,7 @@ namespace Assets.Rules.Items
             IRule rule = Transform.parent.GetComponent<IRuleScript>().Rule;
             if (rule is not IPicker)
                 throw new UnityException(string.Format("{0} is not {1}", rule.Transform.name, typeof(IPicker)));
-            (rule as IPicker).Picked += ListenPicking;
+            (rule as IPicker).Picked += ListenPicker;
         }
 
         public void Update()
@@ -36,16 +37,14 @@ namespace Assets.Rules.Items
             
         }
 
-        // Class originals
-
-        public void ListenPicking(PickInfo info)
+        public void ListenPicker(PickInfo info)
         {
             IUsable picked = info.Picked;
-            IUser picker = info.Picker;
+            IUse picker = info.Picker;
             bool added = _items.TryAdd(picked.Type, picked);
             if (!added)
                 return;
-            picker.Used += picked.ListenUse;
+            picker.Used += (picked as IUseListener).ListenUse;
         }
     }
 }

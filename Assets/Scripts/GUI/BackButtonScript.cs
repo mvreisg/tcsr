@@ -7,12 +7,15 @@ namespace Assets.Scripts.GUI
 {
     public class BackButtonScript : MonoBehaviour, 
         IRuleScript,
+        IButtonScript,
         IPointerDownHandler,
         IPointerUpHandler
     {
         private IRule _backButton;
 
         public IRule Rule => _backButton;
+
+        public IButton Button => _backButton as IButton;
 
         public void OnPointerDown(PointerEventData eventData)
         {

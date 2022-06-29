@@ -5,7 +5,8 @@ using Assets.Rules.Items;
 namespace Assets.Rules.Grids
 {
     public class PlantationGrid : 
-        IRule
+        IRule,
+        IUsableListener
     {
         private readonly Transform _transform;
         private readonly Tilemap _tilemap;
@@ -33,27 +34,24 @@ namespace Assets.Rules.Grids
             
         }
 
-        // Class originals
-
-        public void ListenScytheUse(UsableInfo info)
+        public void ListenUsableWhileBeingUsed(UsableInfo info)
         {
-            if (!info.Used.Type.Equals(Item.SCYTHE))
+            ItemTypes type = info.Used.Type;
+            if (!type.Equals(Items.ItemTypes.SCYTHE))
                 return;
-            IRule user = info.Used as IRule;
-            Vector3Int i = new Vector3Int(
-                Mathf.RoundToInt(user.Transform.position.x),
-                Mathf.RoundToInt(user.Transform.position.y),
-                Mathf.RoundToInt(user.Transform.position.z)
-            );
-            Vector3 cellWorld = _tilemap.CellToWorld(i);
-            Vector3 worldCell = _tilemap.WorldToCell(cellWorld);
+            IRule used = info.Used as IRule;
+            Vector3 worldCell = _tilemap.WorldToCell(used.Transform.position);
             Vector3Int delete = new Vector3Int(
                 Mathf.RoundToInt(worldCell.x),
                 Mathf.RoundToInt(worldCell.y),
                 Mathf.RoundToInt(worldCell.z)
             );
-            //Debug.LogFormat("{0} - {1} - {2} - {3}", i, cellWorld, worldCell, delete);
             _tilemap.SetTile(delete, null);
+        }
+
+        public void ListenUsableAfterUse(UsableInfo info)
+        {
+
         }
     }
 }

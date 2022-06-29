@@ -7,7 +7,7 @@ namespace Assets.Scripts.Items
     public class BalloonScript : MonoBehaviour,
         IRuleScript
     {
-        private Balloon _balloon;
+        private IRule _balloon;
 
         public IRule Rule => _balloon;
 
@@ -29,7 +29,7 @@ namespace Assets.Scripts.Items
 
         private void FixedUpdate()
         {
-            _balloon.FixedUpdate();
+            (_balloon as IPhysics).FixedUpdate();
         }
     }
 }

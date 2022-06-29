@@ -1,30 +1,29 @@
 using UnityEngine;
 using Assets.Rules;
-using Assets.Rules.Items;
 
 namespace Assets.Scripts
 {
     public class DayScript : MonoBehaviour,
         IRuleScript
     {
-        private Day _clock;
+        private IRule _day;
 
-        public IRule Rule => _clock;
+        public IRule Rule => _day;
 
         private void Awake()
         {
-            _clock = new Day(transform);
-            _clock.Awake();
+            _day = new Day(transform);
+            _day.Awake();
         }
 
         private void Start()
         {
-            _clock.Start();
+            _day.Start();
         }
 
         private void Update()
         {
-            _clock.Update();
+            _day.Update();
         }
     }
 }

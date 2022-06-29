@@ -14,7 +14,7 @@ namespace Assets.Scripts.Spawner
         [SerializeField]
         private int _threshold;
 
-        private BalloonSpawner _balloonSpawn;
+        private IRule _balloonSpawn;
 
         public IRule Rule => _balloonSpawn;
 

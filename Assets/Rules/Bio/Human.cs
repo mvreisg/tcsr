@@ -1,54 +1,50 @@
 using UnityEngine;
-using Assets.Rules.Items;
-using Assets.Rules.GUI;
+using Assets.Rules.Control;
 using Assets.Scripts;
-using Assets.Scripts.GUI;
 
 namespace Assets.Rules.Bio
 {
     public class Human :
         IRule,
-        IAct,
-        IMovable,
-        IPhysics,
-        IColliderable,
-        IEar,
-        INoisier,
         IRenderable,
+        IOrderListener,
+        IAct,
+        ICollider,
+        ICollision,
+        ICollisionListener,
+        IPhysics,
+        IMovable,
         IPicker,
-        IUser,
-        IButtonListener
+        IUse
     {
         public event IAct.ActEventHandler Acted;
+        public event ICollision.CollisionEventHandler CollisionEntered;
+        public event ICollision.CollisionEventHandler CollisionExited;
         public event IMovable.MovableEventHandler Moved;
         public event IPicker.PickerEventHandler Picked;
-        public event IUser.UserEventHandler Used;
+        public event IUse.UseEventHandler Used;
 
         private readonly Transform _transform;
+        private readonly SpriteRenderer _spriteRenderer;
         private readonly XYZValue _speed;
         private readonly Orientation _orientation;
         private readonly Facing _facing;
         private readonly Rigidbody2D _rigidbody2D;
         private readonly XYZValue _force;
-        private readonly AudioListener _audioListener;
-        private readonly AudioSource _audioSource;
         private readonly PolygonCollider2D _polygonCollider2D;
-        private readonly SpriteRenderer _spriteRenderer;
 
-        private Item _holding;
+        private Items.ItemTypes _holding;
 
-        public Human(Transform transform, XYZValue speed)
+        public Human(Transform transform)
         {
             _transform = transform;
-            _speed = speed;
+            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
+            _speed = XYZValue.ZERO;
             _orientation = new Orientation();
-            _facing = new Facing(Flag.POSITIVE);
+            _facing = new Facing(Flags.POSITIVE);
             _rigidbody2D = transform.GetComponent<Rigidbody2D>();
             _force = XYZValue.ZERO;
-            _audioListener = transform.GetComponent<AudioListener>();
-            _audioSource = transform.GetComponent<AudioSource>();
             _polygonCollider2D = transform.GetComponent<PolygonCollider2D>();
-            _spriteRenderer = transform.GetComponent<SpriteRenderer>();
         }
 
         public Transform Transform => _transform;
@@ -65,30 +61,26 @@ namespace Assets.Rules.Bio
 
         public Collider2D Collider2D => _polygonCollider2D;
 
-        public AudioListener AudioListener => _audioListener;
-
-        public AudioSource AudioSource => _audioSource;
-
         public Renderer Renderer => _spriteRenderer;
 
         public void Awake()
         {
-            
+            CollisionEntered += ListenCollisionEntered;
         }
 
         public void Start()
         {
-            ((Object.FindObjectOfType<BackButtonScript>() as IRuleScript).Rule as IButton).StateChanged 
-                += ListenButton;
-            ((Object.FindObjectOfType<ForwardButtonScript>() as IRuleScript).Rule as IButton).StateChanged 
-                += ListenButton;
-            ((Object.FindObjectOfType<UseButtonScript>() as IRuleScript).Rule as IButton).StateChanged
-                += ListenButton;
+            
         }
 
         public void Update()
         {
             Move();
+        }
+
+        public void FixedUpdate()
+        {
+
         }
 
         public void Act(Action action)
@@ -100,19 +92,19 @@ namespace Assets.Rules.Bio
                 case Action.IDLE:
                     break;
                 case Action.STOP:
-                    Orientation.X = Flag.ZERO;
+                    Orientation.X = Flags.ZERO;
                     break;
                 case Action.TURN_BACK:
-                    Facing.X = Flag.NEGATIVE;
+                    Facing.X = Flags.NEGATIVE;
                     break;
                 case Action.BACK:
-                    Orientation.X = Flag.NEGATIVE;
+                    Orientation.X = Flags.NEGATIVE;
                     break;
                 case Action.TURN_FORWARD:
-                    Facing.X = Flag.POSITIVE;
+                    Facing.X = Flags.POSITIVE;
                     break;
                 case Action.FORWARD:
-                    Orientation.X = Flag.POSITIVE;
+                    Orientation.X = Flags.POSITIVE;
                     break;
                 case Action.USE:
                     Use();
@@ -123,20 +115,20 @@ namespace Assets.Rules.Bio
 
         public void Move()
         {
-            Flag xFlag = Orientation.X;
+            Flags xFlag = Orientation.X;
             float x;
             switch (xFlag)
             {
                 default:
                     throw new UnityException($"unhandled state: {xFlag}");
-                case Flag.NEGATIVE:
+                case Flags.NEGATIVE:
                     x = -1f;
                     (Renderer as SpriteRenderer).flipX = true;
                     break;
-                case Flag.ZERO:
+                case Flags.ZERO:
                     x = 0f;
                     break;
-                case Flag.POSITIVE:
+                case Flags.POSITIVE:
                     x = 1f;
                     (Renderer as SpriteRenderer).flipX = false;
                     break;
@@ -144,12 +136,12 @@ namespace Assets.Rules.Bio
 
             float sx = x * Speed.X;
             Transform.Translate(Time.deltaTime * new Vector3(sx, 0f, 0f));
-            OnMoved();
+            OnMoved(new MovementInfo(this, Transform.position));
         }
 
         public void Use()
         {
-            OnUsed();
+            OnUsed(new UseInfo(this));
         }
 
         public void Pick(PickInfo info)
@@ -157,13 +149,14 @@ namespace Assets.Rules.Bio
             OnPicked(info);
         }
 
-        public void FixedUpdate()
+        public void ListenOrder(OrderInfo info)
         {
-
+            Act(info.Action);
         }
 
-        public void OnCollisionEnter2D(Collision2D collision)
+        public void ListenCollisionEntered(CollisionInfo info)
         {
+            Collision2D collision = info.Collision;
             IRuleScript component = collision.collider.GetComponent<IRuleScript>();
             if (component is null)
                 return;
@@ -176,49 +169,19 @@ namespace Assets.Rules.Bio
             Pick(new PickInfo(this, usable));
         }
 
-        public void OnTriggerEnter2D(Collider2D collider)
+        public void ListenCollisionExited(CollisionInfo info)
         {
-            Debug.Log(string.Format("{0} passed through {1}", collider.name, Transform.name));
+            
         }
 
-        public void ListenButton(ButtonInfo info)
+        public void OnCollisionEnter2D(Collision2D collision)
         {
-            Buttons button = info.Button;
-            bool pressed = info.Pressed;
-            switch (button)
-            {
-                default:
-                    throw new UnityException(string.Format("unahndled state: {0}", button));
-                case Buttons.BACK:
-                    if (pressed)
-                    {
-                        Act(Action.TURN_BACK);
-                        Act(Action.BACK);
-                    }
-                    else
-                    {
-                        Act(Action.STOP);
-                        Act(Action.IDLE);
-                    }
-                    break;
-                case Buttons.FORWARD:
-                    if (pressed)
-                    {
-                        Act(Action.TURN_FORWARD);
-                        Act(Action.FORWARD);
-                    }
-                    else
-                    {
-                        Act(Action.STOP);
-                        Act(Action.IDLE);
-                    }
-                    break;
-                case Buttons.USE:
-                    Act(Action.USE);
-                    break;
-                case Buttons.INVENTORY:
-                    break;
-            }
+            CollisionEntered?.Invoke(new CollisionInfo(this, collision));
+        }
+
+        public void OnCollisionExit2D(Collision2D collision)
+        {
+            CollisionExited?.Invoke(new CollisionInfo(this, collision));
         }
 
         public void OnActed(ActionInfo info)
@@ -226,9 +189,9 @@ namespace Assets.Rules.Bio
             Acted?.Invoke(info);
         }
 
-        public void OnMoved()
+        public void OnMoved(MovementInfo info)
         {
-            Moved?.Invoke(new MovementInfo(this, Transform.position));
+            Moved?.Invoke(info);
         }
 
         public void OnPicked(PickInfo info)
@@ -236,9 +199,9 @@ namespace Assets.Rules.Bio
             Picked?.Invoke(info);
         }
 
-        public void OnUsed()
+        public void OnUsed(UseInfo info)
         {
-            Used?.Invoke(new UseInfo(this, _holding));
+            Used?.Invoke(info);
         }
     }
 }
