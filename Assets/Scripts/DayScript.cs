@@ -4,11 +4,14 @@ using Assets.Rules;
 namespace Assets.Scripts
 {
     public class DayScript : MonoBehaviour,
-        IRuleScript
+        IRuleScript,
+        IDayScript
     {
         private IRule _day;
 
         public IRule Rule => _day;
+
+        public IDay Day => _day as IDay;
 
         private void Awake()
         {

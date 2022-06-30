@@ -7,7 +7,7 @@ namespace Assets.Scripts.GUI
 {
     public class BackButtonScript : MonoBehaviour, 
         IRuleScript,
-        IButtonScript,
+        IBackButtonScript,
         IPointerDownHandler,
         IPointerUpHandler
     {

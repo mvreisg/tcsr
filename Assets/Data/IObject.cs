@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Objects
+namespace Assets.Data
 {
     public interface IObject
     {

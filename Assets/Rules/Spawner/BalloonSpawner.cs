@@ -1,5 +1,5 @@
 using UnityEngine;
-using Assets.Objects;
+using Assets.Data;
 
 namespace Assets.Rules.Spawner
 {

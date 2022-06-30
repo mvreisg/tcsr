@@ -37,9 +37,8 @@ namespace Assets.Rules.Nature
 
         public void Start()
         {
-            DayScript dayScript = Object.FindObjectOfType<DayScript>();
-            IRule rule = (dayScript as IRuleScript).Rule;
-            (rule as Day).SecondPassed += ListenDay;
+            IDayScript script = Object.FindObjectOfType<DayScript>();
+            script.Day.SecondPassed += ListenDay;
         }
 
         public void Update()

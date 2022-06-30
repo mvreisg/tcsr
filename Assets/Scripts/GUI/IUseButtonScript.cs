@@ -2,7 +2,7 @@ using Assets.Rules.GUI;
 
 namespace Assets.Scripts.GUI
 {
-    public interface IButtonScript
+    public interface IUseButtonScript
     {
         IButton Button { get; }
     }

@@ -20,6 +20,8 @@ namespace Assets.Rules.Control
 
         public Transform Transform => _transform;
 
+        public Orderers Type => Orderers.GUI;
+
         public void Awake()
         {
 
@@ -27,9 +29,8 @@ namespace Assets.Rules.Control
 
         public void Start()
         {
-            ForwardButtonScript script = Object.FindObjectOfType<ForwardButtonScript>();
-            IButton button = (script as IButtonScript).Button;
-            button.StateChanged += ListenButton;
+            IRule rule = Object.FindObjectOfType<CanvasScript>().Canvas as IRule;
+            rule.Transform.GetComponentInChildren<IForwardButtonScript>().Button.StateChanged += ListenButton;
         }
 
         public void Update()

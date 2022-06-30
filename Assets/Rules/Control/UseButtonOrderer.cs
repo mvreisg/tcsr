@@ -20,6 +20,8 @@ namespace Assets.Rules.Control
 
         public Transform Transform => _transform;
 
+        public Orderers Type => Orderers.GUI;
+
         public void Awake()
         {
 
@@ -27,9 +29,8 @@ namespace Assets.Rules.Control
 
         public void Start()
         {
-            UseButtonScript script = Object.FindObjectOfType<UseButtonScript>();
-            IButton button = (script as IButtonScript).Button;
-            button.StateChanged += ListenButton;
+            IRule rule = Object.FindObjectOfType<CanvasScript>().Canvas as IRule;
+            rule.Transform.GetComponentInChildren<IUseButtonScript>().Button.StateChanged += ListenButton;
         }
 
         public void Update()
@@ -55,7 +56,9 @@ namespace Assets.Rules.Control
             bool pressed = info.Pressed;
             if (pressed)
             {
+                Order(Action.STOP);
                 Order(Action.USE);
+                Order(Action.IDLE);
                 return;
             }
         }

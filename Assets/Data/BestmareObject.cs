@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Objects
+namespace Assets.Data
 {
     [CreateAssetMenu(fileName = "Bestmare", menuName = "ScriptableObject/Bestmare", order = 1)]
     public class BestmareObject : ScriptableObject,

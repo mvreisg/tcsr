@@ -6,10 +6,10 @@ namespace Assets.Rules.Nature
     public class SunLight :  
         IRule,
         ILight,
+        ISunLight,
         IDayListener
     {
-        public delegate void SunlightEventHandler(SunLightInfo info);
-        public event SunlightEventHandler Shun;
+        public event ISunLight.SunLightEventHandler Shined;
 
         public const float FADE_IN = Day.SECONDS_PER_HOUR * 6f;
         public const float IN = Day.SECONDS_PER_HOUR * 7f;
@@ -18,6 +18,8 @@ namespace Assets.Rules.Nature
 
         private readonly Transform _transform;
         private readonly Light _light;
+
+        private float _intensity;
 
         public SunLight(Transform transform)
         {
@@ -31,19 +33,29 @@ namespace Assets.Rules.Nature
 
         public void Awake()
         {
-            Shun += ListenShun;
+            
         }
 
         public void Start()
         {
-            DayScript dayScript = Object.FindObjectOfType<DayScript>();
-            IRule rule = (dayScript as IRuleScript).Rule;
-            (rule as Day).SecondPassed += ListenDay;
+            IDayScript script = Object.FindObjectOfType<DayScript>();
+            script.Day.SecondPassed += ListenDay;
         }
 
         public void Update()
         {
+            
+        }
 
+        public void Shine()
+        {
+            Light.intensity = _intensity;
+            OnShined(new SunLightInfo(_intensity));
+        }
+
+        public void OnShined(SunLightInfo info)
+        {
+            Shined?.Invoke(info);
         }
 
         public void ListenDay(DayInfo info)
@@ -65,17 +77,8 @@ namespace Assets.Rules.Nature
             {
                 intensity = (OUT - day) / (OUT - FADE_OUT);
             }
-            OnShun(new SunLightInfo(intensity));
-        }
-
-        private void OnShun(SunLightInfo info)
-        {
-            Shun?.Invoke(info);
-        }
-
-        private void ListenShun(SunLightInfo info)
-        {
-            Light.intensity = info.Intensity;
+            _intensity = intensity;
+            Shine();
         }
     }
 }

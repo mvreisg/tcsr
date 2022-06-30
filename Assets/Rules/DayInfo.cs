@@ -1,10 +1,19 @@
+using System;
+using UnityEngine;
+
 namespace Assets.Rules
 {
+    [Serializable]
     public sealed class DayInfo
     {
-        private readonly float _hour;
-        private readonly float _minute;
-        private readonly float _second;
+        [SerializeField]
+        private float _hour;
+
+        [SerializeField]
+        private float _minute;
+
+        [SerializeField]
+        private float _second;
 
         public DayInfo(float hour, float minute, float second)
         {
@@ -13,20 +22,21 @@ namespace Assets.Rules
             _second = second;
         }
 
-        public override string ToString()
-        {
-            return string.Format(
-                "{0}:{1}:{2}", 
-                Hour, 
-                Minute, 
-                Second
-            );
-        }
-
         public float Hour => _hour;
 
         public float Minute => _minute;
 
         public float Second => _second;
+
+        public int RoundedDay
+        {
+            get
+            {
+                return
+                    (int)_hour * (int)Day.SECONDS_PER_HOUR +
+                    (int)_minute * (int)Day.SECONDS_PER_MINUTE +
+                    (int)_second;
+            }
+        }
     }
 }

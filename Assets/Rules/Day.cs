@@ -7,10 +7,10 @@ namespace Assets.Rules
     ///     <para>A day.</para>
     /// </summary>
     public class Day : 
-        IRule
+        IRule,
+        IDay
     {
-        public delegate void DayEventHandler(DayInfo info);
-        public event DayEventHandler SecondPassed;
+        public event IDay.DayEventHandler SecondPassed;
 
         public const float ONE_SECOND = 1f;
 
@@ -60,14 +60,27 @@ namespace Assets.Rules
             }
         }
 
+        public DayInfo DayInfo
+        {
+            get
+            {
+                float totalSeconds = _secondsElapsed;
+                float hour = totalSeconds / SECONDS_PER_HOUR;
+                float minute = (totalSeconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE;
+                float second = (totalSeconds % SECONDS_PER_HOUR) % SECONDS_PER_MINUTE;
+                return new DayInfo(hour, minute, second);
+            }
+        }
+
         public void Awake()
         {
-            Application.focusChanged += ApplicationFocusChanged;   
+            Application.focusChanged += ListenApplicationFocusChange;
+            PassSecond();
         }
 
         public void Start()
         {
-            OnSecondPassed(GetTime());
+            PassSecond();
         }
 
         public void Update()
@@ -83,7 +96,7 @@ namespace Assets.Rules
             {
                 _secondsElapsed += _delta;
                 _delta %= ONE_SECOND;
-                OnSecondPassed(GetTime());
+                PassSecond();
             }
 
             if (_secondsElapsed < SECONDS_PER_DAY)
@@ -92,23 +105,17 @@ namespace Assets.Rules
                 _secondsElapsed %= SECONDS_PER_DAY;
         }
 
-        // Class originals
-
-        private DayInfo GetTime()
+        public void PassSecond()
         {
-            float totalSeconds = _secondsElapsed;
-            float hour = totalSeconds / SECONDS_PER_HOUR;
-            float minute = (totalSeconds % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE;
-            float second = (totalSeconds % SECONDS_PER_HOUR) % SECONDS_PER_MINUTE;
-            return new DayInfo(hour, minute, second);
+            OnSecondPassed(DayInfo);
         }
 
-        private void OnSecondPassed(DayInfo info)
+        public void OnSecondPassed(DayInfo info)
         {
             SecondPassed?.Invoke(info);
         }
 
-        private void ApplicationFocusChanged(bool hasFocus)
+        public void ListenApplicationFocusChange(bool hasFocus)
         {
             if (!hasFocus)
                 return;

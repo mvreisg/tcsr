@@ -7,7 +7,7 @@ namespace Assets.Scripts.GUI
 {
     public class ForwardButtonScript : MonoBehaviour,
         IRuleScript,
-        IButtonScript,
+        IForwardButtonScript,
         IPointerDownHandler,
         IPointerUpHandler
     {

@@ -38,8 +38,8 @@ namespace Assets.Rules.Items
                     xMultiplier = -1f;
 
                 return new XYZValue(
-                    Random.Range(0.00075f, 0.001f) * xMultiplier,
-                    Random.Range(0.0005f, 0.00075f),
+                    Random.Range(1f, 1.25f) * xMultiplier,
+                    Random.Range(1f, 1.25f),
                     0f
                 );
             }    

@@ -7,7 +7,7 @@ namespace Assets.Scripts.GUI
 {
     public class UseButtonScript : MonoBehaviour,
         IRuleScript,
-        IButtonScript,
+        IUseButtonScript,
         IPointerDownHandler,
         IPointerUpHandler
     {

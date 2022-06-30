@@ -8,6 +8,8 @@ namespace Assets.Rules.Control
         delegate void OrderEventHandler(OrderInfo info);
         event OrderEventHandler Ordered;
 
+        Orderers Type { get; }
+
         void Order(Action action);
 
         void OnOrdered(OrderInfo info);

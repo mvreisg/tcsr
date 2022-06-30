@@ -1,5 +1,5 @@
 using UnityEngine;
-using Assets.Objects;
+using Assets.Data;
 using Assets.Rules;
 using Assets.Rules.Spawner;
 
@@ -9,7 +9,7 @@ namespace Assets.Scripts.Spawner
         IRuleScript
     {
         [SerializeField]
-        private BalloonObject _balloonScriptableObject;
+        private BalloonObject _balloonObject;
 
         [SerializeField]
         private int _threshold;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Spawner
 
         private void Awake()
         {
-            _balloonSpawn = new BalloonSpawner(transform, _balloonScriptableObject, _threshold);
+            _balloonSpawn = new BalloonSpawner(transform, _balloonObject, _threshold);
             _balloonSpawn.Awake();
         }
 
